@@ -8,11 +8,11 @@ function createWindow() {
   const win = new BrowserWindow({
     width: 800,
     height: 600,
-    webPreferences: {
-      preload: path.join(__dirname, "nodes", "preload.js"),
-    },
+    // webPreferences: {
+    //   preload: path.join(__dirname, "server", "preload.js"),
+    // },
   });
-  win.loadFile(path.join(__dirname, "index.html"));
+  win.loadFile(path.join(__dirname,"build", "index.html"));
 }
 
 //启动时的消息通知

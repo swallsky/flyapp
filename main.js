@@ -12,10 +12,12 @@ function createWindow() {
     //   preload: path.join(__dirname, "server", "preload.js"),
     // },
   });
-  win.loadFile(path.join(__dirname,"build", "index.html"));
-
-  // 开发环境时
-  // win.loadURL('http://localhost:3000/');
+  
+  if(process.env.NODE_ENV == 'dev'){ // 开发环境时
+    win.loadURL('http://localhost:3000/');
+  }else{ // 生产环境时
+    win.loadFile(path.join(__dirname,"build", "index.html"));
+  }
 }
 
 //启动时的消息通知

@@ -30,7 +30,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
 
-    "app-start": "electron-forge start",
+    "app-start": "NODE_ENV=prod electron-forge start",
+    "app-start:dev": "NODE_ENV=dev electron-forge start",
     "app-package": "electron-forge package",
     "app-make": "electron-forge make",
     "app-publish": "electron-forge publish"

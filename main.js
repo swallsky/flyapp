@@ -13,6 +13,9 @@ function createWindow() {
     // },
   });
   win.loadFile(path.join(__dirname,"build", "index.html"));
+
+  // 开发环境时
+  // win.loadURL('http://localhost:3000/');
 }
 
 //启动时的消息通知

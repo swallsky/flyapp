@@ -5,7 +5,6 @@ import Router from './router'
 
 ReactDOM.render(
     <>
-    <div>测试</div>
     <Router />
     </>,
     document.getElementById('root')

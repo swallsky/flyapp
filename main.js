@@ -11,12 +11,19 @@ function createWindow() {
     // webPreferences: {
     //   preload: path.join(__dirname, "server", "preload.js"),
     // },
+    titleBarStyle: "hidden",
+    titleBarOverlay: {
+      color: "#2f3241",
+      symbolColor: "#74b1be",
+    },
   });
-  
-  if(process.env.NODE_ENV == 'dev'){ // 开发环境时
-    win.loadURL('http://localhost:3000/');
-  }else{ // 生产环境时
-    win.loadFile(path.join(__dirname,"build", "index.html"));
+
+  if (process.env.NODE_ENV == "dev") {
+    // 开发环境时
+    win.loadURL("http://localhost:3000/");
+  } else {
+    // 生产环境时
+    win.loadFile(path.join(__dirname, "build", "index.html"));
   }
 }
 

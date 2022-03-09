@@ -13,6 +13,7 @@ export default function App() {
 
   return (
     <div>
+      <div className="titlBar">11111</div>
       <input type="button" value="弹窗" onClick={messageTop} />
       <Outlet />
     </div>

@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import "../../styles/fileadd.css";
 import ProgressBar from "./ProgressBar";
 
+import ShardUpload from "./shardupload";
+
 
 export default function FileAdd() {
   const [percents, setPercents] = useState([0]);
@@ -10,12 +12,13 @@ export default function FileAdd() {
     setPercents([10,20,15]);
   }, []);
 
+  // 文件变改时
   var fileChange = (event)=>{
-    console.log(event.target.files[0])
+    let file = event.target.files[0];
+    ShardUpload(file)
   }
 
   return (
-    <>
     <div className="fileaddwarp">
       <div>
         <input type="file" multiple name="avatar" onChange={fileChange} />
@@ -28,6 +31,5 @@ export default function FileAdd() {
         }
       </div>
     </div>
-    </>
   );
 }

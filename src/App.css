@@ -1,0 +1,10 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: aliceblue;
+    height: 100vh;
+}
+
+#root {
+    margin: 10px;
+}

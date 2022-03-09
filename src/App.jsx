@@ -1,7 +1,5 @@
 import React from "react";
 
-import { Button } from "antd";
-
 import { Outlet } from "react-router-dom";
 
 import "./App.css";
@@ -15,7 +13,7 @@ export default function App() {
 
   return (
     <div>
-      <Button type="primary" onClick={messageTop}>弹窗</Button>
+      <input type="button" value="弹窗" onClick={messageTop} />
       <Outlet />
     </div>
   );

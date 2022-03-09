@@ -1,6 +1,5 @@
 import React from "react";
 
-import { Outlet } from "react-router-dom";
 
 import "./App.css";
 import Layout from "./pages/Layout/Layout";
@@ -13,7 +12,6 @@ export default function App() {
     <div>
       <div className="titlBar"></div>
       <Layout />
-      <Outlet />
     </div>
   );
 }

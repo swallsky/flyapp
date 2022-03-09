@@ -1,6 +1,6 @@
 import React from 'react'
 
-import "../../styles/center.css"
+import "../../styles/layout.css"
 import ActivityBar from './ActivityBar'
 import CenterBar from './CenterBar'
 

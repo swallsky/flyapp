@@ -4,10 +4,10 @@ import ProgressBar from "./ProgressBar";
 
 
 export default function FileAdd() {
-  const [percent, setPercent] = useState(0);
+  const [percents, setPercents] = useState([0]);
 
   useEffect(() => {
-    setPercent(20);
+    setPercents([10,20,15]);
   }, []);
 
   return (
@@ -19,7 +19,9 @@ export default function FileAdd() {
           <input id="submitBtn" type="button" readOnly value="提交" />
           <input id="pauseBtn" type="button" readOnly value="暂停" />
         </div>
-        <ProgressBar percent={percent} />
+        {
+          percents.map((percent,index)=><ProgressBar key={index} percent={percent} />)
+        }
       </div>
     </div>
     </>

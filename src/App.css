@@ -5,6 +5,9 @@ body {
     height: 100vh;
 }
 
+/* 导入字体图标 @https://www.iconfont.cn/ */
+@import './styles/iconfont/iconfont.css';
+
 #root {
     margin: 0;
     padding: 0;
@@ -17,4 +20,28 @@ body {
     margin: 0;
     background-color: black;
     -webkit-app-region: drag;
+}
+
+.activityBar {
+    width: 60px;
+    height: 100vh;
+    background-color: black;
+}
+
+.activityBar ul {
+    margin: 0;
+    padding: 0;
+}
+
+.activityBar ul li {
+    width: 60px;
+    height: 60px;
+}
+
+.activityBar ul li span {
+    color:antiquewhite;
+    font-size: 36px;
+    text-align: center;
+    display: block;
+    cursor: pointer;
 }

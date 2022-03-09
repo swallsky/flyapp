@@ -1,0 +1,79 @@
+{
+  "id": "",
+  "name": "",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "1247",
+      "name": "设置",
+      "font_class": "shezhi",
+      "unicode": "f013e",
+      "unicode_decimal": 983358
+    },
+    {
+      "icon_id": "158975",
+      "name": "file",
+      "font_class": "file",
+      "unicode": "e739",
+      "unicode_decimal": 59193
+    },
+    {
+      "icon_id": "591722",
+      "name": "wxb工具",
+      "font_class": "wxbgongju",
+      "unicode": "e61b",
+      "unicode_decimal": 58907
+    },
+    {
+      "icon_id": "648144",
+      "name": "LC_icon_file_line_1",
+      "font_class": "LC_icon_file_line_1",
+      "unicode": "e65a",
+      "unicode_decimal": 58970
+    },
+    {
+      "icon_id": "1029951",
+      "name": "file",
+      "font_class": "file1",
+      "unicode": "e751",
+      "unicode_decimal": 59217
+    },
+    {
+      "icon_id": "1393653",
+      "name": "file",
+      "font_class": "file2",
+      "unicode": "e6ef",
+      "unicode_decimal": 59119
+    },
+    {
+      "icon_id": "4766461",
+      "name": "file -exception",
+      "font_class": "file-exception",
+      "unicode": "e7b4",
+      "unicode_decimal": 59316
+    },
+    {
+      "icon_id": "4766468",
+      "name": "file-add",
+      "font_class": "file-add",
+      "unicode": "e7b7",
+      "unicode_decimal": 59319
+    },
+    {
+      "icon_id": "6151253",
+      "name": "file",
+      "font_class": "file3",
+      "unicode": "e809",
+      "unicode_decimal": 59401
+    },
+    {
+      "icon_id": "15838487",
+      "name": "file-open",
+      "font_class": "file-open",
+      "unicode": "e670",
+      "unicode_decimal": 58992
+    }
+  ]
+}

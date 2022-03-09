@@ -1,4 +1,5 @@
 const { app, BrowserWindow, Notification } = require("electron");
+const express = require("express");
 const path = require("path");
 
 /**
@@ -27,12 +28,17 @@ function createWindow() {
   }
 }
 
-//启动时的消息通知
-function startNotification() {
-  new Notification({ title: "启动通知", body: "启动通知主体" }).show();
+//启动后台服务
+function startServer() {
+  const app = express();
+  const server = app.listen(3100);
+  app.get('/', function (req, res) {
+    res.send('Server is ready!');
+  });
+
 }
 
-app.whenReady().then(createWindow).then(startNotification);
+app.whenReady().then(createWindow).then(startServer);
 
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") {

@@ -10,14 +10,18 @@ export default function FileAdd() {
     setPercents([10,20,15]);
   }, []);
 
+  var fileChange = (event)=>{
+    console.log(event.target.files[0])
+  }
+
   return (
     <>
     <div className="fileaddwarp">
       <div>
-        <input id="file" type="file" multiple name="avatar" />
+        <input type="file" multiple name="avatar" onChange={fileChange} />
         <div>
-          <input id="submitBtn" type="button" readOnly value="提交" />
-          <input id="pauseBtn" type="button" readOnly value="暂停" />
+          <input type="button" readOnly value="提交" />
+          <input type="button" readOnly value="暂停" />
         </div>
         {
           percents.map((percent,index)=><ProgressBar key={index} percent={percent} />)

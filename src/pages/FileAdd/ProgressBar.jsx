@@ -4,7 +4,7 @@ export default function ProgressBar(props) {
   return (
     <div className="precent">
       <input type="range" readOnly value={props.percent} />
-      <span id="precentVal">{props.percent}%</span>
+      <span>{props.percent}%</span>
     </div>
   );
 }

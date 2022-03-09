@@ -31,7 +31,7 @@ function createWindow() {
 //启动后台服务
 function startServer() {
   const app = express();
-  const server = app.listen(3100);
+  const server = app.listen(4321);
   app.get('/', function (req, res) {
     res.send('Server is ready!');
   });

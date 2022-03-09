@@ -8,7 +8,10 @@ const chunkSize = 1 * 1024 * 1024;
 // 开启分片上传
 const blobSlice = File.prototype.slice || File.prototype.mozSlice || File.prototype.webkitSlice;
 
-const domain = "";
+const domain = "http://localhost:8888";
+
+// 支持跨域请求
+axios.defaults.withCredentials = false;
 
 /**
  * 对文件进行MD5加密(文件内容+文件标题形式)

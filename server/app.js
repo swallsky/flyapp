@@ -6,13 +6,12 @@ const Koa = require('koa');
 const koaBody = require('koa-body');
 
 const app = new Koa();
-const router = require('./router')
+const routes = require('./routes/index')
 
 // 启动服务
 module.exports = ()=> {
     app.use(koaBody());
-    app.use(router.routes())
-    app.use(router.allowedMethods());
+    app.use(routes.routes()).use(routes.allowedMethods())
     app.listen(port, () => {
       console.log('服务已启动了');
     });

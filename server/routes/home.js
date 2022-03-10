@@ -1,5 +1,5 @@
+const router = require('koa-router')();
 
-// 首页
-module.exports = async (req,res,next)=>{
-    res.send("Server is ready!");
-};
+module.exports = router.get('/',async (ctx)=>{
+    ctx.body = 'server start!';
+})

@@ -2,6 +2,7 @@
  * 单个文件分片上传
  */
 import axios from "axios";
+// 文件加密处理
 import SparkMD5 from "spark-md5";
 // 每个chunk的大小，设置为1M
 const chunkSize = 1 * 1024 * 1024;

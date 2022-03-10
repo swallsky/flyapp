@@ -6,7 +6,7 @@ body {
 }
 
 /* 导入字体图标 @https://www.iconfont.cn/ */
-@import './styles/iconfont/iconfont.css';
+@import '../../assets/iconfont/iconfont.css';
 
 #root {
     margin: 0;

@@ -5,6 +5,8 @@ const port = process.env.PORT || "4321"; //端口号
 const Koa = require('koa');
 const koaBody = require('koa-body');
 const cors = require('koa2-cors');
+const reactStatic = require('koa-static');
+const path = require('path');
 
 const app = new Koa();
 // 路由
@@ -12,6 +14,7 @@ const routes = require('./routes/index');
 
 // 启动服务
 module.exports = () => {
+  app.use(reactStatic(path.dirname(__dirname)+'/build'));
   app.use(cors()); //跨域
   app.use(koaBody());
   app.use(routes.routes()).use(routes.allowedMethods())

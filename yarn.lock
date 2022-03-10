@@ -6217,6 +6217,23 @@ koa-router@^10.0.0:
     methods "^1.1.2"
     path-to-regexp "^6.1.0"
 
+koa-send@^5.0.0:
+  version "5.0.1"
+  resolved "https://registry.npmmirror.com/koa-send/-/koa-send-5.0.1.tgz#39dceebfafb395d0d60beaffba3a70b4f543fe79"
+  integrity sha512-tmcyQ/wXXuxpDxyNXv5yNNkdAMdFRqwtegBXUaowiQzUKqJehttS0x2j0eOZDQAyloAth5w6wwBImnFzkUz3pQ==
+  dependencies:
+    debug "^4.1.1"
+    http-errors "^1.7.3"
+    resolve-path "^1.4.0"
+
+koa-static@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.npmmirror.com/koa-static/-/koa-static-5.0.0.tgz#5e92fc96b537ad5219f425319c95b64772776943"
+  integrity sha512-UqyYyH5YEXaJrf9S8E23GoJFQZXkBVJ9zYYMPGz919MSX1KuvAcycIuS0ci150HCoPf4XQVhQ84Qf8xRPWxFaQ==
+  dependencies:
+    debug "^3.1.0"
+    koa-send "^5.0.0"
+
 koa2-cors@^2.0.6:
   version "2.0.6"
   resolved "https://registry.npmmirror.com/koa2-cors/-/koa2-cors-2.0.6.tgz#9ad23df3a0b9bb84530b46f5944f3fb576086554"
@@ -7044,7 +7061,7 @@ path-exists@^4.0.0:
   resolved "https://registry.npmmirror.com/path-exists/-/path-exists-4.0.0.tgz#513bdbe2d3b95d7762e8c1137efa195c6c61b5b3"
   integrity sha512-ak9Qy5Q7jYb2Wwcey5Fpvg2KoAc/ZIhLSLOSBmRmygPsGwkVVt0fZa0qrtMz+m6tJTAHfZQ8FnmB4MG4LWy7/w==
 
-path-is-absolute@^1.0.0:
+path-is-absolute@1.0.1, path-is-absolute@^1.0.0:
   version "1.0.1"
   resolved "https://registry.npmmirror.com/path-is-absolute/-/path-is-absolute-1.0.1.tgz#174b9268735534ffbc7ace6bf53a5a9e1b5c5f5f"
   integrity sha512-AVbw3UJ2e9bq64vSaS9Am0fje1Pa8pbGqTTsmXfaIiMpnr5DlDhfJOuLj9Sf95ZPVDAUerDfEk88MPmPe7UCQg==
@@ -8183,6 +8200,14 @@ resolve-from@^5.0.0:
   version "5.0.0"
   resolved "https://registry.npmmirror.com/resolve-from/-/resolve-from-5.0.0.tgz#c35225843df8f776df21c57557bc087e9dfdfc69"
   integrity sha512-qYg9KP24dD5qka9J47d0aVky0N+b4fTU89LN9iDnjB5waksiC49rvMB0PrUJQGoTmH50XPiqOvAjDfaijGxYZw==
+
+resolve-path@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.npmmirror.com/resolve-path/-/resolve-path-1.4.0.tgz#c4bda9f5efb2fce65247873ab36bb4d834fe16f7"
+  integrity sha512-i1xevIst/Qa+nA9olDxLWnLk8YZbi8R/7JPbCMcgyWaFR6bKWaexgJgEB5oc2PKMjYdrHynyz0NY+if+H98t1w==
+  dependencies:
+    http-errors "~1.6.2"
+    path-is-absolute "1.0.1"
 
 resolve-url-loader@^4.0.0:
   version "4.0.0"

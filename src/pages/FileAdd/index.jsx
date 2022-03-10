@@ -13,9 +13,13 @@ export default function FileAdd() {
   }, []);
 
   // 文件变改时
-  var fileChange = (event)=>{
-    let file = event.target.files[0];
-    ShardUpload(file)
+  var fileChange = async (event)=>{
+    let files = event.target.files;
+    // console.log(files.length);
+    // let file = files[0];
+    for(let i=0;i<files.length;i++){
+      await ShardUpload(files[i]);
+    }
   }
 
   return (

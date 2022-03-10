@@ -29,7 +29,9 @@
     "eject": "react-scripts eject",
     "app-start": "NODE_ENV=prod electron .",
     "app-start:dev": "NODE_ENV=dev electron .",
-    "app-package": "electron-packager . --out ./out"
+    "app-package:mac": "electron-packager . --out ./out --platform=darwin",
+    "app-package:win": "electron-packager . --out ./out --platform=win32",
+    "app-package:all": "electron-packager . --out ./out --all"
   },
   "eslintConfig": {
     "extends": [

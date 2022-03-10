@@ -1,7 +1,7 @@
 const home = require("./home");
 
 // 导出路由配置
-module.exports = function(app){
+module.exports = app=>{
     // 权限判断
     // app.use(function(req,res,next){
     //     next();

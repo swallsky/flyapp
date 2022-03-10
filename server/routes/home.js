@@ -1,7 +1,5 @@
 
 // 首页
-module.exports = function(req,res,next){
+module.exports = async (req,res,next)=>{
     res.send("Server is ready!");
 };
-
-

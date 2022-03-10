@@ -4,10 +4,11 @@
 const port = process.env.PORT || "4321"; //端口号
 const Koa = require('koa');
 const koaBody = require('koa-body');
-const cors = require('koa-cors');
+const cors = require('koa2-cors');
 
 const app = new Koa();
-const routes = require('./routes/index')
+// 路由
+const routes = require('./routes/index');
 
 // 启动服务
 module.exports = () => {

@@ -8,6 +8,9 @@
 # make app
 /out
 
+# upload
+/upload
+
 # testing
 /coverage
 

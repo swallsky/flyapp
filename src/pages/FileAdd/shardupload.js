@@ -9,7 +9,7 @@ const chunkSize = 1 * 1024 * 1024;
 // 开启分片上传
 const blobSlice = File.prototype.slice || File.prototype.mozSlice || File.prototype.webkitSlice;
 
-const domain = "http://localhost:8888";
+const domain = "http://localhost:4321";
 
 // 支持跨域请求
 axios.defaults.withCredentials = false;

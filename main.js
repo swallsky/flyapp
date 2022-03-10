@@ -1,6 +1,6 @@
-const { app, BrowserWindow, Notification } = require("electron");
-const express = require("express");
+const { app, BrowserWindow } = require("electron");
 const path = require("path");
+const Server = require('./server/app');
 
 /**
  * 创建主窗口进程
@@ -19,7 +19,7 @@ function createWindow() {
     },
   });
 
-  if (process.env.NODE_ENV == "dev") {
+  if (process.env.NODE_ENV === "dev") {
     // 开发环境时
     win.loadURL("http://localhost:3000/");
   } else {
@@ -28,17 +28,8 @@ function createWindow() {
   }
 }
 
-//启动后台服务
-function startServer() {
-  const app = express();
-  const server = app.listen(4321);
-  app.get('/', function (req, res) {
-    res.send('Server is ready!');
-  });
-
-}
-
-app.whenReady().then(createWindow).then(startServer);
+//先创建主窗口，再启动后台服务
+app.whenReady().then(createWindow).then(Server);
 
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") {

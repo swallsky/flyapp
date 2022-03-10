@@ -19,23 +19,17 @@
     "web-vitals": "^2.1.0"
   },
   "devDependencies": {
-    "@electron-forge/cli": "^6.0.0-beta.61",
-    "@electron-forge/maker-deb": "^6.0.0-beta.61",
-    "@electron-forge/maker-rpm": "^6.0.0-beta.61",
-    "@electron-forge/maker-squirrel": "^6.0.0-beta.61",
-    "@electron-forge/maker-zip": "^6.0.0-beta.61",
-    "electron": "16.0.4"
+    "electron": "16.0.4",
+    "electron-packager": "^15.4.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "app-start": "NODE_ENV=prod electron-forge start",
-    "app-start:dev": "NODE_ENV=dev electron-forge start",
-    "app-package": "electron-forge package",
-    "app-make": "electron-forge make",
-    "app-publish": "electron-forge publish"
+    "app-start": "NODE_ENV=prod electron .",
+    "app-start:dev": "NODE_ENV=dev electron .",
+    "app-package": "electron-packager . --out ./out"
   },
   "eslintConfig": {
     "extends": [
@@ -54,32 +48,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "config": {
-    "forge": {
-      "packagerConfig": {},
-      "makers": [
-        {
-          "name": "@electron-forge/maker-squirrel",
-          "config": {
-            "name": "electrondemo"
-          }
-        },
-        {
-          "name": "@electron-forge/maker-zip",
-          "platforms": [
-            "darwin"
-          ]
-        },
-        {
-          "name": "@electron-forge/maker-deb",
-          "config": {}
-        },
-        {
-          "name": "@electron-forge/maker-rpm",
-          "config": {}
-        }
-      ]
-    }
   }
 }

@@ -1,6 +1,30 @@
-
 ## 安装
+```
+yarn
+```
 
-In the project directory, you can run:
+### 开发模式web
+```
+yarn start
+```
 
-### `yarn`
+### 正式web
+- 生成缓存文件目录(build)
+```
+yarn build
+```
+
+### app调试
+```
+yarn app-start:dev
+```
+
+### app react正式调试
+```
+yarn app-start
+```
+
+### app 打包
+```
+yarn app-package
+```

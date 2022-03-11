@@ -6,8 +6,8 @@ const multer = require('koa-multer');
 const fs = require('fs-extra');
 const path = require('path');
 
-const { mkdirsSync } = require('../utils/dir');
-const uploadPath = path.join(__dirname,'../','../', 'upload');
+const { mkdirsSync } = require('../../utils/dir');
+const uploadPath = path.join(__dirname,'../','../','../', 'upload');
 const chunkUploadPath = path.join(uploadPath, 'temp');
 const upload = multer({ dest: chunkUploadPath });
 

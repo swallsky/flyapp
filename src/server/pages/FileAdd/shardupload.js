@@ -9,8 +9,6 @@ const chunkSize = 1 * 1024 * 1024;
 // 开启分片上传
 const blobSlice = File.prototype.slice || File.prototype.mozSlice || File.prototype.webkitSlice;
 
-const domain = "http://localhost:4321";
-
 // 支持跨域请求
 axios.defaults.withCredentials = false;
 
@@ -82,7 +80,7 @@ const uploadFile = (
           // 4.所有分片上传后，请求合并分片文件
           axios.all(axiosPromiseArray).then(() => {
             // setPrecent(blockCount, blockCount); // 全部上传完成
-            axios.post(domain+'/file/merge_chunks', {
+            axios.post('/api/upload/merge_chunks', {
               name: file.name,
               total: blockCount,
               hash
@@ -97,7 +95,7 @@ const uploadFile = (
       },
     };
     // 加入到 Promise 数组中
-    axiosPromiseArray.push(axios.post(domain+'/file/upload', form, axiosOptions));
+    axiosPromiseArray.push(axios.post('/api/upload/upload', form, axiosOptions));
 }
 
 

@@ -8,8 +8,8 @@ import Files from "./pages/Files";
 export default function WinRouter() {
   return (
     <Routes>
-      <Route path="/" element={<WinApp />}>
-        <Route path="/" element={<Files />} />
+      <Route path="/win" element={<WinApp />}>
+        <Route path="" element={<Files />} />
       </Route>
     </Routes>
   );

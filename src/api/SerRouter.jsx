@@ -8,8 +8,8 @@ import FileAdd from "./pages/FileAdd";
 export default function SerRouter() {
   return (
     <Routes>
-      <Route path="/s" element={<SerApp />}>
-        <Route path="f" element={<FileAdd />} />
+      <Route path="/api" element={<SerApp />}>
+        <Route path="" element={<FileAdd />} />
       </Route>
     </Routes>
   );

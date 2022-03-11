@@ -7,15 +7,15 @@ import ShardUpload from "./shardupload";
 export default function FileAdd() {
   const [percents, setPercents] = useState([]);
 
-  // useEffect(() => {
-  //   // setPercents([10,20,15]);
-  //   console.log('percent:',percents);
-  // }, [percents]);
+  useEffect(() => {
+    // setPercents([10,20,15]);
+    console.log('percent:',percents);
+  }, [percents]);
 
   // 计算百分比
   function setPrecent(i,nowUploadNums, blockCount){
     let percent = Math.ceil(nowUploadNums/blockCount)*100;
-    let newper = percents;
+    let newper = [...percents];
     // newper[i] = percent;
     newper.push(percent);
     setPercents(newper);

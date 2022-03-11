@@ -13,7 +13,7 @@ const app = new Koa();
 const routes = require('./routes/index');
 
 // 启动服务
-module.exports = () => {
+function Server(){
   app.use(reactStatic(path.dirname(__dirname)+'/build'));
   app.use(cors()); //跨域
   app.use(koaBody());
@@ -21,4 +21,12 @@ module.exports = () => {
   app.listen(port, () => {
     console.log('服务已启动了');
   });
-};
+}
+
+// 开发时启动
+if (process.env.NODE_ENV === "dev") {
+  Server();
+}
+
+// 启动服务
+module.exports = Server;

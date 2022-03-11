@@ -2,7 +2,7 @@ import React from "react";
 import { HashRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import WinRouter from "./win/WinRouter";
-import SerRouter from "./api/SerRouter";
+import SerRouter from "./server/SerRouter";
 import NoMatch from "./NoMatch";
 
 export default function Router() {

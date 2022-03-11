@@ -58,6 +58,8 @@ const uploadFile = (
     file, //文件
     hash, //加密hash算法
     blockCount = 0, // 分片总数
+    filei= 0, //当前文件序号
+    setPrecent, //当前文件百分比
     nowUploadNums=0, //当前分片序号
     axiosPromiseArray = [] //分片合并请求
     ) => {
@@ -74,19 +76,19 @@ const uploadFile = (
         nowUploadNums++;
         // 判断分片是否上传完成
         if (nowUploadNums < blockCount) {
-        //   setPrecent(nowUploadNums, blockCount);
-          uploadFile(file,hash,nowUploadNums,blockCount,axiosPromiseArray); //递归执行分片操作
+          setPrecent(filei,nowUploadNums, blockCount);
+          uploadFile(file,hash,nowUploadNums,filei,setPrecent,blockCount,axiosPromiseArray); //递归执行分片操作
         } else {
           // 4.所有分片上传后，请求合并分片文件
           axios.all(axiosPromiseArray).then(() => {
-            // setPrecent(blockCount, blockCount); // 全部上传完成
+            setPrecent(filei,blockCount, blockCount); // 全部上传完成
             axios.post('/api/upload/merge_chunks', {
               name: file.name,
               total: blockCount,
               hash
             }).then(res => {
-              console.log(res.data, file);
-              alert('上传成功');
+              // console.log(res.data, file);
+              console.log(filei,'上传成功');
             }).catch(err => {
               console.log(err);
             });
@@ -99,8 +101,14 @@ const uploadFile = (
 }
 
 
-export default async function ShardUpload(file){
+/**
+ * 分片上传文件
+ * @param {*} i 当前文件序号
+ * @param {*} file 当前文件 
+ * @param {*} setPrecent 设置百分比
+ */
+export default async function ShardUpload(i,file,setPrecent){
     let hash = await hashFile(file); //文件 hash 
     let blockCount = Math.ceil(file.size / chunkSize); // 分片总数
-    uploadFile(file,hash,blockCount); //分片上传中
+    uploadFile(file,hash,blockCount,i,setPrecent); //分片上传中
 }

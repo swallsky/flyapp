@@ -5,20 +5,3 @@ body {
     height: 100vh;
 }
 
-/* 导入字体图标 @https://www.iconfont.cn/ */
-@import '../../assets/iconfont/iconfont.css';
-
-#root {
-    margin: 0;
-    padding: 0;
-}
-
-.titlBar {
-    width: 100%;
-    height: 30px;
-    line-height: 30px;
-    margin: 0;
-    background-color: black;
-    -webkit-app-region: drag;
-}
-

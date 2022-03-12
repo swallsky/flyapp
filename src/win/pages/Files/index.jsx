@@ -1,7 +1,10 @@
-import React from 'react'
+import React from 'react';
 
 export default function Files() {
+
   return (
-    <div>Filelist</div>
+    <div>
+      <img src='/api/upload/qrcode' alt='扫码上传文件' />
+    </div>
   )
 }

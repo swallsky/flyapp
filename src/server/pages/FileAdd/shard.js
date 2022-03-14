@@ -23,21 +23,16 @@ async function shardRes(file, nfilename, si = 0, tsi) {
         formData.append('filename', nfilename); //当前文件名
         formData.append('fi', si); // 当前分片序号
         formData.append('ftotal', tsi); // 总分片数
-        axios.post(domain + '/api/upload/upload', formData).then(res => {
-            si++;
-            shardRes(file, nfilename, si, tsi); // 递归上传
-            console.log('上传成功');
-        }).catch(err => {
-            console.log(err);
-        });
+        // 启用同步代码，防止发生异步并发顺序错乱问题
+        await axios.post(domain + '/api/upload/upload', formData);
+        console.log('切片'+si+'上传成功');
+        si++;
+        shardRes(file, nfilename, si, tsi); // 递归上传
     } else {
-        setTimeout(() => {
-            axios.post(domain + '/api/upload/merge_chunks', { filename: nfilename }).then(res => {
-                console.log('上传成功');
-            }).catch(err => {
-                console.log(err);
-            });
-        }, 3000);
+        // 合并切片
+        await axios.post(domain + '/api/upload/merge_chunks', { filename: nfilename });
+        console.log('切片合并完成');
+
         return;
     }
 }

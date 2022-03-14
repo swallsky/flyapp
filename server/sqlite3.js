@@ -6,68 +6,55 @@ const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database("./flyphoto.db");
 
 /**
- * 创建表
- * @param {*} sql 
- * sql: CREATE TABLE IF NOT EXISTS demo(
-        ID INT PRIMARY KEY     NOT NULL,
-        NAME           TEXT    NOT NULL,
-        AGE            INT     NOT NULL,
-        ADDRESS        CHAR(50),
-        SALARY         REAL
-    )
- * @https://www.runoob.com/sqlite/sqlite-create-table.html
- */
-function createTable(sql){
-    db.serialize(()=>{
-        db.run(sql,function(err){
-            if(null != err){
-                console.log(err);
-                return;
-            }
-        });
-    });
-}
-
-/**
- * 写入数据
+ * 批量写入数据
  * @param {*} sql 表字段定义
  * @param {*} data 二维数据 
  * sql: insert into demo(id,name,age) values(?,?,?)
  * data: [[1,"张三",20],[2,"李四",21],[3,"王五",22]]
  * @https://www.runoob.com/sqlite/sqlite-insert.html
  */
-function insertData(sql,data){
-    db.serialize(()=>{
-        let stmt = db.prepare(sql);
-        for(let i=0;i<data.length;++i){
-            stmt.run(data[i]); //逐行写入数据
-        }
-        stmt.finalize();
-    })
+function batchInsert(sql,data){
+    return new Promise(function(resolve,reject){
+        db.serialize(()=>{
+            let stmt = db.prepare(sql);
+            for(let i=0;i<data.length;++i){
+                stmt.run(data[i]); //逐行写入数据
+            }
+            stmt.finalize();
+            resolve(true);
+        })
+    });
+}
+
+/**
+ * 查找单行数据
+ * @param {*} sql sql语句
+ * @param {*} params 替换的参数
+ * @returns 
+ */
+function fetch(sql,params = []){
+    return new Promise(function(resolve,reject){
+        db.serialize(function(){
+            db.each(sql,params,function(err,row){
+                if(err) reject("fetch error:"+err.message)
+                else resolve(row)
+            })
+        })
+    });
 }
 
 /**
  * 执行sql,查找数据列表
- * @param {*} sql 
- * @param {*} callback 
- * sql: select * from demo where id>1 and id < 10
- * callback: 
-function callbackData(objects){
-    for(let i=0;i<objects.length;++i){
-        console.log(objects[i]);
-    }
-}
+ * @param {*} sql sql语句
+ * @param {*} params 替换的参数
  */
-function queryData(sql,callback){
-    db.all(sql,function(err,rows){
-        if(null != err){
-            console.log(err);
-            return;
-        }
-        if(callback){
-            callback(rows);
-        }
-    })
+function fetchAll(sql,params = []){
+    return new Promise(function(resolve,reject){
+        db.all(sql,params,function(err,rows){
+            if(err) reject("fetchall error:"+err.message);
+            else resolve(rows);
+        })
+    });
 }
 
 /**
@@ -75,20 +62,24 @@ function queryData(sql,callback){
  * @param {*} sql 
  * sql: update demo set name="张三1" where id=1
  */
-function executeSql(sql){
-    db.run(sql,function(err){
-        console.log(err);
-        return;
-    })
+function execute(sql){
+    return new Promise(function(resolve,reject){
+        db.run(sql,function(res,err){
+            if(err) reject(err.message)
+            else resolve(res);
+        })
+    });
 }
 
 /**
  * 关闭数据库连接
  */
 function close(){
-    db.close();
+    return new Promise(function(resolve,reject){
+        db.close();
+        resolve(true);
+    })
 }
 
-module.exports = {
-    createTable,insertData,queryData,executeSql,close
-}
+
+module.exports = {db,execute,fetch,fetchAll,batchInsert,close};

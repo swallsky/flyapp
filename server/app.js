@@ -22,9 +22,9 @@ function Server(){
     console.log('服务已启动了');
   });
   // 错误监控
-  // app.on('error',(err,ctx)=>{
-  //   console.log('server error',err,ctx);
-  // })
+  app.on('error',(err,ctx)=>{
+    console.log('server error',err,ctx);
+  })
 }
 
 

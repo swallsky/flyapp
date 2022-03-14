@@ -8,6 +8,9 @@
 # make app
 /out
 
+# 过滤数据文件
+flyphoto.db
+
 # upload
 /upload
 

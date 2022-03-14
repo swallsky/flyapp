@@ -2,6 +2,7 @@ import axios from "axios";
 
 // 每个chunk的大小，设置为512k
 const chunkSize = 1 * 1024 * 512;
+const domain = 'http://localhost:4321';
 
 /**
  * 分片上传
@@ -22,7 +23,7 @@ async function shardRes(file, si = 0, tsi) {
         formData.append('file', blobFile);
         formData.append('fi', si); // 当前分片序号
         formData.append('ftotal', tsi); // 总分片数
-        axios.post('/api/upload/upload', formData).then(res => {
+        axios.post(domain+'/api/upload/upload', formData).then(res => {
             si++;
             shardRes(file, si, tsi); // 递归上传
             console.log('上传成功');
@@ -30,7 +31,7 @@ async function shardRes(file, si = 0, tsi) {
             console.log(err);
         });
     } else {
-        axios.post('/api/upload/merge_chunks', { filename: file.name }).then(res => {
+        axios.post(domain+'/api/upload/merge_chunks', { filename: file.name }).then(res => {
             console.log('上传成功');
         }).catch(err => {
             console.log(err);

@@ -16,7 +16,7 @@ const chunksPath = path.join(uploadPath,'tmp'); //切片目录
  * 文件上传接口
  */
 router.post('/upload', async (ctx, next) => {
-  if(!fs.existsSync(chunksPath)) mkdirsSync(chunksPath); // 如果目录不存在，则创建
+  // if(!fs.existsSync(chunksPath)) mkdirsSync(chunksPath); // 如果目录不存在，则创建
   // 上传文件
   const form = new multiparty.Form({
     uploadDir:chunksPath

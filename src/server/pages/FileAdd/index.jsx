@@ -31,8 +31,11 @@ function FileAdd() {
 
   // 文件变改时
   var fileChange = async (event) => {
-    let apiDomain = 'http://' + window.location.host; // 获取本地ip+port地址
-    // let apiDomain = 'http://localhost:4321'; // 开发地址
+    let host = window.location.host;
+    let apiDomain = 'localhost:3000'===host?
+      'http://localhost:4321': //开发环境
+      'http://' + host; //正式环境
+
     let files = event.target.files;
     //同时上传多个文件
     for (let i = 0; i < files.length; i++) {

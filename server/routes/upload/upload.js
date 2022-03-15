@@ -7,11 +7,9 @@ const multiparty = require('multiparty');
 const fs = require('fs-extra');
 const { mkdirsSync } = require('../../utils/dir');
 const sqllite = require('../../sqlite3');
-const { resolve } = require('path');
-const { rejects } = require('assert');
 
 const uploadPath = path.join(__dirname, '../', '../', '../', 'upload'); // 文件存储目录
-const chunksPath = path.join(uploadPath, 'tmp'); //切片目录
+const chunksPath = path.join(uploadPath, '.tmp'); //切片目录
 
 //初始化
 (function () {
@@ -83,5 +81,6 @@ router.post('/merge_chunks', async (ctx, next) => {
   ctx.status = 200;
   ctx.res.end('切片合并成功!');
 })
+
 
 module.exports = router;

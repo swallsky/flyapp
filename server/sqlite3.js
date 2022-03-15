@@ -3,7 +3,9 @@
 //  */
 const fs = require('fs');
 const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database("./flyphoto.db");
+const path = require('path');
+const sqlfilePath = path.join(__dirname, '../flyphoto.db'); //数据库文件
+const db = new sqlite3.Database(sqlfilePath);
 
 /**
  * 批量写入数据

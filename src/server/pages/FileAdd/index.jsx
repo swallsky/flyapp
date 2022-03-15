@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import "../../styles/fileadd.css";
 import ProgressBar from "./ProgressBar";
 import Share from './shard';
-import {connect} from 'react-redux';
 
 /**
  * 文件上传组件
@@ -10,13 +9,14 @@ import {connect} from 'react-redux';
  * @returns 
  */
 function FileAdd(props) {
-  const [apiDomain, setApiDomain] = useState(props.apiDomain);
+  const [localDomain, setLocalDomain] = useState('');
   const [percents, setPercents] = useState([]);
 
   useEffect(() => {
     // setPercents([10,20,15]);
-    console.log('percent:',percents.length,percents);
-  }, [percents]);
+    // console.log('percent:',percents.length,percents);
+    setLocalDomain('http://'+window.location.host);
+  }, []);
 
   // 计算百分比
   function setPrecent(i,nowUploadNums, blockCount){
@@ -29,16 +29,20 @@ function FileAdd(props) {
 
   // 文件变改时
   var fileChange = async (event)=>{
+    let apiDomain = 'http://'+window.location.host; // 获取本地ip+port地址
     let files = event.target.files[0];
+    Share(apiDomain,files);
+
     // console.log(files.length);
     // for(let i=0;i<files.length;i++){
     //   await ShardUpload(i,files[i],setPrecent);
     // }
-    Share(apiDomain,files);
+    
   }
 
   return (
     <div className="fileaddwarp">
+      <div>{localDomain}</div>
       <div>
         <input type="file" multiple name="avatar" onChange={fileChange} />
         {
@@ -49,12 +53,4 @@ function FileAdd(props) {
   );
 }
 
-//state映射
-const mapStateToProps = (state)=>{
-  return {
-    apiDomain:state.apiDomain, //对应服务端域名
-  }
-}
-
-//导出 connect连接redux
-export default connect(mapStateToProps)(FileAdd);
+export default FileAdd;

@@ -9,8 +9,9 @@ const chunkSize = 1 * 1024 * 1024;
  * @param {*} nfilename 新的文件名
  * @param {*} si 分片序号
  * @param {*} tsi 总分片数
+ * @param {*} setPrecent 百分比
  */
-async function shardRes(apiDomain,file, nfilename, si = 0, tsi) {
+async function shardRes(apiDomain, file, nfilename, si = 0, tsi, fsn, setPrecent) {
     let start = si * chunkSize;
     if (si < tsi) { //执行分片操作
         const blob = file.slice(start, start + chunkSize); //分片成blob
@@ -24,9 +25,9 @@ async function shardRes(apiDomain,file, nfilename, si = 0, tsi) {
         formData.append('ftotal', tsi); // 总分片数
         // 启用同步代码，防止发生异步并发顺序错乱问题
         await axios.post(apiDomain + '/api/upload/upload', formData);
-        console.log('切片'+si+'上传成功');
+        console.log('切片' + si + '上传成功');
         si++;
-        shardRes(apiDomain,file, nfilename, si, tsi); // 递归上传
+        shardRes(apiDomain, file, nfilename, si, tsi, fsn, setPrecent); // 递归上传
     } else {
         // 合并切片
         await axios.post(apiDomain + '/api/upload/merge_chunks', { filename: nfilename });
@@ -54,10 +55,12 @@ function getTimeFileName(file) {
 /**
  * 文件上传
  * @param {*} apiDomain api域名
+ * @param {*} fsn 文件序号
  * @param {*} file 需要上传的文件
+ * @param {*} setPrecent 进度
  */
-export default async function Shard(apiDomain,file) {
+export default async function Shard(apiDomain, fsn, file, setPrecent) {
     let nfilename = getTimeFileName(file); //新的文件名
     let blockCount = Math.ceil(file.size / chunkSize); // 分片总数
-    await shardRes(apiDomain,file, nfilename, 0, blockCount);
+    await shardRes(apiDomain, file, nfilename, 0, blockCount, fsn, setPrecent);
 }

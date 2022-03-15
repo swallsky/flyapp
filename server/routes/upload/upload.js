@@ -8,7 +8,7 @@ const fs = require('fs-extra');
 const { mkdirsSync } = require('../../utils/dir');
 const sqllite = require('../../sqlite3');
 
-const uploadPath = path.join(__dirname, '../', '../', '../', 'upload'); // 文件存储目录
+const uploadPath = path.join(__dirname.replace("app.asar",""), '../', '../', '../', 'upload'); // 文件存储目录
 const chunksPath = path.join(uploadPath, '.tmp'); //切片目录
 
 //初始化

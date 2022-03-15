@@ -4,7 +4,7 @@
 const fs = require('fs');
 const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
-const sqlfilePath = path.join(__dirname, '../flyphoto.db'); //数据库文件
+const sqlfilePath = path.join(__dirname.replace("app.asar",""), '../flyphoto.db'); //数据库文件 app.asar为electron打包时压缩包
 const db = new sqlite3.Database(sqlfilePath);
 
 /**

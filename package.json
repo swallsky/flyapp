@@ -41,8 +41,8 @@
     "server:start": "NODE_ENV=dev nodemon server/app.js",
     "app-start": "NODE_ENV=prod electron .",
     "app-start:dev": "NODE_ENV=dev electron .",
-    "app-package:mac": "electron-packager . --out ./out --platform=darwin",
-    "app-package:win": "electron-packager . --out ./out --platform=win32",
+    "app-package:mac": "electron-packager . --out ./out --platform=darwin --icon=./src/assets/logo/logo.icns --asar",
+    "app-package:win": "electron-packager . --out ./out --platform=win32 --icon=./src/assets/logo/logo.ico --asar",
     "app-package:all": "electron-packager . --out ./out --all"
   },
   "eslintConfig": {

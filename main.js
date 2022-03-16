@@ -10,7 +10,9 @@ function createWindow() {
     width: 800,
     height: 600,
     webPreferences: {
-      nodeIntegration:true //开启渲染进程node功能
+      nodeIntegration: true, //开启渲染进程node功能
+      contextIsolation: false,
+      preload: path.join(__dirname.replace("app.asar", ""), "src", "preload.js"), //预加载node模块
     },
     titleBarStyle: "hidden",
     titleBarOverlay: {

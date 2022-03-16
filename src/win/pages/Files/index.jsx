@@ -10,8 +10,9 @@ function Files(props) {
       props.updateApiDm(dm.data); //修改为局域网ip port
       setQrUrl(dm.data+'/api/upload/qrcode');
     });
-  },[props])
 
+    // console.log(window.fs); //调用node相关模块
+  },[props])
 
   return (
     <div>

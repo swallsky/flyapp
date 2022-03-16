@@ -28,8 +28,8 @@ function Server(){
 }
 
 
-// 开发时启动
-if (process.env.NODE_ENV === "dev") {
+// 单独启动服务端调试时启动
+if (process.env.NODE_ENV === "serverDev") {
   Server();
 }
 

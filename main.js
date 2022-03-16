@@ -9,9 +9,9 @@ function createWindow() {
   const win = new BrowserWindow({
     width: 800,
     height: 600,
-    // webPreferences: {
-    //   preload: path.join(__dirname, "server", "preload.js"),
-    // },
+    webPreferences: {
+      nodeIntegration:true //开启渲染进程node功能
+    },
     titleBarStyle: "hidden",
     titleBarOverlay: {
       color: "#2f3241",
@@ -22,6 +22,8 @@ function createWindow() {
   if (process.env.NODE_ENV === "dev") {
     // 开发环境时
     win.loadURL("http://localhost:3000/");
+    //  打开开发者工具
+    win.webContents.openDevTools();
   } else {
     // 生产环境时
     win.loadFile(path.join(__dirname, "build", "index.html"));

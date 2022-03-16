@@ -38,7 +38,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "server:start": "NODE_ENV=dev nodemon server/app.js",
+    "server:start": "NODE_ENV=serverDev nodemon server/app.js",
     "app-start": "NODE_ENV=prod electron .",
     "app-start:dev": "NODE_ENV=dev electron .",
     "app-package:mac": "electron-packager . --out ./out --platform=darwin --ignore=.git --icon=./src/assets/logo/logo.icns --asar",

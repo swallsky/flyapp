@@ -15,6 +15,7 @@ function Files(props) {
 
   return (
     <div>
+      <div>请选择本地保存目录</div>
       <div>本地IP: {props.apiDomain}</div>
       <img src={qrUrl} alt='扫码上传文件' />
     </div>

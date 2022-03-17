@@ -29,15 +29,19 @@
     "web-vitals": "^2.1.0"
   },
   "devDependencies": {
+    "concurrently": "^7.0.0",
     "electron": "16.0.4",
     "electron-packager": "^15.4.0",
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.15",
+    "wait-on": "^6.0.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "BROWSER=none react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "start:dev":"concurrently \"yarn start\" \"wait-on http://localhost:3000 && yarn app-start:dev\"",
+    "start:build":"concurrently \"yarn build\" \"yarn app-package:mac\"",
     "server:start": "NODE_ENV=serverDev nodemon server/app.js",
     "app-start": "NODE_ENV=prod electron .",
     "app-start:dev": "NODE_ENV=dev electron .",

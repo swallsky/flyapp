@@ -13,7 +13,7 @@ const sqllite = require('../../sqlite3');
  */
 router.get('/getpath',async (ctx,next)=>{
   let dir = await sqllite.fetch('select * from metaData where type="uploaddir"');
-  if(data){
+  if(dir){
     if(fs.existsSync(dir.data)){
       ctx.body = { status:200, data:dir.data};
     }else{

@@ -7,6 +7,7 @@ const koaBody = require('koa-body');
 const cors = require('koa2-cors');
 const reactStatic = require('koa-static');
 const path = require('path');
+const initsql = require('./initsql');
 
 const app = new Koa();
 // 路由
@@ -17,8 +18,11 @@ function Server(){
   app.use(reactStatic(path.dirname(__dirname)+'/build'));
   app.use(cors()); //跨域
   app.use(koaBody());
-  app.use(routes.routes()).use(routes.allowedMethods())
+  app.use(routes.routes()).use(routes.allowedMethods());
+  
   app.listen(port, () => {
+    //初始化数据库
+    initsql();
     console.log('服务已启动了');
   });
   // 错误监控

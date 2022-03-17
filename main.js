@@ -1,12 +1,14 @@
-const { app, BrowserWindow } = require("electron");
+const { app, BrowserWindow, ipcMain, dialog } = require("electron");
 const path = require("path");
 const Server = require('./server/app');
+const ipcManager = require('./ipc');
 
 /**
  * 创建主窗口进程
  */
+let win; // 防止被垃圾回收掉
 function createWindow() {
-  const win = new BrowserWindow({
+  win = new BrowserWindow({
     width: 800,
     height: 600,
     webPreferences: {
@@ -30,6 +32,8 @@ function createWindow() {
     // 生产环境时
     win.loadFile(path.join(__dirname, "build", "index.html"));
   }
+  //ipc主进程管理器
+  ipcManager();
 }
 
 //先创建主窗口，再启动后台服务
@@ -38,6 +42,7 @@ app.whenReady().then(createWindow).then(Server);
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") {
     app.quit();
+    win = null;
   }
 });
 

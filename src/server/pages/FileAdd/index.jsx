@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../../styles/fileadd.css";
 import ProgressBar from "./ProgressBar";
 import Share from './shard';
+import axios from "axios";
 
 /**
  * 文件上传组件
@@ -12,7 +13,12 @@ function FileAdd() {
   const [percents, setPercents] = useState([]);
 
   useEffect(() => {
-    setLocalDomain('http://' + window.location.host);
+    // 设置api domain
+    let host = window.location.host;
+    let apiDomain = 'localhost:3000'===host?
+      'http://localhost:4321': //开发环境
+      'http://' + host; //正式环境
+    setLocalDomain(apiDomain);
   }, []);
 
   /**
@@ -26,20 +32,21 @@ function FileAdd() {
     let percent = ((sn / stotal) * 100).toFixed(2);
     percents[fsn] = {fname,percent};
     setPercents(()=>[...percents]);
-    // console.log(fsn, fname, percents);
   }
 
   // 文件变改时
   var fileChange = async (event) => {
-    let host = window.location.host;
-    let apiDomain = 'localhost:3000'===host?
-      'http://localhost:4321': //开发环境
-      'http://' + host; //正式环境
+    //判断上传目录是存在
+    let dirData = await axios.get(localDomain+'/api/upload/getpath');
+    if(dirData.data.status === 404){
+      alert(dirData.data.data);
+      return;
+    }
 
     let files = event.target.files;
     //同时上传多个文件
     for (let i = 0; i < files.length; i++) {
-      await Share(apiDomain, i, files[i], setPrecent);
+      await Share(localDomain, i, files[i], setPrecent);
     }
   }
 

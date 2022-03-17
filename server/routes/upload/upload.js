@@ -8,31 +8,57 @@ const fs = require('fs-extra');
 const { mkdirsSync } = require('../../utils/dir');
 const sqllite = require('../../sqlite3');
 
-const uploadPath = path.join(__dirname.replace("app.asar",""), '../', '../', '../', 'upload'); // 文件存储目录
-const chunksPath = path.join(uploadPath, '.tmp'); //切片目录
+/**
+ * 获取上传目录
+ */
+router.get('/getpath',async (ctx,next)=>{
+  let dir = await sqllite.fetch('select * from metaData where type="uploaddir"');
+  if(data){
+    if(fs.existsSync(dir.data)){
+      ctx.body = { status:200, data:dir.data};
+    }else{
+      ctx.body = {status:404,data:'目录不存在'};
+    }
+  }else{
+    ctx.body = {status:404,data:'请选择要上传文件目录'};
+  }
+});
 
-//初始化
-(function () {
-  // 如果目录不存在，则创建
-  if (!fs.existsSync(chunksPath)) mkdirsSync(chunksPath);
-  // 初始化数据库
-  sqllite.execute(`
-  CREATE TABLE IF NOT EXISTS uploadList (
-    id          INTEGER  PRIMARY KEY AUTOINCREMENT,
-    filename    VARCHAR,
-    filepath    VARCHAR,
-    sn          INT,
-    create_date DATETIME DEFAULT (CURRENT_TIMESTAMP) 
-  );
-  `);
-
-})()
+/**
+ * 修改上传目录
+ */
+router.post('/uppath',async (ctx,next)=>{
+  const {data} = ctx.request.body;
+  let updir = await sqllite.fetch('select * from metaData where type="uploaddir"');
+  if(updir){ //存在则更新
+    await sqllite.execute('update metaData set data="'+data+'" where type="uploaddir"');
+  }else{ //不存在则写入
+    await sqllite.insert('insert into metaData(data,type) values(?,?)',[data,"uploaddir"]);
+  }
+  ctx.body = { status:200,msg:'修改成功' };
+});
 
 
 /**
  * 文件上传接口
  */
 router.post('/upload', async (ctx, next) => {
+  let chunksPath = '';
+  //读取上传目录
+  let dir = await sqllite.fetch('select * from metaData where type="uploaddir"');
+  if(dir){
+    if(fs.existsSync(dir.data)){ //文件存在
+      chunksPath = path.join(dir.data, '.tmp');
+      if (!fs.existsSync(chunksPath)) mkdirsSync(chunksPath);
+    }else{
+      ctx.body = {status:404,msg:"未找到文件目录!"}
+      return;
+    }
+  }else{
+    ctx.body = {status:404,msg:"未找到文件目录!"}
+    return;
+  }
+
   // 同步写入
   let res = await new Promise((resolve,reject)=>{
     // 上传文件
@@ -51,16 +77,33 @@ router.post('/upload', async (ctx, next) => {
       resolve('上传成功!');
     });
   })
-  console.log(res);
-  
-  ctx.status = 200;
-  ctx.res.end('上传成功');
+  // console.log(res);
+  ctx.body = {
+    status:200,
+    msg:'上传成功'
+  };
 })
 
 /**
  * 合并切片
  */
 router.post('/merge_chunks', async (ctx, next) => {
+
+  let uploadPath = '';
+  //读取上传目录
+  let dir = await sqllite.fetch('select * from metaData where type="uploaddir"');
+  if(dir){
+    if(fs.existsSync(dir.data)){ //文件存在
+      uploadPath = dir.data;
+    }else{
+      ctx.body = {status:404,msg:"未找到文件目录!"}
+      return;
+    }
+  }else{
+    ctx.body = {status:404,msg:"未找到文件目录!"}
+    return;
+  }
+
   const { filename } = ctx.request.body; //获取参数
   const filePath = path.join(uploadPath, filename); //生成的文件名
 

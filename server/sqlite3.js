@@ -4,8 +4,28 @@
 const fs = require('fs');
 const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
-const sqlfilePath = path.join(__dirname.replace("app.asar",""), '../flyphoto.db'); //数据库文件 app.asar为electron打包时压缩包
+const sqlfilePath = path.join(__dirname.replace("app.asar", ""), '../flyphoto.db'); //数据库文件 app.asar为electron打包时压缩包
 const db = new sqlite3.Database(sqlfilePath);
+
+
+/**
+ * 单行写入数据
+ * @param {*} sql 表字段定义
+ * @param {*} data 二维数据 
+ * sql: insert into demo(id,name,age) values(?,?,?)
+ * data: [1,"张三",20]
+ * @https://www.runoob.com/sqlite/sqlite-insert.html
+ */
+function insert(sql, data) {
+    return new Promise(function (resolve, reject) {
+        db.serialize(() => {
+            let stmt = db.prepare(sql);
+            stmt.run(data); //逐行写入数据
+            stmt.finalize();
+            resolve(true);
+        })
+    });
+}
 
 /**
  * 批量写入数据
@@ -15,11 +35,11 @@ const db = new sqlite3.Database(sqlfilePath);
  * data: [[1,"张三",20],[2,"李四",21],[3,"王五",22]]
  * @https://www.runoob.com/sqlite/sqlite-insert.html
  */
-function batchInsert(sql,data){
-    return new Promise(function(resolve,reject){
-        db.serialize(()=>{
+function batchInsert(sql, data) {
+    return new Promise(function (resolve, reject) {
+        db.serialize(() => {
             let stmt = db.prepare(sql);
-            for(let i=0;i<data.length;++i){
+            for (let i = 0; i < data.length; ++i) {
                 stmt.run(data[i]); //逐行写入数据
             }
             stmt.finalize();
@@ -34,14 +54,12 @@ function batchInsert(sql,data){
  * @param {*} params 替换的参数
  * @returns 
  */
-function fetch(sql,params = []){
-    return new Promise(function(resolve,reject){
-        db.serialize(function(){
-            db.each(sql,params,function(err,row){
-                if(err) reject("fetch error:"+err.message)
-                else resolve(row)
-            })
-        })
+function fetch(sql, params = []) {
+    return new Promise(function (resolve, reject) {
+        db.get(sql, params, function (err, row) {
+            if (err) reject("fetch error:" + err.message)
+            else resolve(row)
+        });
     });
 }
 
@@ -50,10 +68,10 @@ function fetch(sql,params = []){
  * @param {*} sql sql语句
  * @param {*} params 替换的参数
  */
-function fetchAll(sql,params = []){
-    return new Promise(function(resolve,reject){
-        db.all(sql,params,function(err,rows){
-            if(err) reject("fetchall error:"+err.message);
+function fetchAll(sql, params = []) {
+    return new Promise(function (resolve, reject) {
+        db.all(sql, params, function (err, rows) {
+            if (err) reject("fetchall error:" + err.message);
             else resolve(rows);
         })
     });
@@ -64,10 +82,10 @@ function fetchAll(sql,params = []){
  * @param {*} sql 
  * sql: update demo set name="张三1" where id=1
  */
-function execute(sql){
-    return new Promise(function(resolve,reject){
-        db.run(sql,function(res,err){
-            if(err) reject(err.message)
+function execute(sql) {
+    return new Promise(function (resolve, reject) {
+        db.run(sql, function (res, err) {
+            if (err) reject(err.message)
             else resolve(res);
         })
     });
@@ -76,12 +94,12 @@ function execute(sql){
 /**
  * 关闭数据库连接
  */
-function close(){
-    return new Promise(function(resolve,reject){
+function close() {
+    return new Promise(function (resolve, reject) {
         db.close();
         resolve(true);
     })
 }
 
 
-module.exports = {db,execute,fetch,fetchAll,batchInsert,close};
+module.exports = { db, execute, fetch, fetchAll, insert, batchInsert, close };

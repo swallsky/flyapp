@@ -47,17 +47,16 @@
     "app-start": "NODE_ENV=prod electron .",
     "app-start:dev": "NODE_ENV=dev electron .",
     "pack:mac": "yarn build && electron-builder build --mac",
-    "pack:win": "electron-builder --win --ia32"
+    "pack:win": "yarn build && electron-builder build --win --ia32"
   },
   "build": {
     "appId": "com.electron.flyphoto",
     "productName": "flyphoto",
-    "asar": false,
+    "asar": true,
     "files":[
       "main.js",
       "ipc.js",
       "preload.js",
-      "node_modules/**/*",
       "build/*",
       "build/**/*",
       "server/*",

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
-const { ipcRenderer } = window.require('electron');
+// const { ipcRenderer } = window.require('electron');
 
 function Files(props) {
   const [qrUrl, setQrUrl] = useState('');
@@ -15,6 +15,7 @@ function Files(props) {
   }, [props])
 
   async function openDir() {
+    const { ipcRenderer } = window.electron;
     let dirs = await ipcRenderer.invoke('open-dir');
     // console.log(dirs);
     if (dirs) {

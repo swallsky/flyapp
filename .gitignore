@@ -6,7 +6,7 @@
 .pnp.js
 
 # make app
-/out
+/release
 
 # 过滤数据文件
 flyphoto.db

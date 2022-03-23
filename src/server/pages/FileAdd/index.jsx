@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "../../styles/fileadd.css";
-import ProgressBar from "./ProgressBar";
+// import ProgressBar from "./ProgressBar";
 import Share from './shard';
 import axios from "axios";
+import { PageHeader,Descriptions,Progress,message,Tag } from "antd";
 
 /**
  * 文件上传组件
@@ -11,14 +12,21 @@ import axios from "axios";
 function FileAdd() {
   const [localDomain, setLocalDomain] = useState('');
   const [percents, setPercents] = useState([]);
+  const [saveDir,setSaveDir] = useState(''); // 上传保存目录
 
   useEffect(() => {
     // 设置api domain
     let host = window.location.host;
-    let apiDomain = 'localhost:3000'===host?
-      'http://localhost:4321': //开发环境
+    let apiDomain = 'localhost:3000' === host ?
+      'http://localhost:4321' : //开发环境
       'http://' + host; //正式环境
     setLocalDomain(apiDomain);
+
+    // 获取保存目录
+    axios.get(apiDomain+'/api/upload/getpath').then(data=>{
+      setSaveDir(data.data.data);
+    });
+
   }, []);
 
   /**
@@ -30,20 +38,22 @@ function FileAdd() {
    */
   function setPrecent(fsn, fname, sn, stotal) {
     let percent = ((sn / stotal) * 100).toFixed(2);
-    percents[fsn] = {fname,percent};
-    setPercents(()=>[...percents]);
+    // console.log(percent);
+    percents[fsn] = { fname, percent };
+    setPercents(() => [...percents]);
   }
 
   // 文件变改时
   var fileChange = async (event) => {
     //判断上传目录是存在
-    let dirData = await axios.get(localDomain+'/api/upload/getpath');
-    if(dirData.data.status === 404){
-      alert(dirData.data.data);
+    let dirData = await axios.get(localDomain + '/api/upload/getpath');
+    if (dirData.data.status === 404) {
+      message.error(dirData.data.data);
       return;
     }
 
     let files = event.target.files;
+
     //同时上传多个文件
     for (let i = 0; i < files.length; i++) {
       await Share(localDomain, i, files[i], setPrecent);
@@ -51,15 +61,28 @@ function FileAdd() {
   }
 
   return (
-    <div className="fileaddwarp">
-      <div>{localDomain}</div>
+    <PageHeader
+      title="上传文件"
+      subTitle="请选择需要上传文件"
+      extra={[
+        (<input key={0} type="file" multiple name="avatar" onChange={fileChange} />)
+      ]}
+    >
+      <Descriptions size="middle" column={1}>
+        <Descriptions.Item label="保存目录">{saveDir}</Descriptions.Item>
+        <Descriptions.Item label="本机IP">{localDomain}</Descriptions.Item>
+      </Descriptions>
       <div>
-        <input type="file" multiple name="avatar" onChange={fileChange} />
         {
-          percents.map((data, index) => <ProgressBar key={index} percent={data.percent} fname={data.fname} />)
+          percents.map((data, index) => (
+          <div key={index}>
+            <Tag>{data.fname}</Tag>
+            <Progress percent={data.percent} />
+          </div>
+          ))
         }
       </div>
-    </div>
+    </PageHeader>
   );
 }
 

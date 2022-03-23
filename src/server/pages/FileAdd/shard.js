@@ -1,8 +1,8 @@
 import axios from "axios";
 
 // 每个chunk的大小，设置为1M
-// const chunkSize = 1 * 1024 * 1024;
-const chunkSize = 1 * 1024 ;
+const chunkSize = 1 * 1024 * 1024;
+// const chunkSize = 1 * 1024 ;
 
 /**
  * 分片上传
@@ -51,7 +51,7 @@ function getTimeFileName(file) {
     let timesp = Math.floor(Date.now() / 1000); //当前时间戳
     let date = new Date(timesp * 1000);
     let ymdhis = date.getFullYear().toString() + (date.getMonth() + 1).toString() + date.getDate().toString() + date.getHours().toString() + date.getMinutes().toString() + date.getSeconds().toString();
-    return `${filename}${ymdhis}${ext}`;
+    return `${filename}-${ymdhis}${ext}`;
 }
 
 /**

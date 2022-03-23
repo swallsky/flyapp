@@ -6,6 +6,7 @@ import SerRouter from "./server/SerRouter";
 // import NoMatch from "./NoMatch";
 import { Provider } from "react-redux";
 import store from "./store";
+import './assets/App.css';
 
 export default function Router() {
   return (

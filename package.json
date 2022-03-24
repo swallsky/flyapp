@@ -55,7 +55,7 @@
   "build": {
     "appId": "com.electron.flyphoto",
     "productName": "flyphoto",
-    "asar": false,
+    "asar": true,
     "files": [
       "main.js",
       "ipc.js",

@@ -8,11 +8,6 @@ const { app } = require('electron');
 const sqlfilePath = path.join(app.getPath('home'), '.flyphoto.db');
 const db = new sqlite3.Database(sqlfilePath);
 
-// // 如果文件不存在，则创建
-// if(!fs.existsSync(sqlfilePath)){
-//     fs.writeFileSync(sqlfilePath,'');
-// }
-
 /**
  * 单行写入数据
  * @param {*} sql 表字段定义

@@ -1,12 +1,16 @@
-// /**
-//  * sqlite3 基础类
-//  */
-const fs = require('fs');
+/**
+ * sqlite3 基础类
+ */
+const fs = require('fs-extra');
 const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
 const sqlfilePath = path.join(__dirname.replace("app.asar", ""), '../flyphoto.db'); //数据库文件 app.asar为electron打包时压缩包
 const db = new sqlite3.Database(sqlfilePath);
 
+// 如果文件不存在，则创建
+if(!fs.existsSync(sqlfilePath)){
+    fs.writeFileSync(sqlfilePath,'');
+}
 
 /**
  * 单行写入数据

@@ -2,6 +2,7 @@
   "name": "flyphoto",
   "version": "0.1.0",
   "author": {"name": "jackXu"},
+  "description":"fast network transfer access tool!",
   "private": true,
   "main": "main.js",
   "homepage": ".",
@@ -48,18 +49,17 @@
     "server:start": "NODE_ENV=serverDev nodemon server/app.js",
     "app-start": "NODE_ENV=prod electron .",
     "app-start:dev": "NODE_ENV=dev electron .",
-    "pack:mac": "yarn build && cp -rf flp.init.db flyphoto.db && electron-builder build --mac",
-    "pack:win": "yarn build && cp -rf flp.init.db flyphoto.db && electron-builder build --win --ia32"
+    "pack:mac": "yarn build && electron-builder build --mac",
+    "pack:win": "yarn build && electron-builder build --win --ia32"
   },
   "build": {
     "appId": "com.electron.flyphoto",
     "productName": "flyphoto",
-    "asar": true,
+    "asar": false,
     "files": [
       "main.js",
       "ipc.js",
       "preload.js",
-      "flyphoto.db",
       "build/*",
       "build/**/*",
       "server/*",

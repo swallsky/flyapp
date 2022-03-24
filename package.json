@@ -2,7 +2,7 @@
   "name": "flyphoto",
   "version": "0.1.0",
   "author": {"name": "jackXu"},
-  "description":"fast network transfer access tool!",
+  "description":"fast network transfer access tool",
   "private": true,
   "main": "main.js",
   "homepage": ".",

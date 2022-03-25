@@ -1,12 +1,15 @@
 {
   "name": "flyphoto",
   "version": "0.1.0",
-  "author": {"name": "jackXu"},
-  "description":"fast network transfer access tool",
+  "author": {
+    "name": "jackXu"
+  },
+  "description": "fast network transfer access tool",
   "private": true,
   "main": "main.js",
   "homepage": ".",
   "dependencies": {
+    "@ant-design/icons": "^4.7.0",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^12.0.0",
     "@testing-library/user-event": "^13.2.1",

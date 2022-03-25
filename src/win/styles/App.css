@@ -1,12 +1,8 @@
 body {
     margin: 0;
     padding: 0;
-    background-color: aliceblue;
     height: 100vh;
 }
-
-/* 导入字体图标 @https://www.iconfont.cn/ */
-@import '../../assets/iconfont/iconfont.css';
 
 #root {
     margin: 0;
@@ -20,5 +16,11 @@ body {
     margin: 0;
     background-color: black;
     -webkit-app-region: drag;
+    position:fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: -30px;
+    z-index: 99999999;
 }
 

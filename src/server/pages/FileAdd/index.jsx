@@ -50,9 +50,7 @@ function FileAdd() {
       message.error(dirData.data.data);
       return;
     }
-
     let files = event.target.files;
-
     //同时上传多个文件
     for (let i = 0; i < files.length; i++) {
       await Share(localDomain, i, files[i], setPrecent);

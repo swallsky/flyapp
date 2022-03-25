@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import { PageHeader, Button, Descriptions,Image,message } from "antd";
-const { ipcRenderer } = window.electron;
 
 function Files(props) {
   const [qrUrl, setQrUrl] = useState(''); //二维码地址
@@ -22,6 +21,7 @@ function Files(props) {
   }, [props])
 
   async function openDir() {
+    const { ipcRenderer } = window.electron;
     let dirs = await ipcRenderer.invoke('open-dir');
     if (dirs) {
       let res = await axios.post(props.apiDomain + '/api/upload/uppath', { data: dirs[0] });

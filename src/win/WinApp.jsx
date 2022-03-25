@@ -1,14 +1,21 @@
 import { FileAddOutlined, ProfileOutlined } from '@ant-design/icons';
 import './styles/app.css';
 import React from "react";
-import { Outlet } from 'react-router-dom';
+import { Outlet,useNavigate } from 'react-router-dom';
 import { Layout, Menu } from "antd";
 const { Content, Sider } = Layout;
 
 /**
  * 基础布局
  */
-export default function WinApp() {
+export default function WinApp(props) {
+  const navigate = useNavigate();
+
+  // 点击菜单
+  let menuClick = (e)=>{
+    console.log(e);
+    navigate(e.key);
+  }
 
   return (
     <div>
@@ -27,9 +34,9 @@ export default function WinApp() {
         <Sider
           width={60}
         >
-          <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
-            <Menu.Item key="1" style={{paddingLeft:'16px'}} icon={<FileAddOutlined style={{fontSize:28}} />}></Menu.Item>
-            <Menu.Item key="2" style={{paddingLeft:'16px'}} icon={<ProfileOutlined style={{fontSize:28}} />}></Menu.Item>
+          <Menu onClick={menuClick} theme="dark" mode="inline" defaultSelectedKeys={['/win']}>
+            <Menu.Item key="/win" style={{paddingLeft:'16px'}} icon={<FileAddOutlined style={{fontSize:28}} />}></Menu.Item>
+            <Menu.Item key="/win/2" style={{paddingLeft:'16px'}} icon={<ProfileOutlined style={{fontSize:28}} />}></Menu.Item>
           </Menu>
         </Sider>
         <Content>

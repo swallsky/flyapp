@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain, dialog } = require("electron");
+const { app, BrowserWindow,BrowserView, ipcMain, dialog } = require("electron");
 const path = require("path");
 const Server = require('./server/app');
 const ipcManager = require('./ipc');
@@ -7,10 +7,12 @@ const ipcManager = require('./ipc');
  * 创建主窗口进程
  */
 let win; // 防止被垃圾回收掉
+let loadingView;
 function createWindow() {
   win = new BrowserWindow({
     width: 800,
     height: 600,
+    show:false, // 为了防止白屏，先将主进程隐藏
     webPreferences: {
       nodeIntegration: true, //开启渲染进程node功能
       contextIsolation: false,
@@ -21,6 +23,15 @@ function createWindow() {
       color: "#2f3241",
       symbolColor: "#74b1be",
     },
+  });
+
+  // loading界面
+  loadingView = new BrowserView();
+  win.setBrowserView(loadingView);
+  loadingView.setBounds({x:0,y:0,width:800,height:600});
+  loadingView.webContents.loadFile('loading.html');
+  loadingView.webContents.on('dom-ready',()=>{
+    win.show();
   });
 
   if (process.env.NODE_ENV === "dev") {
@@ -37,7 +48,10 @@ function createWindow() {
 }
 
 //先创建主窗口，再启动后台服务
-app.whenReady().then(createWindow).then(Server);
+app.whenReady().then(createWindow).then(Server).then(()=>{
+  win.removeBrowserView(loadingView); // 移除loading窗口
+  loadingView = null;
+});
 
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") {

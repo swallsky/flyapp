@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "../../styles/fileadd.css";
-// import ProgressBar from "./ProgressBar";
 import Share from './shard';
 import axios from "axios";
-import { PageHeader,Descriptions,Progress,message,Tag } from "antd";
+import { PageHeader, Descriptions, Progress, message, List,Divider } from "antd";
 
 /**
  * 文件上传组件
@@ -12,7 +11,7 @@ import { PageHeader,Descriptions,Progress,message,Tag } from "antd";
 function FileAdd() {
   const [localDomain, setLocalDomain] = useState('');
   const [percents, setPercents] = useState([]);
-  const [saveDir,setSaveDir] = useState(''); // 上传保存目录
+  const [saveDir, setSaveDir] = useState(''); // 上传保存目录
 
   useEffect(() => {
     // 设置api domain
@@ -23,7 +22,7 @@ function FileAdd() {
     setLocalDomain(apiDomain);
 
     // 获取保存目录
-    axios.get(apiDomain+'/api/upload/getpath').then(data=>{
+    axios.get(apiDomain + '/api/upload/getpath').then(data => {
       setSaveDir(data.data.data);
     });
 
@@ -72,16 +71,19 @@ function FileAdd() {
         <Descriptions.Item label="保存目录">{saveDir}</Descriptions.Item>
         <Descriptions.Item label="本机IP">{localDomain}</Descriptions.Item>
       </Descriptions>
-      <div>
-        {
-          percents.map((data, index) => (
-          <div key={index}>
-            <Tag>{data.fname}</Tag>
-            <Progress percent={data.percent} />
-          </div>
-          ))
-        }
-      </div>
+      <Divider orientation="left">文件列表</Divider>
+      <List
+        itemLayout="horizontal"
+        dataSource={percents}
+        renderItem={item => (
+          <List.Item>
+            <List.Item.Meta
+              title={item.fname}
+              description={<Progress percent={item.percent} />}
+            />
+          </List.Item>
+        )}
+      />
     </PageHeader>
   );
 }

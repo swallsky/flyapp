@@ -76,14 +76,13 @@ function FileAdd() {
       <Divider orientation="left">文件列表</Divider>
       <List
         itemLayout="horizontal"
-        dataSource={percents}
+        dataSource={percents.reverse()}
         renderItem={item => {
-          console.log(parseInt(item.percent) === 100);
           return (
             <List.Item>
               <List.Item.Meta
                 avatar={
-                  parseInt(item.percent) === 100 ?
+                  parseInt(item.percent) === 100 ? // 上传完成后，展示图片
                     <Image width={60} height={60} src={(localDomain + "/api/upload/priview?filename=" + item.fname + "&" + Math.random())} /> :
                     <LoadingOutlined />
                 }

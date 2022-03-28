@@ -3,6 +3,7 @@ import "../../styles/fileadd.css";
 import Share from './shard';
 import axios from "axios";
 import { PageHeader, Descriptions, Progress, message, List, Divider, Image } from "antd";
+import { LoadingOutlined } from '@ant-design/icons';
 
 var uploadSn = 0; //当前文件序号,刷新页面时会重新计数
 /**
@@ -76,19 +77,22 @@ function FileAdd() {
       <List
         itemLayout="horizontal"
         dataSource={percents}
-        renderItem={item => (
-          <List.Item>
-            <List.Item.Meta
-              avatar={<Image
-                width={60}
-                height={60}
-                src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-              />}
-              title={item.fname}
-              description={<Progress percent={item.percent} />}
-            />
-          </List.Item>
-        )}
+        renderItem={item => {
+          console.log(parseInt(item.percent) === 100);
+          return (
+            <List.Item>
+              <List.Item.Meta
+                avatar={
+                  parseInt(item.percent) === 100 ?
+                    <Image width={60} height={60} src={(localDomain + "/api/upload/priview?filename=" + item.fname + "&" + Math.random())} /> :
+                    <LoadingOutlined />
+                }
+                title={item.fname}
+                description={<Progress percent={item.percent} />}
+              />
+            </List.Item>
+          )
+        }}
       />
     </PageHeader>
   );

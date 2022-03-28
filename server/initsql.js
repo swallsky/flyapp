@@ -15,6 +15,7 @@ CREATE TABLE IF NOT EXISTS fileList (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     filename VARCHAR,
     filepath VARCHAR,
+    filetype VARCHAR,
     create_date DATETIME DEFAULT (CURRENT_TIMESTAMP)
 );
 /* 常用配置 */

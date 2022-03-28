@@ -5,6 +5,8 @@ const router = require('koa-router')();
 const path = require('path');
 const multiparty = require('multiparty');
 const fs = require('fs-extra');
+const mime = require('mime-types');
+const { app } = require('electron');
 const { mkdirsSync } = require('../../utils/dir');
 const sqllite = require('../../sqlite3');
 
@@ -120,12 +122,40 @@ router.post('/merge_chunks', async (ctx, next) => {
   let concatBuffer = Buffer.concat(buffers);
   fs.writeFileSync(filePath, concatBuffer);
   // 写入到文件列表
-  await sqllite.insert(`INSERT INTO fileList (filename, filepath) VALUES (?,?)`, [filename,filePath]);
+  let filetype = filename.substring(filename.lastIndexOf(".") + 1); //获取后缀名
+  filetype = filetype.toLowerCase(); //转换为小写
+  await sqllite.insert(`INSERT INTO fileList (filename, filepath,filetype) VALUES (?,?,?)`, [filename, filePath, filetype]);
 
   console.log('切片合并成功!');
 
   ctx.status = 200;
   ctx.res.end('切片合并成功!');
+})
+
+/**
+ * 文件查看
+ */
+router.get('/priview', async (ctx, next) => {
+  const { filename } = ctx.query;
+  let data = await sqllite.fetch('select * from fileList where filename=?', [filename]);
+  if (data) { //能查到的
+    let ufile = '';
+    if (['png', 'jpg', 'jpeg', 'git'].indexOf(data.filetype) != -1) {
+      ufile = fs.readFileSync(data.filepath); //读取文件
+    } else {
+      ufile = fs.readFileSync(path.join(app.getAppPath(), 'server', 'assets', 'icons', data.filetype + '.png'));
+    }
+    let ufileType = mime.lookup(ufile); // 读取图片文件类型
+    ctx.status = 200;
+    ctx.set('content-type', ufileType) //设置返回类型
+    ctx.body = ufile;
+  } else {
+    let unknownfile = fs.readFileSync(path.join(app.getAppPath(), 'server', 'assets', 'icons', 'unknownfile.png'));
+    let unknownfileType = mime.lookup(unknownfile); // 读取图片文件类型
+    ctx.status = 200;
+    ctx.set('content-type', unknownfileType) //设置返回类型
+    ctx.body = unknownfile;
+  }
 })
 
 

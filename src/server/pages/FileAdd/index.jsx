@@ -50,6 +50,7 @@ function FileAdd() {
       message.error(dirData.data.data);
       return;
     }
+    setPercents(() => []); //清空原对列
     let files = event.target.files;
     //同时上传多个文件
     for (let i = 0; i < files.length; i++) {

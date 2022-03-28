@@ -119,6 +119,9 @@ router.post('/merge_chunks', async (ctx, next) => {
   //合并文件
   let concatBuffer = Buffer.concat(buffers);
   fs.writeFileSync(filePath, concatBuffer);
+  // 写入到文件列表
+  await sqllite.insert(`INSERT INTO fileList (filename, filepath) VALUES (?,?)`, [filename,filePath]);
+
   console.log('切片合并成功!');
 
   ctx.status = 200;

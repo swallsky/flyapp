@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../../styles/fileadd.css";
 import Share from './shard';
 import axios from "axios";
-import { PageHeader, Descriptions, Progress, message, List,Divider } from "antd";
+import { PageHeader, Descriptions, Progress, message, List, Divider, Image } from "antd";
 
 var uploadSn = 0; //当前文件序号,刷新页面时会重新计数
 /**
@@ -55,7 +55,7 @@ function FileAdd() {
     //同时上传多个文件
     for (let i = 0; i < files.length; i++) {
       await Share(localDomain, uploadSn, files[i], setPrecent);
-      console.log(uploadSn);
+      // console.log(uploadSn);
       uploadSn++; //当前文件序号
     }
   }
@@ -79,6 +79,11 @@ function FileAdd() {
         renderItem={item => (
           <List.Item>
             <List.Item.Meta
+              avatar={<Image
+                width={60}
+                height={60}
+                src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+              />}
               title={item.fname}
               description={<Progress percent={item.percent} />}
             />

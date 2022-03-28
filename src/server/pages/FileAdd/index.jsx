@@ -4,6 +4,7 @@ import Share from './shard';
 import axios from "axios";
 import { PageHeader, Descriptions, Progress, message, List,Divider } from "antd";
 
+var uploadSn = 0; //当前文件序号,刷新页面时会重新计数
 /**
  * 文件上传组件
  * @returns 
@@ -50,11 +51,12 @@ function FileAdd() {
       message.error(dirData.data.data);
       return;
     }
-    setPercents(() => []); //清空原对列
     let files = event.target.files;
     //同时上传多个文件
     for (let i = 0; i < files.length; i++) {
-      await Share(localDomain, i, files[i], setPrecent);
+      await Share(localDomain, uploadSn, files[i], setPrecent);
+      console.log(uploadSn);
+      uploadSn++; //当前文件序号
     }
   }
 

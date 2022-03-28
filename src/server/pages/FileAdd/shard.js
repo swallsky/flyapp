@@ -10,6 +10,7 @@ const chunkSize = 1 * 1024 * 1024;
  * @param {*} nfilename 新的文件名
  * @param {*} si 分片序号
  * @param {*} tsi 总分片数
+ * @param {*} fsn 文件序号
  * @param {*} setPrecent 百分比
  */
 async function shardRes(apiDomain, file, nfilename, si = 0, tsi, fsn, setPrecent) {

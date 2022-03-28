@@ -84,7 +84,7 @@ function FileAdd() {
                 avatar={
                   parseInt(item.percent) === 100 ? // 上传完成后，展示图片
                     <Image width={60} height={60} src={(localDomain + "/api/upload/priview?filename=" + item.fname + "&" + Math.random())} /> :
-                    <LoadingOutlined />
+                    <div style={{ width: 60, height: 60, textAlign: 'center' }}><LoadingOutlined style={{ fontSize: 24 }} /></div>
                 }
                 title={item.fname}
                 description={<Progress percent={item.percent} />}

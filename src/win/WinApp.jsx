@@ -1,6 +1,6 @@
 import { FileAddOutlined, ProfileOutlined } from '@ant-design/icons';
 import './styles/app.css';
-import React from "react";
+import React,{useState,useEffect} from "react";
 import { Outlet,useNavigate } from 'react-router-dom';
 import { Layout, Menu } from "antd";
 const { Content, Sider } = Layout;
@@ -8,12 +8,18 @@ const { Content, Sider } = Layout;
 /**
  * 基础布局
  */
-export default function WinApp(props) {
+export default function WinApp() {
   const navigate = useNavigate();
+  const [defMenu,setDefMenu] = useState(['']); //设置默认菜单状态
+
+  useEffect(()=>{
+    setDefMenu(window.location.hash.substring(1));
+  },[])
 
   // 点击菜单
   let menuClick = (e)=>{
-    console.log(e);
+    // console.log(e);
+    setDefMenu(e.key);
     navigate(e.key);
   }
 
@@ -34,9 +40,9 @@ export default function WinApp(props) {
         <Sider
           width={60}
         >
-          <Menu onClick={menuClick} theme="dark" mode="inline" defaultSelectedKeys={['/win']}>
+          <Menu onClick={menuClick} theme="dark" mode="inline" defaultSelectedKeys={defMenu} selectedKeys={defMenu}>
             <Menu.Item key="/win" style={{paddingLeft:'16px'}} icon={<FileAddOutlined style={{fontSize:28}} />}></Menu.Item>
-            <Menu.Item key="/win/2" style={{paddingLeft:'16px'}} icon={<ProfileOutlined style={{fontSize:28}} />}></Menu.Item>
+            <Menu.Item key="/win/conf" style={{paddingLeft:'16px'}} icon={<ProfileOutlined style={{fontSize:28}} />}></Menu.Item>
           </Menu>
         </Sider>
         <Content>

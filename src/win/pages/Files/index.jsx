@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
-import { PageHeader, Button, Descriptions,Image,message } from "antd";
+import { PageHeader, Descriptions,Image } from "antd";
 
 function Files(props) {
   const [qrUrl, setQrUrl] = useState(''); //二维码地址
@@ -20,27 +20,10 @@ function Files(props) {
 
   }, [props])
 
-  async function openDir() {
-    const { ipcRenderer } = window.electron;
-    let dirs = await ipcRenderer.invoke('open-dir');
-    if (dirs) {
-      let res = await axios.post(props.apiDomain + '/api/upload/uppath', { data: dirs[0] });
-      setSaveDir(res.data.dir); //显示保存目录
-      message.success('目录设置成功');
-    } else {
-      console.log(dirs);
-    }
-  }
-
   return (
-    <PageHeader title="文件上传" subTitle="局域网文件传输软件"
-    extra={[
-      <Button type='primary' key={0} onClick={openDir}>请选择目录</Button>
-    ]}
-    >
-      <Descriptions size="middle" column={1}>
+    <PageHeader title="文件上传" subTitle="局域网文件传输软件">
+      <Descriptions size="middle" column={1} bordered>
         <Descriptions.Item label="保存目录">{saveDir}</Descriptions.Item>
-        <Descriptions.Item label="本机IP">{props.apiDomain}</Descriptions.Item>
         <Descriptions.Item label="打开微信扫码">
           <Image width={200} height={200} src={qrUrl} />
         </Descriptions.Item>

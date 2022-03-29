@@ -1,8 +1,7 @@
 import axios from "axios";
 
-// 每个chunk的大小，设置为1M
+// 每个chunk的大小，设置为2M
 const chunkSize = 2 * 1024 * 1024;
-// const chunkSize = 1 * 1024 ;
 
 /**
  * 分片上传

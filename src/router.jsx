@@ -12,7 +12,7 @@ export default function Router() {
     <Provider store={store}>
       <HashRouter>
         <Routes>
-          <Route path="/" element={<Navigate to="win" />} />
+          <Route path="/" element={<Navigate to="/win/file" />} />
         </Routes>
         <WinRouter />
         <SerRouter />

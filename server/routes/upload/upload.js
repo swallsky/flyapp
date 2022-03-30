@@ -158,5 +158,14 @@ router.get('/priview', async (ctx, next) => {
   }
 })
 
+/**
+ * 获取文件列表
+ */
+router.get('/filelist',async (ctx,next)=>{
+  let data =  await sqllite.fetchAll('select * from fileList order by create_date desc');
+  ctx.status = 200;
+  ctx.body = data;
+})
+
 
 module.exports = router;

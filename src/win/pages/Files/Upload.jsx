@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import { PageHeader, Descriptions, Image } from "antd";
 
-function Files(props) {
+function FilesUpload(props) {
   const [qrUrl, setQrUrl] = useState(''); //二维码地址
   const [saveDir, setSaveDir] = useState(''); // 上传保存目录
 
@@ -21,7 +21,7 @@ function Files(props) {
   }, [props])
 
   return (
-    <PageHeader title="文件上传" subTitle="局域网文件传输软件">
+    <PageHeader title="文件上传" subTitle="局域网文件传输软件" ghost={false}>
       <Descriptions size="middle" column={1} bordered>
         <Descriptions.Item label="特别说明"><span style={{ color: 'red' }}>请确保软件和扫码设备在同一局域网内</span></Descriptions.Item>
         <Descriptions.Item label="保存目录">{saveDir}</Descriptions.Item>
@@ -54,4 +54,4 @@ const mapDisptchToProps = (dispatch) => {
   }
 }
 
-export default connect(mapStateToProps, mapDisptchToProps)(Files);
+export default connect(mapStateToProps, mapDisptchToProps)(FilesUpload);

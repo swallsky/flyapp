@@ -31,7 +31,10 @@ function FileConf(props) {
     }
 
     return (
-        <PageHeader title="配置" subTitle="全局配置信息">
+        <PageHeader
+            title="配置"
+            subTitle="全局配置信息"
+            ghost={false}>
             <Divider orientation="left">文件上传配置</Divider>
             <Descriptions size="small" column={1} bordered>
                 <Descriptions.Item label={<Button type='primary' onClick={openDir}>请选择目录</Button>}>{saveDir}</Descriptions.Item>

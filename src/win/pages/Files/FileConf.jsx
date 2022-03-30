@@ -32,8 +32,8 @@ function FileConf(props) {
 
     return (
         <PageHeader
-            title="配置"
-            subTitle="全局配置信息"
+            title="配置信息"
+            subTitle="文件上传配置信息"
             ghost={false}>
             <Divider orientation="left">文件上传配置</Divider>
             <Descriptions size="small" column={1} bordered>

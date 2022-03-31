@@ -161,10 +161,24 @@ router.get('/priview', async (ctx, next) => {
 /**
  * 获取文件列表
  */
-router.get('/filelist',async (ctx,next)=>{
-  let data =  await sqllite.fetchAll('select * from fileList order by create_date desc');
+router.get('/filelist', async (ctx, next) => {
+  let data = await sqllite.fetchAll('select * from fileList order by create_date desc');
+  let newData = [];
+  for (let i = 0; i < data.length; i++) {
+    let row = data[i];
+    if (fs.existsSync(row.filepath)) {
+      let ufile = '';
+      if (['png', 'jpg', 'jpeg', 'git'].indexOf(row.filetype) != -1) {
+        ufile = fs.readFileSync(row.filepath); //读取文件
+      } else {
+        ufile = fs.readFileSync(path.join(app.getAppPath(), 'server', 'assets', 'icons', row.filetype + '.png'));
+      }
+      row['blobfile'] = ufile.toString('base64');
+      newData.push(row);
+    }
+  }
   ctx.status = 200;
-  ctx.body = data;
+  ctx.body = newData;
 })
 
 

@@ -43,15 +43,15 @@ function createWindow() {
     // 生产环境时
     win.loadFile(path.join(__dirname, "build", "index.html"));
   }
-  //ipc主进程管理器
-  ipcManager();
+}
+//移除loading view
+function removeLoading(){
+  win.removeBrowserView(loadingView); 
+  loadingView = null;
 }
 
 //先创建主窗口，再启动后台服务
-app.whenReady().then(createWindow).then(Server).then(()=>{
-  win.removeBrowserView(loadingView); // 移除loading窗口
-  loadingView = null;
-});
+app.whenReady().then(createWindow).then(Server).then(ipcManager).then(removeLoading);
 
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") {
@@ -63,6 +63,8 @@ app.on("window-all-closed", () => {
 app.on("activate", () => {
   if (BrowserWindow.getAllWindows().length === 0) {
     createWindow();
+    // 移除loading窗口
+    removeLoading();
   }
 });
 

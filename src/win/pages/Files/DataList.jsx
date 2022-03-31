@@ -5,17 +5,19 @@ import axios from 'axios';
 
 function DataList(props) {
   const [data, setData] = useState([]);
+  const [ftotal, setFtotal] = useState(0);
 
   useEffect(() => {
     axios.get(props.apiDomain+'/api/upload/filelist').then(data => {
       setData(data.data);
+      setFtotal(data.data.length); //获取总文件个数
     });
   }, [props]);
 
   return (
     <PageHeader
       title="文件列表"
-      subTitle="文件信息列表"
+      subTitle={`共计${ftotal}个文件`}
       ghost={false}
     >
       <List
@@ -30,7 +32,7 @@ function DataList(props) {
             <List.Item>
               <List.Item.Meta
                 avatar={
-                  <Image width={60} height={60} src={(props.apiDomain + "/api/upload/priview?filename=" + item.filename + "&" + Math.random())} />
+                  <Image width={60} height={60} src={`data:image/jpeg;base64,${item.blobfile}`} />
                 }
                 title={item.filename}
                 description={item.filepath}

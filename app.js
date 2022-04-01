@@ -1,7 +1,7 @@
-const { app, BrowserWindow,BrowserView, ipcMain, dialog } = require("electron");
+const { app, BrowserWindow, BrowserView } = require("electron");
 const path = require("path");
 const Server = require('./server/app');
-const ipcManager = require('./ipc');
+const ipcManager = require('./main/ipc');
 
 /**
  * 创建主窗口进程
@@ -12,11 +12,11 @@ function createWindow() {
   win = new BrowserWindow({
     width: 800,
     height: 600,
-    show:false, // 为了防止白屏，先将主进程隐藏
+    show: false, // 为了防止白屏，先将主进程隐藏
     webPreferences: {
       nodeIntegration: true, //开启渲染进程node功能
       contextIsolation: false,
-      preload: path.resolve(__dirname, "preload.js"), //预加载node模块
+      preload: path.resolve(__dirname, "main", "preload.js"), //预加载node模块
     },
     titleBarStyle: "hidden",
     titleBarOverlay: {
@@ -28,9 +28,9 @@ function createWindow() {
   // loading界面
   loadingView = new BrowserView();
   win.setBrowserView(loadingView);
-  loadingView.setBounds({x:0,y:0,width:800,height:600});
-  loadingView.webContents.loadFile('loading.html');
-  loadingView.webContents.on('dom-ready',()=>{
+  loadingView.setBounds({ x: 0, y: 0, width: 800, height: 600 });
+  loadingView.webContents.loadFile(path.resolve(__dirname,"main","loading.html"));
+  loadingView.webContents.on('dom-ready', () => {
     win.show();
   });
 
@@ -41,12 +41,12 @@ function createWindow() {
     win.webContents.openDevTools();
   } else {
     // 生产环境时
-    win.loadFile(path.join(__dirname, "build", "index.html"));
+    win.loadFile(path.resolve(__dirname, "build", "index.html"));
   }
 }
 //移除loading view
-function removeLoading(){
-  win.removeBrowserView(loadingView); 
+function removeLoading() {
+  win.removeBrowserView(loadingView);
   loadingView = null;
 }
 

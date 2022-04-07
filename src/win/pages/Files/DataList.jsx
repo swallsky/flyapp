@@ -14,6 +14,13 @@ function DataList(props) {
     });
   }, [props]);
 
+  //打开文件
+  async function openFile(e){
+    let filePath = e.target.innerText;
+    const { ipcRenderer } = window.electron;
+    ipcRenderer.invoke('open-file',filePath); //打开文件
+  }
+
   return (
     <PageHeader
       title="文件列表"
@@ -34,8 +41,8 @@ function DataList(props) {
                 avatar={
                   <Image width={60} height={60} src={`data:image/jpeg;base64,${item.blobfile}`} />
                 }
-                title={item.filename}
-                description={item.filepath}
+                title={<div style={{cursor:'default'}}>{item.filename}</div>}
+                description={<div onClick={openFile} style={{cursor:'default'}}>{item.filepath}</div>}
               />
             </List.Item>
           )

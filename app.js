@@ -29,6 +29,7 @@ function createWindow() {
   loadingView = new BrowserView();
   win.setBrowserView(loadingView);
   loadingView.setBounds({ x: 0, y: 0, width: 800, height: 600 });
+  loadingView.setBackgroundColor("#C0C0C0");
   loadingView.webContents.loadFile(path.resolve(__dirname,"main","loading.html"));
   loadingView.webContents.on('dom-ready', () => {
     win.show();
@@ -46,12 +47,15 @@ function createWindow() {
 }
 //移除loading view
 function removeLoading() {
-  win.removeBrowserView(loadingView);
+  //延时1s
+  setTimeout(()=>{
+    win.removeBrowserView(loadingView);
   loadingView = null;
+  },1000);
 }
 
 //先创建主窗口，再启动后台服务
-app.whenReady().then(createWindow).then(Server).then(ipcManager).then(removeLoading);
+app.whenReady().then(createWindow).then(removeLoading).then(Server).then(ipcManager);
 
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") {

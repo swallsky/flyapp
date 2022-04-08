@@ -31,6 +31,7 @@ export default function WsLayout(props) {
           onClick={menuClick}
         >
           <Menu.Item key="/win/website">登录说明</Menu.Item>
+          <Menu.Item key="/win/website/list">登录列表</Menu.Item>
         </Menu>
       </Sider>
       <Layout style={{ padding: '0 24px 24px',height:'100vh' }}>

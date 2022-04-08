@@ -29,7 +29,7 @@ function createWindow() {
   loadingView = new BrowserView();
   win.setBrowserView(loadingView);
   loadingView.setBounds({ x: 0, y: 0, width: 800, height: 600 });
-  loadingView.setBackgroundColor("#C0C0C0");
+  loadingView.setBackgroundColor("#FFFFFF");
   loadingView.webContents.loadFile(path.resolve(__dirname,"main","loading.html"));
   loadingView.webContents.on('dom-ready', () => {
     win.show();

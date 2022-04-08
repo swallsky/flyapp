@@ -1,4 +1,4 @@
-import { FileAddOutlined } from '@ant-design/icons';
+import { FileAddOutlined,ChromeOutlined } from '@ant-design/icons';
 // import { FileAddOutlined, SettingOutlined, ProfileOutlined } from '@ant-design/icons';
 import './styles/app.css';
 import React, { useState, useEffect } from "react";
@@ -43,7 +43,7 @@ export default function WinApp() {
         >
           <Menu onClick={menuClick} theme="dark" mode="inline" defaultSelectedKeys={defMenu} selectedKeys={defMenu}>
             <Menu.Item key="/win/file" style={{ paddingLeft: '16px' }} icon={<FileAddOutlined style={{ fontSize: 28 }} />}></Menu.Item>
-            {/* <Menu.Item key="/win/file/list" style={{ paddingLeft: '16px' }} icon={<ProfileOutlined style={{ fontSize: 28 }} />}></Menu.Item> */}
+            <Menu.Item key="/win/website" style={{ paddingLeft: '16px' }} icon={<ChromeOutlined style={{ fontSize: 28 }} />}></Menu.Item>
             {/* <Menu.Item key="/win/file/conf" style={{ paddingLeft: '16px' }} icon={<SettingOutlined style={{ fontSize: 28 }} />}></Menu.Item> */}
           </Menu>
         </Sider>

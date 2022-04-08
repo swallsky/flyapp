@@ -9,6 +9,9 @@ import FilesUpload from "./pages/Files/Upload";
 import FileConf from "./pages/Files/FileConf";
 import DataList from "./pages/Files/DataList";
 
+import WsLayout from "./pages/WebSite/WsLayout";
+import WsInfo from "./pages/WebSite/WsInfo";
+
 export default function WinRouter() {
   return (
     <Routes>
@@ -17,6 +20,9 @@ export default function WinRouter() {
           <Route path="" element={<FilesUpload />} />
           <Route path="list" element={<DataList />} />
           <Route path="conf" element={<FileConf />} />
+        </Route>
+        <Route path="website" element={<WsLayout />}>
+          <Route path="" element={<WsInfo />} />
         </Route>
         <Route path="*" element={<NoMatch />} />
       </Route>

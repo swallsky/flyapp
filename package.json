@@ -1,6 +1,6 @@
 {
-  "name": "flyphoto",
-  "version": "0.1.0",
+  "name": "flyapp",
+  "version": "0.1.1",
   "author": {
     "name": "jackXu"
   },
@@ -56,8 +56,8 @@
     "pack:win": "yarn build && electron-builder build --win --ia32"
   },
   "build": {
-    "appId": "com.electron.flyphoto",
-    "productName": "flyphoto",
+    "appId": "com.electron.flyapp",
+    "productName": "flyapp",
     "asar": true,
     "files": [
       "app.js",

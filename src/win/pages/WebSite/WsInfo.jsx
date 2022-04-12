@@ -11,7 +11,7 @@ function WsInfo() {
         <Descriptions.Item label="密码保存">
           保存常用项目网站密码
         </Descriptions.Item>
-        <Descriptions.Item label="快捷wkgu录">
+        <Descriptions.Item label="快捷登录">
           一键登录，无须重复输入
         </Descriptions.Item>
       </Descriptions>

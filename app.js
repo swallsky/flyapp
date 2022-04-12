@@ -14,8 +14,6 @@ function createWindow() {
     height: 600,
     show: false, // 为了防止白屏，先将主进程隐藏
     webPreferences: {
-      nodeIntegration: true, //开启渲染进程node功能
-      contextIsolation: false,
       preload: path.resolve(__dirname, "main", "preload.js"), //预加载node模块
     },
     titleBarStyle: "hidden",

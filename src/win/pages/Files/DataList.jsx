@@ -17,7 +17,7 @@ function DataList(props) {
   //打开文件
   async function openFile(e){
     let filePath = e.target.innerText;
-    window.electron.ipcRenderer.send('open-file',filePath);  //打开文件
+    window.electronApi.openFile(filePath);  //打开文件
   }
 
   return (

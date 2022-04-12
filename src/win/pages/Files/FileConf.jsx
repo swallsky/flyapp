@@ -19,7 +19,7 @@ function FileConf(props) {
     }, [props])
 
     async function openDir() {
-        let dirs = await window.electron.ipcRenderer.invoke('open-dir');
+        let dirs = await window.electronApi.saveDir();
         if (dirs) {
             let res = await axios.post(props.apiDomain + '/api/upload/uppath', { data: dirs[0] });
             setSaveDir(res.data.dir); //显示保存目录

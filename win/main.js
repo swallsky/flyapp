@@ -1,6 +1,5 @@
 const { BrowserWindow, BrowserView } = require("electron");
 const path = require("path");
-const ipcManager = require("./ipc");
 /**
  * 创建主窗口进程
  */
@@ -23,8 +22,6 @@ exports.mainWindow = function () {
       symbolColor: "#74b1be",
     },
   });
-
-  ipcManager();
 
   if (process.env.NODE_ENV === "dev") {
     // 开发环境时

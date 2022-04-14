@@ -1,5 +1,6 @@
 const { app, BrowserWindow } = require("electron");
 const Server = require("./server/app");
+const ipcManager = require("./ipc");
 const { mainWindow, mainLoading } = require("./win/main");
 
 let win = null;
@@ -7,6 +8,7 @@ let win = null;
 app
   .whenReady()
   .then(() => {
+    ipcManager(); //主进程与渲染进程间通讯管理
     win = mainWindow();
     mainLoading(win);
   })

@@ -61,6 +61,7 @@
     "asar": true,
     "files": [
       "app.js",
+      "ipc.js",
       "win/*",
       "win/**/*",
       "build/*",

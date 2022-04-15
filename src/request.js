@@ -9,9 +9,14 @@ const request = {
    */
   getRemoteURL: async () => {
     if (request.baseURL === "") { //防止重复读取，提高性能
-      let ip = await window.electronApi.getLocalIP();
-      request.baseURL = "http://" + ip+":4321";
-      return request.baseURL;
+      if(typeof window.electronApi === 'undefined'){//当为h5模式时
+        request.baseURL = 'http://'+window.location.host;
+        return request.baseURL;
+      }else{
+        let ip = await window.electronApi.getLocalIP();
+        request.baseURL = "http://" + ip+":4321";
+        return request.baseURL;
+      }
     } else {
       return request.baseURL;
     }

@@ -21,6 +21,7 @@ CREATE TABLE IF NOT EXISTS fileList (
 /* 网站列表 */
 CREATE TABLE IF NOT EXISTS website (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
+    title VARCHAR,
     url VARCHAR,
     username VARCHAR,
     password VARCHAR,

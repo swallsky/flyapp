@@ -35,7 +35,7 @@ router.post('/uppath', async (ctx, next) => {
   if (updir) { //存在则更新
     await sqllite.execute('update metaData set data="' + data + '" where type="uploaddir"');
   } else { //不存在则写入
-    await sqllite.insert('insert into metaData(data,type) values(?,?)', [data, "uploaddir"]);
+    await sqllite.insert('metaData', {'data':data, 'type':"uploaddir"});
   }
   ctx.body = { status: 200, dir: data, msg: '修改成功' };
 });
@@ -62,7 +62,7 @@ router.post('/upload', async (ctx, next) => {
   }
 
   // 同步写入
-  let res = await new Promise((resolve, reject) => {
+  await new Promise((resolve, reject) => {
     // 上传文件
     const form = new multiparty.Form({
       uploadDir: chunksPath
@@ -72,7 +72,7 @@ router.post('/upload', async (ctx, next) => {
         reject(err);
       } else {
         //写入数据库
-        await sqllite.batchInsert(`INSERT INTO uploadList (filename, filepath, sn) VALUES (?,?,?)`, [[fields.filename[0], files.file[0].path, fields.fi[0]]]);
+        await sqllite.insert('uploadList', {'filename':fields.filename[0], 'filepath':files.file[0].path, 'sn':fields.fi[0]});
       }
     });
     form.on('file', () => {
@@ -124,7 +124,7 @@ router.post('/merge_chunks', async (ctx, next) => {
   // 写入到文件列表
   let filetype = filename.substring(filename.lastIndexOf(".") + 1); //获取后缀名
   filetype = filetype.toLowerCase(); //转换为小写
-  await sqllite.insert(`INSERT INTO fileList (filename, filepath,filetype) VALUES (?,?,?)`, [filename, filePath, filetype]);
+  await sqllite.insert('fileList', {'filename':filename, 'filepath':filePath, 'filetype':filetype});
 
   console.log('切片合并成功!');
 
@@ -140,7 +140,7 @@ router.get('/priview', async (ctx, next) => {
   let data = await sqllite.fetch('select * from fileList where filename=?', [filename]);
   if (data) { //能查到的
     let ufile = '';
-    if (['png', 'jpg', 'jpeg', 'git'].indexOf(data.filetype) != -1) {
+    if (['png', 'jpg', 'jpeg', 'git'].indexOf(data.filetype) !== -1) {
       ufile = fs.readFileSync(data.filepath); //读取文件
     } else {
       ufile = fs.readFileSync(path.join(app.getAppPath(), 'server', 'assets', 'icons', data.filetype + '.png'));
@@ -168,7 +168,7 @@ router.get('/filelist', async (ctx, next) => {
     let row = data[i];
     if (fs.existsSync(row.filepath)) {
       let ufile = '';
-      if (['png', 'jpg', 'jpeg', 'git'].indexOf(row.filetype) != -1) {
+      if (['png', 'jpg', 'jpeg', 'git'].indexOf(row.filetype) !== -1) {
         ufile = fs.readFileSync(row.filepath); //读取文件
       } else {
         ufile = fs.readFileSync(path.join(app.getAppPath(), 'server', 'assets', 'icons', row.filetype + '.png'));

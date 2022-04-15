@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useEffect} from "react";
 import { Modal, Form, Input,message } from "antd";
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
 import request from "../../../request";
@@ -7,16 +7,19 @@ import request from "../../../request";
  * @returns
  */
 export default function WsFormData(props) {
-  const [accout] = Form.useForm(); //表单对象
-
-  // 提测
+  //表单对象
+  const [accout] = Form.useForm(); 
+  
+  // 提交
   const handleOk = async () => {
     let data = await accout.validateFields();
-    // console.log(data);
-    let res = await request.post("/api/website/add",data);
-    console.log(res);
+    if(props.formData.id){
+      data.id = props.formData.id;
+    }
+    let res = await request.post("/api/website/update",data);
+    // console.log(res);
     if(res.status === 200){
-      message.success("新增成功");
+      message.success("更新成功!");
       props.setIsFormVisible(false);
       props.getAccount(); //刷新列表
       accout.resetFields(); //重置
@@ -30,9 +33,13 @@ export default function WsFormData(props) {
     props.setIsFormVisible(false);
   };
 
+  useEffect(()=>{
+    if(props.formData) accout.setFieldsValue(props.formData); //有填充数据时，更新
+  },[props.formData,accout]);
+
   return (
     <Modal
-      title="新增账号"
+      title={props.formTitle}
       visible={props.isFormVisible}
       colon={false}
       onOk={handleOk}
@@ -48,6 +55,14 @@ export default function WsFormData(props) {
         labelWrap
         wrapperCol={{ flex: 1 }}
       >
+        <Form.Item
+          label="标题"
+          name="title"
+          rules={[{ required: true, message: "请输入标题" }]}
+        >
+          <Input />
+        </Form.Item>
+
         <Form.Item
           label="网址"
           name="url"

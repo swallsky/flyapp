@@ -1,26 +1,39 @@
 /**
- * 文件上传
+ * 站点数据管理
  */
 const router = require("koa-router")();
-const path = require("path");
-const fs = require("fs-extra");
-const { app } = require("electron");
 const sqllite = require("../../sqlite3");
 
 /**
  * 新增数据
  */
-router.post("/add", async (ctx, next) => {
+router.post("/update", async (ctx, next) => {
   const data = ctx.request.body;
-  await sqllite.insert(
-    "insert into website(url,username,password) values(?,?,?)",
-    [data.url, data.username, data.password]
-  );
+  if (data.id > 0) {
+    //修改
+    await sqllite.update("website", data, "id=" + data.id);
+  } else {
+    //新增
+    await sqllite.insert("website", data);
+  }
   ctx.body = {
     status: 200,
-    msg: "写入成功",
+    msg: "更新成功",
   };
 });
+
+
+/**
+ * 删除数据
+ */
+router.get("/delete",async (ctx,next)=>{
+  const {id} = ctx.query;
+  if(id>0) await sqllite.execute("delete from website where id="+id+"");
+  ctx.body = {
+    status:200,
+    msg:"删除成功"
+  };
+})
 
 /**
  * 获取列表

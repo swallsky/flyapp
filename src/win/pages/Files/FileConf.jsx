@@ -1,27 +1,26 @@
 import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
-import axios from 'axios';
+import request from '../../../request';
 import { PageHeader, Divider, Descriptions, Button, message } from "antd";
 
-function FileConf(props) {
+export default function FileConf(props) {
     const [saveDir, setSaveDir] = useState(''); // 上传保存目录
+    const [localIP, setLocalIP] = useState(''); // 本地ip
 
     useEffect(() => {
         // 获取本地ip
-        axios.get(props.apiDomain + '/api/get-remote-api').then(dm => {
-            props.updateApiDm(dm.data); //修改为局域网ip port
+        request.get('/api/get-remote-api').then(dm => {
+            setLocalIP(dm.data); //修改为局域网ip port
         });
         // 获取保存目录
-        axios.get(props.apiDomain + '/api/upload/getpath').then(data => {
+        request.get('/api/upload/getpath').then(data => {
             setSaveDir(data.data.data);
         });
-
-    }, [props])
+    }, [])
 
     async function openDir() {
         let dirs = await window.electronApi.saveDir();
         if (dirs) {
-            let res = await axios.post(props.apiDomain + '/api/upload/uppath', { data: dirs[0] });
+            let res = await request.post('/api/upload/uppath', { data: dirs[0] });
             setSaveDir(res.data.dir); //显示保存目录
             message.success('目录设置成功');
         } else {
@@ -38,32 +37,8 @@ function FileConf(props) {
             <Descriptions size="small" column={1} bordered>
                 <Descriptions.Item label={<Button type='primary' onClick={openDir}>请选择目录</Button>}>{saveDir}</Descriptions.Item>
                 <Descriptions.Item label="文件切片大小">2M</Descriptions.Item>
-                <Descriptions.Item label="本地服务地址">{props.apiDomain}</Descriptions.Item>
+                <Descriptions.Item label="本地服务地址">{localIP}</Descriptions.Item>
             </Descriptions>
         </PageHeader>
     )
 }
-
-
-//state映射
-const mapStateToProps = (state) => {
-    return {
-        apiDomain: state.apiDomain, //服务端域名
-    }
-}
-
-// 事件派发映射: 将reducer中的事件映射成props
-const mapDisptchToProps = (dispatch) => {
-    return {
-        /**
-         * 修改后端api地址
-         * @param {*} domain 
-         */
-        updateApiDm(domain) {
-            const action = { type: "updateApiDomain", apiDomain: domain };
-            dispatch(action);// 更新redux
-        }
-    }
-}
-
-export default connect(mapStateToProps, mapDisptchToProps)(FileConf);

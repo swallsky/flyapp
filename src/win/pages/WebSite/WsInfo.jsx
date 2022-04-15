@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
-import { connect } from "react-redux";
 import { PageHeader, Descriptions } from "antd";
 
-function WsInfo() {
+export default function WsInfo() {
   useEffect(() => {}, []);
 
   return (
@@ -19,25 +18,3 @@ function WsInfo() {
   );
 }
 
-//state映射
-const mapStateToProps = (state) => {
-  return {
-    apiDomain: state.apiDomain, //服务端域名
-  };
-};
-
-// 事件派发映射: 将reducer中的事件映射成props
-const mapDisptchToProps = (dispatch) => {
-  return {
-    /**
-     * 修改后端api地址
-     * @param {*} domain
-     */
-    updateApiDm(domain) {
-      const action = { type: "updateApiDomain", apiDomain: domain };
-      dispatch(action); // 更新redux
-    },
-  };
-};
-
-export default connect(mapStateToProps, mapDisptchToProps)(WsInfo);

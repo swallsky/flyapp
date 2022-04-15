@@ -1,4 +1,4 @@
-import axios from "axios";
+import request from "../../../request";
 
 // 每个chunk的大小，设置为2M
 const chunkSize = 2 * 1024 * 1024;
@@ -25,14 +25,14 @@ async function shardRes(apiDomain, file, nfilename, si = 0, tsi, fsn, setPrecent
         formData.append('fi', si); // 当前分片序号
         formData.append('ftotal', tsi); // 总分片数
         // 启用同步代码，防止发生异步并发顺序错乱问题
-        await axios.post(apiDomain + '/api/upload/upload', formData);
+        await request.post('/api/upload/upload', formData);
         // console.log('切片' + si + '上传成功');
         si++;
         setPrecent(fsn, nfilename, si, tsi); //更新进度
         shardRes(apiDomain, file, nfilename, si, tsi, fsn, setPrecent); // 递归上传
     } else {
         // 合并切片
-        await axios.post(apiDomain + '/api/upload/merge_chunks', { filename: nfilename });
+        await request.post('/api/upload/merge_chunks', { filename: nfilename });
         // console.log('切片合并完成');
         setPrecent(fsn, nfilename, si, tsi); //更新进度
         return;

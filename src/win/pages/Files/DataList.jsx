@@ -1,18 +1,17 @@
 import React,{useState,useEffect} from 'react';
-import { connect } from 'react-redux';
 import { List,PageHeader,Image } from 'antd';
-import axios from 'axios';
+import request from '../../../request';
 
-function DataList(props) {
+export default function DataList() {
   const [data, setData] = useState([]);
   const [ftotal, setFtotal] = useState(0);
 
   useEffect(() => {
-    axios.get(props.apiDomain+'/api/upload/filelist').then(data => {
+    request.get('/api/upload/filelist').then(data => {
       setData(data.data);
       setFtotal(data.data.length); //获取总文件个数
     });
-  }, [props]);
+  }, []);
 
   //打开文件
   async function openFile(e){
@@ -50,12 +49,3 @@ function DataList(props) {
     </PageHeader>
   );
 }
-
-//state映射
-const mapStateToProps = (state) => {
-  return {
-    apiDomain: state.apiDomain, //服务端域名
-  }
-}
-
-export default connect(mapStateToProps)(DataList);

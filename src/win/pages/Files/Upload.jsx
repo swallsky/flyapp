@@ -1,20 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
-import axios from 'axios';
+import request from '../../../request';
 import { PageHeader, Descriptions, Image } from "antd";
 
-function FilesUpload(props) {
+export default function FilesUpload(props) {
   const [qrUrl, setQrUrl] = useState(''); //二维码地址
   const [saveDir, setSaveDir] = useState(''); // 上传保存目录
 
   useEffect(() => {
     // 获取本地ip
-    axios.get(props.apiDomain + '/api/get-remote-api').then(dm => {
-      props.updateApiDm(dm.data); //修改为局域网ip port
+    request.get('/api/get-remote-api').then(dm => {
       setQrUrl(dm.data + '/api/upload/qrcode');
     });
     // 获取保存目录
-    axios.get(props.apiDomain + '/api/upload/getpath').then(data => {
+    request.get('/api/upload/getpath').then(data => {
       setSaveDir(data.data.data);
     });
 
@@ -32,26 +30,3 @@ function FilesUpload(props) {
     </PageHeader>
   )
 }
-
-//state映射
-const mapStateToProps = (state) => {
-  return {
-    apiDomain: state.apiDomain, //服务端域名
-  }
-}
-
-// 事件派发映射: 将reducer中的事件映射成props
-const mapDisptchToProps = (dispatch) => {
-  return {
-    /**
-     * 修改后端api地址
-     * @param {*} domain 
-     */
-    updateApiDm(domain) {
-      const action = { type: "updateApiDomain", apiDomain: domain };
-      dispatch(action);// 更新redux
-    }
-  }
-}
-
-export default connect(mapStateToProps, mapDisptchToProps)(FilesUpload);

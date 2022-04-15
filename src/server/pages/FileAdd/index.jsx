@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../../styles/fileadd.css";
 import Share from './shard';
-import axios from "axios";
+import request from "../../../request";
 import { PageHeader, Descriptions, Progress, message, List, Divider, Image } from "antd";
 import { LoadingOutlined } from '@ant-design/icons';
 
@@ -10,21 +10,17 @@ var uploadSn = 0; //当前文件序号,刷新页面时会重新计数
  * 文件上传组件
  * @returns 
  */
-function FileAdd() {
+ export default function FileAdd() {
   const [localDomain, setLocalDomain] = useState('');
   const [percents, setPercents] = useState([]);
   const [saveDir, setSaveDir] = useState(''); // 上传保存目录
 
   useEffect(() => {
     // 设置api domain
-    let host = window.location.host;
-    let apiDomain = 'localhost:3000' === host ?
-      'http://localhost:4321' : //开发环境
-      'http://' + host; //正式环境
-    setLocalDomain(apiDomain);
+    setLocalDomain(request.baseURL());
 
     // 获取保存目录
-    axios.get(apiDomain + '/api/upload/getpath').then(data => {
+    request.get('/api/upload/getpath').then(data => {
       setSaveDir(data.data.data);
     });
 
@@ -47,7 +43,7 @@ function FileAdd() {
   // 文件变改时
   var fileChange = async (event) => {
     //判断上传目录是存在
-    let dirData = await axios.get(localDomain + '/api/upload/getpath');
+    let dirData = await request.get('/api/upload/getpath');
     if (dirData.data.status === 404) {
       message.error(dirData.data.data);
       return;
@@ -56,7 +52,6 @@ function FileAdd() {
     //同时上传多个文件
     for (let i = 0; i < files.length; i++) {
       await Share(localDomain, uploadSn, files[i], setPrecent);
-      // console.log(uploadSn);
       uploadSn++; //当前文件序号
     }
   }
@@ -96,5 +91,3 @@ function FileAdd() {
     </PageHeader>
   );
 }
-
-export default FileAdd;

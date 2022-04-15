@@ -18,6 +18,14 @@ CREATE TABLE IF NOT EXISTS fileList (
     filetype VARCHAR,
     create_date DATETIME DEFAULT (CURRENT_TIMESTAMP)
 );
+/* 网站列表 */
+CREATE TABLE IF NOT EXISTS website (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    url VARCHAR,
+    username VARCHAR,
+    password VARCHAR,
+    create_date DATETIME DEFAULT (CURRENT_TIMESTAMP)
+);
 /* 常用配置 */
 CREATE TABLE IF NOT EXISTS metaData (type VARCHAR, data VARCHAR);
 `;
@@ -26,7 +34,7 @@ CREATE TABLE IF NOT EXISTS metaData (type VARCHAR, data VARCHAR);
 module.exports = function(){
     let esql = SQL.split(';');
     for(let i=0;i<esql.length;i++){
-        if(esql[i]!=''){
+        if(esql[i]!==''){
             sqlite.execute(esql[i]); //执行sql 
         }
     }

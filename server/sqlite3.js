@@ -1,11 +1,10 @@
 /**
  * sqlite3 基础类
  */
-const fs = require('fs-extra');
 const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
 const { app } = require('electron');
-const sqlfilePath = path.join(app.getPath('home'), '.flyphoto.db');
+const sqlfilePath = path.join(app.getPath('home'), '.flyapp.db');
 const db = new sqlite3.Database(sqlfilePath);
 
 /**

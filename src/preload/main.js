@@ -37,6 +37,7 @@ contextBridge.exposeInMainWorld("electronApi", {
         // nativeWindowOpen: false, //关闭 window.open
         preload: path.resolve(path.dirname(__dirname), "preload", "aliyun.js"), //预加载node模块
         additionalArguments: [username, password], //传递相关参数
+        partition: (new Date().getTime()).toString(), // 隔离多窗口cookie信息，可实现多开账号登录
       },
     });
     webSiteWin[id].loadURL(url);

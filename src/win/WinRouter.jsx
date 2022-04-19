@@ -12,6 +12,7 @@ import DataList from "./pages/Files/DataList";
 // 网站密码管理
 import WsLayout from "./pages/WebSite/WsLayout";
 import WsInfo from "./pages/WebSite/WsInfo";
+import WsGroups from "./pages/WebSite/WsGroups";
 import WsList from "./pages/WebSite/WsList";
 
 export default function WinRouter() {
@@ -25,6 +26,7 @@ export default function WinRouter() {
         </Route>
         <Route path="website" element={<WsLayout />}>
           <Route path="" element={<WsInfo />} />
+          <Route path="groups" element={<WsGroups />} />
           <Route path="list" element={<WsList />} />
         </Route>
         <Route path="*" element={<NoMatch />} />

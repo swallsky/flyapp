@@ -22,7 +22,7 @@ export default function WsLayout(props) {
 
   return (
     <Layout>
-      <Sider width={150} className="site-layout-background">
+      <Sider width={220} className="site-layout-background">
         <Menu
           mode="inline"
           defaultSelectedKeys={defMenu} 
@@ -30,13 +30,14 @@ export default function WsLayout(props) {
           style={{ height: '100vh', borderRight: 0 }}
           onClick={menuClick}
         >
-          <Menu.Item key="/win/website">登录说明</Menu.Item>
+          <Menu.Item key="/win/website">账号管理</Menu.Item>
+          <Menu.Item key="/win/website/groups">分组管理</Menu.Item>
           <Menu.Item key="/win/website/list">登录列表</Menu.Item>
         </Menu>
       </Sider>
       <Layout style={{ padding: '0 24px 24px',height:'100vh' }}>
         <Breadcrumb style={{ margin: '16px 0' }}>
-          <Breadcrumb.Item>登录管理</Breadcrumb.Item>
+          <Breadcrumb.Item>账号管理</Breadcrumb.Item>
           <Breadcrumb.Item>{props.name}</Breadcrumb.Item>
         </Breadcrumb>
         <Content>

@@ -5,7 +5,7 @@ const path = require("path");
  */
 exports.mainWindow = function () {
   let win = new BrowserWindow({
-    width: 800,
+    width: 900,
     height: 600,
     show: false, // 为了防止白屏，先将主进程隐藏
     webPreferences: {

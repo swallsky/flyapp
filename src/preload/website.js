@@ -74,13 +74,20 @@ function mygitlab(username, password) {
  * @param {*} password
  */
 function other(username, password) {
-  setTimeout(() => { //防止ajax加载，延时1秒再填充
+  setTimeout(() => {
+    //防止ajax加载，延时1秒再填充
     let ouser = document.querySelector('input[name="username"]');
     if (ouser) ouser.value = username;
     let opwd = document.querySelector('input[name="password"]');
     if (opwd) opwd.value = password;
     opwd = document.querySelector('input[name="passwd"]');
     if (opwd) opwd.value = password;
+    setTimeout(() => { //提交尝试
+      let osubmit = document.querySelector('input[name="submit"]');
+      if (osubmit) osubmit.click();
+      osubmit = document.getElementById("LAY-user-login-submit"); //兼容老版本的layui
+      if (osubmit) osubmit.click();
+    }, 500);
   }, 1000);
 }
 

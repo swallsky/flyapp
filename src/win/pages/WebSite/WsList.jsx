@@ -42,6 +42,11 @@ export default function WsList() {
     })
   }
 
+  // 打开窗口
+  function openLogin(data){
+    window.electronApi.openLogin(data);
+  }
+
   return (
     <>
       <WsFormData
@@ -78,7 +83,7 @@ export default function WsList() {
                   okText="确定"
                   cancelText="取消"
                 ><Button icon={<DeleteOutlined />} /></Popconfirm>,
-                <Button icon={<LoginOutlined />} />,
+                <Button onClick={()=>openLogin(item)} icon={<LoginOutlined />} />,
               ]}
             >
               <List.Item.Meta

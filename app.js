@@ -1,4 +1,5 @@
 const { app, BrowserWindow } = require("electron");
+const remote = require("@electron/remote/main");
 const Server = require("./server/app");
 const ipcManager = require("./ipc");
 const { mainWindow, mainLoading } = require("./win/main");
@@ -11,6 +12,9 @@ app
     ipcManager(); //主进程与渲染进程间通讯管理
     win = mainWindow();
     mainLoading(win);
+    // 引入remote模块
+    remote.initialize();
+    remote.enable(win.webContents);
   })
   .then(Server);
 

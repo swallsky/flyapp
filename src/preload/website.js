@@ -1,15 +1,15 @@
 /**
  * 自动登录GitHub
- * @param {*} username 
- * @param {*} password 
+ * @param {*} username
+ * @param {*} password
  */
-function github(username,password){
+function github(username, password) {
   let ouser = document.getElementById("login_field");
   ouser.value = username;
-  let opwd = document.getElementById("password")
+  let opwd = document.getElementById("password");
   opwd.value = password;
   let osubmit = document.querySelector('input[type="submit"]');
-  setTimeout(()=>osubmit.click(),500);
+  setTimeout(() => osubmit.click(), 500);
 }
 /**
  * 自动登录阿里云
@@ -41,7 +41,8 @@ function aliyun(username, password) {
  */
 function tencent(username, password) {
   let nlogin = document.querySelectorAll("div.clg-other-link");
-  if (nlogin.length > 0) { //当前为未登录状态
+  if (nlogin.length > 0) {
+    //当前为未登录状态
     nlogin[0].querySelector("a").click(); //邮件登录
     setTimeout(() => {
       let ouser = document.querySelector("input.J-username");
@@ -55,26 +56,52 @@ function tencent(username, password) {
 
 /**
  * 自建gitlab
- * @param {*} username 
- * @param {*} password 
+ * @param {*} username
+ * @param {*} password
  */
-function mygitlab(username,password){
+function mygitlab(username, password) {
   let ouser = document.getElementById("user_login");
   ouser.value = username;
   let opwd = document.getElementById("user_password");
   opwd.value = password;
   let submit = document.querySelector('input[name="commit"]');
-  setTimeout(()=>submit.click(),500); //点击登录
+  setTimeout(() => submit.click(), 500); //点击登录
+}
+
+/**
+ * 其他情况，尝试自动填充
+ * @param {*} username
+ * @param {*} password
+ */
+function other(username, password) {
+  setTimeout(() => { //防止ajax加载，延时1秒再填充
+    let ouser = document.querySelector('input[name="username"]');
+    if (ouser) ouser.value = username;
+    let opwd = document.querySelector('input[name="password"]');
+    if (opwd) opwd.value = password;
+    opwd = document.querySelector('input[name="passwd"]');
+    if (opwd) opwd.value = password;
+  }, 1000);
 }
 
 // DOM加载完成时执行
 window.addEventListener("DOMContentLoaded", () => {
   let data = window.process.argv.slice(-3); // 获取后三个参数
+  console.log(data);
   switch (data[0]) {
-    case "github": github(data[1], data[2]); break;
-    case "aliyun": aliyun(data[1], data[2]); break;
-    case "tencent": tencent(data[1], data[2]); break;
-    case "mygitlab": mygitlab(data[1], data[2]); break;
-    default: break;
+    case "github":
+      github(data[1], data[2]);
+      break;
+    case "aliyun":
+      aliyun(data[1], data[2]);
+      break;
+    case "tencent":
+      tencent(data[1], data[2]);
+      break;
+    case "mygitlab":
+      mygitlab(data[1], data[2]);
+      break;
+    default:
+      other(data[1], data[2]);
   }
 });

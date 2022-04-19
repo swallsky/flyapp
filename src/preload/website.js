@@ -28,7 +28,7 @@ function aliyun(username, password) {
  */
 function tencent(username, password) {
   let nlogin = document.querySelectorAll("div.clg-other-link");
-  if (nlogin > 0) { //当前为未登录状态
+  if (nlogin.length > 0) { //当前为未登录状态
     nlogin[0].querySelector("a").click(); //邮件登录
     setTimeout(() => {
       let ouser = document.querySelector("input.J-username");
@@ -40,17 +40,35 @@ function tencent(username, password) {
   }
 }
 
+/**
+ * 自建gitlab
+ * @param {*} username 
+ * @param {*} password 
+ */
+function mygitlab(username,password){
+  let ouser = document.getElementById("user_login");
+  ouser.value = username;
+  let opwd = document.getElementById("user_password");
+  opwd.value = password;
+  let submit = document.querySelector('input[name="commit"]');
+  setTimeout(()=>submit.click(),500); //点击登录
+}
+
 // dom加载完成
 window.addEventListener("DOMContentLoaded", () => {
   let data = window.process.argv.slice(-3); // 获取后三个参数
-  switch (data[0]) {
-    case "aliyun":
-      aliyun(data[1], data[2]);
-      break;
-    case "tencent":
-      tencent(data[1], data[2]);
-      break;
-    default:
-      break;
-  }
+  eval(data[0]+'("'+data[1]+'", "'+data[2]+'")');
+  // switch (data[0]) {
+  //   case "aliyun":
+  //     aliyun(data[1], data[2]);
+  //     break;
+  //   case "tencent":
+  //     tencent(data[1], data[2]);
+  //     break;
+  //   case "mygitlab":
+  //     mygitlab(data[1], data[2]);
+  //     break;
+  //   default:
+  //     break;
+  // }
 });

@@ -36,13 +36,15 @@ export default function WsFormData(props) {
 
   // 选择网址类型
   const onWtypeChange = (value)=>{
-    console.log(value);
+    // console.log(value);
     switch(value){
       case 'aliyun':
         accout.setFieldsValue({url:"https://account.aliyun.com/login/login.htm"}); //阿里云登录地址
         break;
       case 'tencent':
         accout.setFieldsValue({url:"https://cloud.tencent.com/login"});
+        break;
+      case 'mygitlab': 
         break;
       case 'other':
         accout.setFieldsValue({url:""}); 
@@ -89,6 +91,7 @@ export default function WsFormData(props) {
         >
           <Option value="aliyun">阿里云</Option>
           <Option value="tencent">腾讯云</Option>
+          <Option value="mygitlab">自建gitlab</Option>
           <Option value="other">其他</Option>
         </Select>
       </Form.Item>

@@ -28,8 +28,8 @@ contextBridge.exposeInMainWorld("electronApi", {
   openLogin: async (data) => {
     const { id, url, wtype, username, password } = data;
     webSiteWin[id] = new remote.BrowserWindow({
-      width: 1080,
-      height: 700,
+      width: 1280,
+      height: 750,
       webPreferences: {
         webSecurity: false, // 解决CORS问题 关闭浏览器安全性检查
         // nativeWindowOpen: false, //关闭 window.open

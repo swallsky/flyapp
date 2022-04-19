@@ -1,4 +1,17 @@
 /**
+ * 自动登录GitHub
+ * @param {*} username 
+ * @param {*} password 
+ */
+function github(username,password){
+  let ouser = document.getElementById("login_field");
+  ouser.value = username;
+  let opwd = document.getElementById("password")
+  opwd.value = password;
+  let osubmit = document.querySelector('input[type="submit"]');
+  setTimeout(()=>osubmit.click(),500);
+}
+/**
  * 自动登录阿里云
  * @param {*} username
  * @param {*} password
@@ -54,10 +67,11 @@ function mygitlab(username,password){
   setTimeout(()=>submit.click(),500); //点击登录
 }
 
-// dom加载完成
+// DOM加载完成时执行
 window.addEventListener("DOMContentLoaded", () => {
   let data = window.process.argv.slice(-3); // 获取后三个参数
   switch (data[0]) {
+    case "github": github(data[1], data[2]); break;
     case "aliyun": aliyun(data[1], data[2]); break;
     case "tencent": tencent(data[1], data[2]); break;
     case "mygitlab": mygitlab(data[1], data[2]); break;

@@ -26,8 +26,9 @@ contextBridge.exposeInMainWorld("electronApi", {
    * @param {*} data 自动登录数据
    */
   openLogin: async (data) => {
-    const { id, url, wtype, username, password } = data;
+    const { id, title, url, wtype, username, password } = data;
     webSiteWin[id] = new remote.BrowserWindow({
+      title: title,
       width: 1280,
       height: 750,
       webPreferences: {

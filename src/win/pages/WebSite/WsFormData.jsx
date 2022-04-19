@@ -38,6 +38,9 @@ export default function WsFormData(props) {
   const onWtypeChange = (value)=>{
     // console.log(value);
     switch(value){
+      case 'github':
+        accout.setFieldsValue({url:"https://github.com/login"});
+        break;
       case 'aliyun':
         accout.setFieldsValue({url:"https://account.aliyun.com/login/login.htm"}); //阿里云登录地址
         break;
@@ -89,6 +92,7 @@ export default function WsFormData(props) {
           onChange={onWtypeChange}
           allowClear
         >
+          <Option value="github">GitHub</Option>
           <Option value="aliyun">阿里云</Option>
           <Option value="tencent">腾讯云</Option>
           <Option value="mygitlab">自建gitlab</Option>

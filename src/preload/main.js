@@ -23,21 +23,19 @@ contextBridge.exposeInMainWorld("electronApi", {
   },
   /**
    * 自动登录
-   * @param {*} url 登录的url
-   * @param {*} username 用户名
-   * @param {*} password 密码
+   * @param {*} data 自动登录数据
    */
   openLogin: async (data) => {
-    const {id,url,username,password} = data;
+    const { id, url, wtype, username, password } = data;
     webSiteWin[id] = new remote.BrowserWindow({
       width: 1080,
       height: 700,
       webPreferences: {
         webSecurity: false, // 解决CORS问题 关闭浏览器安全性检查
         // nativeWindowOpen: false, //关闭 window.open
-        preload: path.resolve(path.dirname(__dirname), "preload", "aliyun.js"), //预加载node模块
-        additionalArguments: [username, password], //传递相关参数
-        partition: (new Date().getTime()).toString(), // 隔离多窗口cookie信息，可实现多开账号登录
+        preload: path.resolve(path.dirname(__dirname), "preload", "website.js"), //预加载node模块
+        additionalArguments: [wtype, username, password], //传递相关参数
+        partition: new Date().getTime().toString(), // 隔离多窗口cookie信息，可实现多开账号登录
       },
     });
     webSiteWin[id].loadURL(url);

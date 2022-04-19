@@ -22,6 +22,7 @@ CREATE TABLE IF NOT EXISTS fileList (
 CREATE TABLE IF NOT EXISTS website (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     title VARCHAR,
+    wtype VARCHAR,
     url VARCHAR,
     username VARCHAR,
     password VARCHAR,

@@ -42,7 +42,7 @@ export default function WsFormData(props) {
         accout.setFieldsValue({url:"https://account.aliyun.com/login/login.htm"}); //阿里云登录地址
         break;
       case 'tencent':
-        accout.setFieldsValue({url:""}); 
+        accout.setFieldsValue({url:"https://cloud.tencent.com/login"});
         break;
       case 'other':
         accout.setFieldsValue({url:""}); 

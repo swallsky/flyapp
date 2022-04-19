@@ -57,18 +57,10 @@ function mygitlab(username,password){
 // dom加载完成
 window.addEventListener("DOMContentLoaded", () => {
   let data = window.process.argv.slice(-3); // 获取后三个参数
-  eval(data[0]+'("'+data[1]+'", "'+data[2]+'")');
-  // switch (data[0]) {
-  //   case "aliyun":
-  //     aliyun(data[1], data[2]);
-  //     break;
-  //   case "tencent":
-  //     tencent(data[1], data[2]);
-  //     break;
-  //   case "mygitlab":
-  //     mygitlab(data[1], data[2]);
-  //     break;
-  //   default:
-  //     break;
-  // }
+  switch (data[0]) {
+    case "aliyun": aliyun(data[1], data[2]); break;
+    case "tencent": tencent(data[1], data[2]); break;
+    case "mygitlab": mygitlab(data[1], data[2]); break;
+    default: break;
+  }
 });

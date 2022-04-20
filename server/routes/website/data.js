@@ -39,8 +39,8 @@ router.get("/delete", async (ctx, next) => {
  */
 router.get("/list", async (ctx, next) => {
   const { mid } = ctx.query;
-  let data =
-    mid > 0
+  let amid = mid.split(",");
+  let data = amid.length > 0
       ? await sqllite.fetchAll(
           "select * from website where mid=? order by create_date desc",
           [mid]

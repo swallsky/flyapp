@@ -3,7 +3,7 @@ import { List, PageHeader, Button,Popconfirm } from "antd";
 import WsFormData from "./WsFormData";
 import { EditOutlined, DeleteOutlined, LoginOutlined } from "@ant-design/icons";
 import request from "../../../request";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams,useOutletContext } from "react-router-dom";
 
 export default function WsList() {
   const [data, setData] = useState([]);
@@ -14,6 +14,7 @@ export default function WsList() {
   const [params] = useSearchParams(); //获取参数
   const [menuInfo,setMenuInfo] = useState({id:0,pid:0,ptitle:"全部账号",title:"全部账号"});
   const [mid,setMid] = useState(0); //当前分组id
+  const [group] = useOutletContext(); // 读取group数据
 
   useEffect(() => {
     let parmid = params.get("mid");
@@ -70,6 +71,7 @@ export default function WsList() {
         formTitle={formTitle}
         formData={formData}
         mid={mid}
+        groupData={group}
       />
       <PageHeader
         title={menuInfo.ptitle+" > "+menuInfo.title}

@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS website (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     title VARCHAR,
     wtype VARCHAR,
-    mid INT,
+    mid VARCHAR,
     url VARCHAR,
     username VARCHAR,
     password VARCHAR,

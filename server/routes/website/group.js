@@ -6,10 +6,9 @@ const sqllite = require("../../sqlite3");
  */
 router.get("/info", async (ctx, next) => {
   const { mid } = ctx.query;
-  let smenu = await sqllite.fetch("select * from wsgroup where id=?", [mid]);
-  let pmenu = await sqllite.fetch("select * from wsgroup where id=?", [
-    smenu.pid,
-  ]);
+  let amid = mid.split(",");
+  let smenu = await sqllite.fetch("select * from wsgroup where id=?", [amid[1]]);
+  let pmenu = await sqllite.fetch("select * from wsgroup where id=?", [amid[0]]);
   ctx.status = 200;
   ctx.body = {
     pid: pmenu.id,

@@ -33,7 +33,7 @@ export default function WsLayout(props) {
   let menuClick = (e) => {
     // console.log(e);
     setDefMenu(e.key);
-    navigate(e.key, { query: 123 });
+    navigate(e.key);
   };
 
   return (
@@ -53,7 +53,7 @@ export default function WsLayout(props) {
             return (
               <SubMenu key={"group_" + smenu.id} title={smenu.title} icon={<ApartmentOutlined />}>
                 {smenu.children.map((children) => (
-                  <Menu.Item key={"/win/website/list?mid=" + children.id} icon={<BarsOutlined />}>
+                  <Menu.Item key={"/win/website/list?mid="+smenu.id+","+children.id} icon={<BarsOutlined />}>
                     {children.title}
                   </Menu.Item>
                 ))}

@@ -6,14 +6,17 @@ import {
   PlusCircleOutlined,
 } from "@ant-design/icons";
 import WsGroupsForm from "./WsGroupsForm";
+import { useOutletContext } from "react-router-dom";
 import request from "../../../request";
 
-export default function WsGroups() {
+export default function WsGroups(props) {
   const [formTitle, setFormTitle] = useState("新增分组");
   const [isFormVisible, setIsFormVisible] = useState(false);
   const [formData, setFormData] = useState();
   const [data, setData] = useState([]);
   const [ftotal, setFtotal] = useState(0);
+  // 更新布局组件数据
+  const [group, setGroup] = useOutletContext();
   const columns = [
     {
       title: "分组名",
@@ -51,13 +54,15 @@ export default function WsGroups() {
   ];
   // 载加数据
   useEffect(() => {
-    getDataList();
-  }, []);
+    setData(group);
+    setFtotal(group.length);
+  }, [group]);
   // 获取列表
   function getDataList() {
     request.get("/api/website/group/list").then((data) => {
       setData(data.data);
       setFtotal(data.data.length);
+      setGroup(data.data); // 更新布局数据
     });
   }
   // 新增账号

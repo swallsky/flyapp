@@ -1,5 +1,5 @@
 /**
- * 站点数据管理
+ * Web数据管理
  */
 const router = require("koa-router")();
 const sqllite = require("../../sqlite3");
@@ -22,26 +22,32 @@ router.post("/update", async (ctx, next) => {
   };
 });
 
-
 /**
  * 删除数据
  */
-router.get("/delete",async (ctx,next)=>{
-  const {id} = ctx.query;
-  if(id>0) await sqllite.execute("delete from website where id="+id+"");
+router.get("/delete", async (ctx, next) => {
+  const { id } = ctx.query;
+  if (id > 0) await sqllite.execute("delete from website where id=" + id + "");
   ctx.body = {
-    status:200,
-    msg:"删除成功"
+    status: 200,
+    msg: "删除成功",
   };
-})
+});
 
 /**
  * 获取列表
  */
 router.get("/list", async (ctx, next) => {
-  let data = await sqllite.fetchAll(
-    "select * from website order by create_date desc"
-  );
+  const { mid } = ctx.query;
+  let data =
+    mid > 0
+      ? await sqllite.fetchAll(
+          "select * from website where mid=? order by create_date desc",
+          [mid]
+        )
+      : await sqllite.fetchAll(
+          "select * from website order by create_date desc"
+        );
   ctx.status = 200;
   ctx.body = data;
 });

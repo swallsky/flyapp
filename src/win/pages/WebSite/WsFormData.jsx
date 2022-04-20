@@ -22,7 +22,7 @@ export default function WsFormData(props) {
     if(res.status === 200){
       message.success("更新成功!");
       props.setIsFormVisible(false);
-      props.getAccount(); //刷新列表
+      props.getAccount(props.mid); //刷新列表
       accout.resetFields(); //重置
     }else{
       message.error(res.msg);
@@ -82,6 +82,15 @@ export default function WsFormData(props) {
           label="标题"
           name="title"
           rules={[{ required: true, message: "请输入标题" }]}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          label="mid"
+          name="mid"
+          hidden={true}
+          initialValue={props.mid}
         >
           <Input />
         </Form.Item>

@@ -10,6 +10,9 @@ export default function WsInfo() {
         <Descriptions.Item label="密码保存">
           保存常用项目网站用户名和密码
         </Descriptions.Item>
+        <Descriptions.Item label="分组管理">
+          支持按项目和产品进行两级分类管理
+        </Descriptions.Item>
         <Descriptions.Item label="自动填充">
           可根据Web应用类型自动填写用户名和密码
         </Descriptions.Item>

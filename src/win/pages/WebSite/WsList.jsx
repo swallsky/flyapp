@@ -13,18 +13,25 @@ export default function WsList() {
   const [formData, setFormData] = useState();
   const [params] = useSearchParams(); //获取参数
   const [menuInfo,setMenuInfo] = useState({id:0,pid:0,ptitle:"全部账号",title:"全部账号"});
+  const [mid,setMid] = useState(0); //当前分组id
 
   useEffect(() => {
-    let mid = params.get("mid");
-    if(mid!==null) request.get("/api/website/group/info?mid="+mid).then((data) => {
-      setMenuInfo(data.data);
-    });
-    getAccount();
-  }, [params]);
+    let parmid = params.get("mid");
+    if(parmid!==null){
+      setMid(parmid);
+      request.get("/api/website/group/info?mid="+parmid).then((data) => {
+        setMenuInfo(data.data);
+      });
+    }else{
+      setMid(0);
+      setMenuInfo({id:0,pid:0,ptitle:"全部账号",title:"全部账号"});
+    }
+    getAccount(mid);
+  }, [params,mid]);
 
   // 获取数据列表
-  function getAccount() {
-    request.get("/api/website/list").then((data) => {
+  function getAccount(id) {
+    request.get("/api/website/list?mid="+id).then((data) => {
       setData(data.data);
       setFtotal(data.data.length);
     });
@@ -45,7 +52,7 @@ export default function WsList() {
   // 删除账号
   function delAccount(data){
     request.get("/api/website/delete?id="+data.id).then(data=>{
-      getAccount();// 拉取数据列表
+      getAccount(mid);// 拉取数据列表
     })
   }
 
@@ -62,14 +69,15 @@ export default function WsList() {
         getAccount={getAccount}
         formTitle={formTitle}
         formData={formData}
+        mid={mid}
       />
       <PageHeader
         title={menuInfo.ptitle+" > "+menuInfo.title}
         subTitle={`共计${ftotal}个文件`}
         extra={[
-          <Button key="add" type="primary" onClick={addAccount}>
+          (menuInfo.id===0?'':<Button key="add" type="primary" onClick={addAccount}>
             新增
-          </Button>,
+          </Button>),
         ]}
         ghost={false}
       >

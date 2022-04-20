@@ -1,28 +1,34 @@
 import React,{useEffect,useState} from 'react'
 import { Outlet,useNavigate } from 'react-router-dom';
 import { Layout, Menu, Breadcrumb } from "antd";
+import request from "../../../request";
 const { Content, Sider } = Layout;
-
+const { SubMenu } = Menu;
 
 export default function WsLayout(props) {
-  const navigate = useNavigate();
-
+  const navigate = useNavigate(); //导航跳转
   const [defMenu, setDefMenu] = useState(['']); //设置默认菜单状态
+  const [group,setGroup] = useState([]); //分组数据
 
   useEffect(() => {
     setDefMenu(window.location.hash.substring(1));
+    // 读取分组列表
+    request.get("/api/website/group/list").then((data) => {
+      setGroup(data.data);
+    });
+    
   }, [])
 
   // 点击菜单
   let menuClick = (e) => {
     // console.log(e);
     setDefMenu(e.key);
-    navigate(e.key);
+    navigate(e.key,{query:123});
   }
 
   return (
     <Layout>
-      <Sider width={220} className="site-layout-background">
+      <Sider width={280} className="site-layout-background">
         <Menu
           mode="inline"
           defaultSelectedKeys={defMenu} 
@@ -32,7 +38,17 @@ export default function WsLayout(props) {
         >
           <Menu.Item key="/win/website">账号管理</Menu.Item>
           <Menu.Item key="/win/website/groups">分组管理</Menu.Item>
-          <Menu.Item key="/win/website/list">登录列表</Menu.Item>
+          <Menu.Item key="/win/website/list">全部账号</Menu.Item>
+          {
+            group.map(smenu=>{
+              return (
+              <SubMenu key={"group_"+smenu.id} title={smenu.title}>
+                {smenu.children.map(children=>(
+                  <Menu.Item key={"/win/website/list?mid="+children.id}>{children.title}</Menu.Item>
+                ))}
+              </SubMenu>)
+            })
+          }
         </Menu>
       </Sider>
       <Layout style={{ padding: '0 24px 24px',height:'100vh' }}>

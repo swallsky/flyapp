@@ -3,6 +3,7 @@ import { List, PageHeader, Button,Popconfirm } from "antd";
 import WsFormData from "./WsFormData";
 import { EditOutlined, DeleteOutlined, LoginOutlined } from "@ant-design/icons";
 import request from "../../../request";
+import { useSearchParams } from "react-router-dom";
 
 export default function WsList() {
   const [data, setData] = useState([]);
@@ -10,10 +11,16 @@ export default function WsList() {
   const [isFormVisible, setIsFormVisible] = useState(false);
   const [formTitle, setFormTile] = useState("");
   const [formData, setFormData] = useState();
+  const [params] = useSearchParams(); //获取参数
+  const [menuInfo,setMenuInfo] = useState({id:0,pid:0,ptitle:"全部账号",title:"全部账号"});
 
   useEffect(() => {
+    let mid = params.get("mid");
+    if(mid!==null) request.get("/api/website/group/info?mid="+mid).then((data) => {
+      setMenuInfo(data.data);
+    });
     getAccount();
-  }, []);
+  }, [params]);
 
   // 获取数据列表
   function getAccount() {
@@ -57,7 +64,7 @@ export default function WsList() {
         formData={formData}
       />
       <PageHeader
-        title="登录列表"
+        title={menuInfo.ptitle+" > "+menuInfo.title}
         subTitle={`共计${ftotal}个文件`}
         extra={[
           <Button key="add" type="primary" onClick={addAccount}>

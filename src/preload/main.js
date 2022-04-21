@@ -40,5 +40,6 @@ contextBridge.exposeInMainWorld("electronApi", {
       },
     });
     webSiteWin[id].loadURL(url);
+    // webSiteWin[id].webContents.openDevTools();
   },
 });

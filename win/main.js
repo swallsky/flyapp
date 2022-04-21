@@ -43,7 +43,7 @@ exports.mainLoading = function (win) {
   // loading界面
   const loadingView = new BrowserView();
   win.setBrowserView(loadingView);
-  loadingView.setBounds({ x: 0, y: 0, width: 800, height: 600 });
+  loadingView.setBounds({ x: 0, y: 0, width: 980, height: 600 });
   loadingView.setBackgroundColor("#FFFFFF");
   loadingView.webContents.loadFile(
     path.resolve(path.dirname(__dirname), "win", "loading.html")

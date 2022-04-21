@@ -17,8 +17,7 @@ var uploadSn = 0; //当前文件序号,刷新页面时会重新计数
 
   useEffect(() => {
     // 设置api domain
-    // setLocalDomain(request.getRemoteURL());
-    setLocalDomain('http://localhost:4321');
+    setLocalDomain(request.getRemoteURL());
 
     // 获取保存目录
     request.get('/api/upload/getpath').then(data => {

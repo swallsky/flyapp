@@ -5,7 +5,7 @@ const { contextBridge, ipcRenderer, shell } = require("electron");
 const remote = require("@electron/remote");
 const path = require("path");
 
-let webSiteWin = [];
+let accountWin = [];
 
 contextBridge.exposeInMainWorld("electronApi", {
   // 获取本机ip
@@ -22,24 +22,25 @@ contextBridge.exposeInMainWorld("electronApi", {
     shell.openPath(filePath);
   },
   /**
-   * 自动登录
-   * @param {*} data 自动登录数据
+   * web应用
+   * @param {*} data 账号数据
    */
-  openLogin: async (data) => {
+   webapp: async (data) => {
     const { id, title, url, wtype, username, password } = data;
-    webSiteWin[id] = new remote.BrowserWindow({
+    wtype = wtype.replace("web,",""); //替换web,前缀
+    accountWin[id] = new remote.BrowserWindow({
       title: title,
       width: 1280,
       height: 750,
       webPreferences: {
         webSecurity: false, // 解决CORS问题 关闭浏览器安全性检查
         // nativeWindowOpen: false, //关闭 window.open
-        preload: path.resolve(path.dirname(__dirname), "preload", "website.js"), //预加载node模块
+        preload: path.resolve(path.dirname(__dirname), "preload", "acWeb.js"), //预加载node模块
         additionalArguments: [wtype, username, password], //传递相关参数
         partition: new Date().getTime().toString(), // 隔离多窗口cookie信息，可实现多开账号登录
       },
     });
-    webSiteWin[id].loadURL(url);
-    // webSiteWin[id].webContents.openDevTools();
+    accountWin[id].loadURL(url);
+    // accountWin[id].webContents.openDevTools();
   },
 });

@@ -62,9 +62,12 @@ export default function AcList() {
     });
   }
 
-  // 打开窗口
-  function openLogin(data) {
-    window.electronApi.openLogin(data);
+  // 打开窗口应用
+  function openApp(data) {
+    let wtype = data.wtype;
+    if(wtype.indexOf("web,")!==-1){ // web应用
+      window.electronApi.webapp(data);
+    }
   }
 
   return (
@@ -113,7 +116,7 @@ export default function AcList() {
                   <Button icon={<DeleteOutlined />} />
                 </Popconfirm>,
                 <Button
-                  onClick={() => openLogin(item)}
+                  onClick={() => openApp(item)}
                   icon={<LoginOutlined />}
                 />,
               ]}

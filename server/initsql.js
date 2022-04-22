@@ -35,6 +35,7 @@ CREATE TABLE IF NOT EXISTS website (
     url VARCHAR,
     username VARCHAR,
     password VARCHAR,
+    login VARCHAR,
     create_date DATETIME DEFAULT (CURRENT_TIMESTAMP)
 );
 /* 常用配置 */

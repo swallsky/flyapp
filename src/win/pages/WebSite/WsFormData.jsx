@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect,useState } from "react";
 import { Modal, Form, Input, message, Select, Cascader } from "antd";
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
 import request from "../../../request";
@@ -10,6 +10,8 @@ const { Option } = Select;
 export default function WsFormData(props) {
   //表单对象
   const [accout] = Form.useForm();
+  // 是否自动登录
+  const [loginSt,setLoginSt] = useState('auto');
 
   // 提交
   const handleOk = async () => {
@@ -65,16 +67,13 @@ export default function WsFormData(props) {
         let tempMid = props.formData.mid;
         props.formData.mid = tempMid.toString().split(",").map(Number);
       }
+      if (props.formData.hasOwnProperty("login")) {
+        setLoginSt(props.formData.login);
+      }
+
       accout.setFieldsValue(props.formData); //有填充数据时，更新
     }
   }, [props, accout]);
-
-  const selectAfter = (
-    <Select defaultValue="auto" className="select-after">
-      <Option value="auto">自动登录</Option>
-      <Option value="hand">手动登录</Option>
-    </Select>
-  );
 
   return (
     <Modal
@@ -156,8 +155,22 @@ export default function WsFormData(props) {
             iconRender={(visible) =>
               visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
             }
-            addonAfter={selectAfter}
+            addonAfter={(
+              <Select defaultValue={loginSt} onChange={(v)=>{setLoginSt(v);console.log('====',loginSt); }} className="select-after">
+                <Option value="auto">自动登录</Option>
+                <Option value="hand">手动登录</Option>
+              </Select>
+            )}
           />
+        </Form.Item>
+
+        <Form.Item
+          label="login"
+          name="login"
+          hidden={true}
+          value={loginSt}
+        >
+          <Input />
         </Form.Item>
       </Form>
     </Modal>

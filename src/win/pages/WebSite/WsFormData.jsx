@@ -61,13 +61,20 @@ export default function WsFormData(props) {
 
   useEffect(() => {
     if (props.formData) {
-      if(props.formData.hasOwnProperty("mid")){
+      if (props.formData.hasOwnProperty("mid")) {
         let tempMid = props.formData.mid;
         props.formData.mid = tempMid.toString().split(",").map(Number);
       }
       accout.setFieldsValue(props.formData); //有填充数据时，更新
     }
   }, [props, accout]);
+
+  const selectAfter = (
+    <Select defaultValue="auto" className="select-after">
+      <Option value="auto">自动登录</Option>
+      <Option value="hand">手动登录</Option>
+    </Select>
+  );
 
   return (
     <Modal
@@ -88,24 +95,22 @@ export default function WsFormData(props) {
         wrapperCol={{ flex: 1 }}
       >
         <Form.Item
+          label="分组"
+          name="mid"
+          rules={[{ required: true, message: "请选择分组" }]}
+        >
+          <Cascader
+            fieldNames={{ label: "title", value: "id", children: "children" }}
+            options={props.groupData}
+          />
+        </Form.Item>
+
+        <Form.Item
           label="标题"
           name="title"
           rules={[{ required: true, message: "请输入标题" }]}
         >
           <Input />
-        </Form.Item>
-
-        <Form.Item
-          label="分组类型"
-          name="mid"
-          rules={[{ required: true, message: "请选择分组类型" }]}
-        >
-          <Cascader
-            fieldNames={{ label: "title", value: "id", children: "children" }}
-            // key={mid}
-            // defaultValue={mid}
-            options={props.groupData}
-          />
         </Form.Item>
 
         <Form.Item
@@ -151,6 +156,7 @@ export default function WsFormData(props) {
             iconRender={(visible) =>
               visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
             }
+            addonAfter={selectAfter}
           />
         </Form.Item>
       </Form>

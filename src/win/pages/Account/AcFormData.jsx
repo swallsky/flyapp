@@ -142,6 +142,20 @@ export default function AcFormData(props) {
                   }
                 ]
               },
+              {
+                value: 'database',
+                label: '数据库',
+                children:[
+                  {
+                    value: 'mysql',
+                    label: 'MySQL',
+                  },
+                  {
+                    value: 'sqllite',
+                    label: 'Sqllite',
+                  }
+                ]
+              }
             ]} />
         </Form.Item>
 

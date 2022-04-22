@@ -1,8 +1,7 @@
-import React, { useEffect,useState } from "react";
-import { Modal, Form, Input, message, Select, Cascader } from "antd";
+import React, { useEffect } from "react";
+import { Modal, Form, Input, message, Cascader } from "antd";
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
 import request from "../../../request";
-const { Option } = Select;
 /**
  * 表单数据
  * @returns
@@ -10,8 +9,6 @@ const { Option } = Select;
 export default function WsFormData(props) {
   //表单对象
   const [accout] = Form.useForm();
-  // 是否自动登录
-  const [loginSt,setLoginSt] = useState('auto');
 
   // 提交
   const handleOk = async () => {
@@ -20,7 +17,6 @@ export default function WsFormData(props) {
       data.id = props.formData.id;
     }
     let res = await request.post("/api/website/update", data);
-    // console.log(res);
     if (res.status === 200) {
       message.success("更新成功!");
       props.setIsFormVisible(false);
@@ -38,22 +34,23 @@ export default function WsFormData(props) {
 
   // 选择网址类型
   const onWtypeChange = (value) => {
-    // console.log(value);
-    switch (value) {
-      case "github":
+    let wtypeCase = value.join(",");
+    switch (wtypeCase) {
+      case 'web,github':
         accout.setFieldsValue({ url: "https://github.com/login" });
         break;
-      case "aliyun":
+      case 'web,aliyun':
         accout.setFieldsValue({
           url: "https://account.aliyun.com/login/login.htm",
         }); //阿里云登录地址
         break;
-      case "tencent":
+      case 'web,tencent':
         accout.setFieldsValue({ url: "https://cloud.tencent.com/login" });
         break;
-      case "mygitlab":
+      case 'web,mygitlab':
+        accout.setFieldsValue({ url: "" });
         break;
-      case "other":
+      case 'web,other':
         accout.setFieldsValue({ url: "" });
         break;
       default:
@@ -64,11 +61,10 @@ export default function WsFormData(props) {
   useEffect(() => {
     if (props.formData) {
       if (props.formData.hasOwnProperty("mid")) {
-        let tempMid = props.formData.mid;
-        props.formData.mid = tempMid.toString().split(",").map(Number);
+        props.formData.mid = props.formData.mid.toString().split(",").map(Number);
       }
-      if (props.formData.hasOwnProperty("login")) {
-        setLoginSt(props.formData.login);
+      if (props.formData.hasOwnProperty("wtype")) {
+        props.formData.wtype = props.formData.wtype.toString().split(",");
       }
 
       accout.setFieldsValue(props.formData); //有填充数据时，更新
@@ -114,26 +110,45 @@ export default function WsFormData(props) {
 
         <Form.Item
           name="wtype"
-          label="账号类型"
-          rules={[{ required: true, message: "请选择账号类型" }]}
+          label="应用类型"
+          rules={[{ required: true, message: "请选择应用类型" }]}
         >
-          <Select
-            placeholder="请选择账号类型"
+          <Cascader
             onChange={onWtypeChange}
-            allowClear
-          >
-            <Option value="github">GitHub</Option>
-            <Option value="aliyun">阿里云</Option>
-            <Option value="tencent">腾讯云</Option>
-            <Option value="mygitlab">自建gitlab</Option>
-            <Option value="other">其他</Option>
-          </Select>
+            options={[
+              {
+                value: 'web',
+                label: 'Web应用',
+                children: [
+                  {
+                    value: 'github',
+                    label: 'GitHub',
+                  },
+                  {
+                    value: 'aliyun',
+                    label: '阿里云',
+                  },
+                  {
+                    value: 'tencent',
+                    label: '腾讯云',
+                  },
+                  {
+                    value: 'mygitlab',
+                    label: '自建gitlab',
+                  },
+                  {
+                    value: 'other',
+                    label: '其他',
+                  }
+                ]
+              },
+            ]} />
         </Form.Item>
 
         <Form.Item
-          label="网址"
+          label="地址"
           name="url"
-          rules={[{ required: true, message: "请输入网址" }]}
+          rules={[{ required: true, message: "请输入地址(网址/Host/IP)" }]}
         >
           <Input />
         </Form.Item>
@@ -155,22 +170,7 @@ export default function WsFormData(props) {
             iconRender={(visible) =>
               visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
             }
-            addonAfter={(
-              <Select defaultValue={loginSt} onChange={(v)=>{setLoginSt(v);console.log('====',loginSt); }} className="select-after">
-                <Option value="auto">自动登录</Option>
-                <Option value="hand">手动登录</Option>
-              </Select>
-            )}
           />
-        </Form.Item>
-
-        <Form.Item
-          label="login"
-          name="login"
-          hidden={true}
-          value={loginSt}
-        >
-          <Input />
         </Form.Item>
       </Form>
     </Modal>

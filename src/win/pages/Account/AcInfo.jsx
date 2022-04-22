@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { PageHeader, Descriptions } from "antd";
 
-export default function WsInfo() {
+export default function AcInfo() {
   useEffect(() => {}, []);
 
   return (

@@ -18,16 +18,16 @@ CREATE TABLE IF NOT EXISTS fileList (
     filetype VARCHAR,
     create_date DATETIME DEFAULT (CURRENT_TIMESTAMP)
 );
-/* Web分组管理 */
-CREATE TABLE IF NOT EXISTS wsgroup (
+/* 账号分组管理 */
+CREATE TABLE IF NOT EXISTS acgroup (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     title VARCHAR,
     pid INT,
     sort INT,
     create_date DATETIME DEFAULT (CURRENT_TIMESTAMP)
 );
-/* Web列表 */
-CREATE TABLE IF NOT EXISTS website (
+/* 账号列表 */
+CREATE TABLE IF NOT EXISTS account (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     title VARCHAR,
     wtype VARCHAR,

@@ -12,7 +12,7 @@ import {
 const { Content, Sider } = Layout;
 const { SubMenu } = Menu;
 
-export default function WsLayout(props) {
+export default function AcLayout(props) {
   const navigate = useNavigate(); //导航跳转
   const [defMenu, setDefMenu] = useState([""]); //设置默认菜单状态
   const [group, setGroup] = useState([]); //分组数据
@@ -25,7 +25,7 @@ export default function WsLayout(props) {
 
   // 读取分组列表
   function readGroupList() {
-    request.get("/api/website/group/list").then((data) => {
+    request.get("/api/account/group/list").then((data) => {
       setGroup(data.data);
     });
   }
@@ -46,14 +46,14 @@ export default function WsLayout(props) {
           style={{ height: "100vh", borderRight: 0 }}
           onClick={menuClick}
         >
-          <Menu.Item key="/win/website" icon={<BookOutlined />}>账号管理</Menu.Item>
-          <Menu.Item key="/win/website/groups" icon={<UngroupOutlined />}>分组管理</Menu.Item>
-          <Menu.Item key="/win/website/list" icon={<AppstoreAddOutlined />}>全部账号</Menu.Item>
+          <Menu.Item key="/win/account" icon={<BookOutlined />}>账号管理</Menu.Item>
+          <Menu.Item key="/win/account/groups" icon={<UngroupOutlined />}>分组管理</Menu.Item>
+          <Menu.Item key="/win/account/list" icon={<AppstoreAddOutlined />}>全部账号</Menu.Item>
           {group.map((smenu) => {
             return (
               <SubMenu key={"group_" + smenu.id} title={smenu.title} icon={<ApartmentOutlined />}>
                 {smenu.children.map((children) => (
-                  <Menu.Item key={"/win/website/list?mid="+smenu.id+","+children.id} icon={<BarsOutlined />}>
+                  <Menu.Item key={"/win/account/list?mid="+smenu.id+","+children.id} icon={<BarsOutlined />}>
                     {children.title}
                   </Menu.Item>
                 ))}

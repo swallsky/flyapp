@@ -5,7 +5,7 @@ import request from "../../../request";
  * 分组数据
  * @returns
  */
-export default function WsGroupsForm(props) {
+export default function AcGroupsForm(props) {
   //表单对象
   const [group] = Form.useForm();
 
@@ -15,7 +15,7 @@ export default function WsGroupsForm(props) {
     if(props.formData.id){
       data.id = props.formData.id;
     }
-    let res = await request.post("/api/website/group/update",data);
+    let res = await request.post("/api/account/group/update",data);
     // console.log(res);
     if(res.status === 200){
       message.success("更新成功!");

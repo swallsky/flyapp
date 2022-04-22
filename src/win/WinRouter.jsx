@@ -9,11 +9,11 @@ import FileLayout from "./pages/Files/FileLayout";
 import FilesUpload from "./pages/Files/Upload";
 import FileConf from "./pages/Files/FileConf";
 import DataList from "./pages/Files/DataList";
-// 网站密码管理
-import WsLayout from "./pages/WebSite/WsLayout";
-import WsInfo from "./pages/WebSite/WsInfo";
-import WsGroups from "./pages/WebSite/WsGroups";
-import WsList from "./pages/WebSite/WsList";
+// 账号管理
+import AcLayout from "./pages/Account/AcLayout";
+import AcInfo from "./pages/Account/AcInfo";
+import AcGroups from "./pages/Account/AcGroups";
+import AcList from "./pages/Account/AcList";
 
 export default function WinRouter() {
   return (
@@ -24,10 +24,10 @@ export default function WinRouter() {
           <Route path="list" element={<DataList />} />
           <Route path="conf" element={<FileConf />} />
         </Route>
-        <Route path="website" element={<WsLayout />}>
-          <Route path="" element={<WsInfo />} />
-          <Route path="groups" element={<WsGroups />} />
-          <Route path="list" element={<WsList />} />
+        <Route path="account" element={<AcLayout />}>
+          <Route path="" element={<AcInfo />} />
+          <Route path="groups" element={<AcGroups />} />
+          <Route path="list" element={<AcList />} />
         </Route>
         <Route path="*" element={<NoMatch />} />
       </Route>

@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { List, PageHeader, Button, Popconfirm } from "antd";
-import WsFormData from "./WsFormData";
+import AcFormData from "./AcFormData";
 import { EditOutlined, DeleteOutlined, LoginOutlined } from "@ant-design/icons";
 import request from "../../../request";
 import { useSearchParams, useOutletContext } from "react-router-dom";
 
-export default function WsList() {
+export default function AcList() {
   const [data, setData] = useState([]);
   const [ftotal, setFtotal] = useState(0);
   const [isFormVisible, setIsFormVisible] = useState(false);
@@ -25,7 +25,7 @@ export default function WsList() {
     let parmid = params.get("mid");
     if (parmid !== null) {
       setMid(parmid);
-      request.get("/api/website/group/info?mid=" + parmid).then((data) => {
+      request.get("/api/account/group/info?mid=" + parmid).then((data) => {
         setMenuInfo(data.data);
       });
     } else {
@@ -37,7 +37,7 @@ export default function WsList() {
 
   // 获取数据列表
   function getAccount(id) {
-    request.get("/api/website/list?mid=" + id).then((data) => {
+    request.get("/api/account/list?mid=" + id).then((data) => {
       setData(data.data);
       setFtotal(data.data.length);
     });
@@ -57,7 +57,7 @@ export default function WsList() {
 
   // 删除账号
   function delAccount(data) {
-    request.get("/api/website/delete?id=" + data.id).then((data) => {
+    request.get("/api/account/delete?id=" + data.id).then((data) => {
       getAccount(mid); // 拉取数据列表
     });
   }
@@ -69,7 +69,7 @@ export default function WsList() {
 
   return (
     <>
-      <WsFormData
+      <AcFormData
         isFormVisible={isFormVisible}
         setIsFormVisible={setIsFormVisible}
         getAccount={getAccount}

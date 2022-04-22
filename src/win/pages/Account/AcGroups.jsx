@@ -5,11 +5,11 @@ import {
   DeleteOutlined,
   PlusCircleOutlined,
 } from "@ant-design/icons";
-import WsGroupsForm from "./WsGroupsForm";
+import AcGroupsForm from "./AcGroupsForm";
 import { useOutletContext } from "react-router-dom";
 import request from "../../../request";
 
-export default function WsGroups(props) {
+export default function AcGroups(props) {
   const [formTitle, setFormTitle] = useState("新增分组");
   const [isFormVisible, setIsFormVisible] = useState(false);
   const [formData, setFormData] = useState();
@@ -59,7 +59,7 @@ export default function WsGroups(props) {
   }, [group]);
   // 获取列表
   function getDataList() {
-    request.get("/api/website/group/list").then((data) => {
+    request.get("/api/account/group/list").then((data) => {
       setData(data.data);
       setFtotal(data.data.length);
       setGroup(data.data); // 更新布局数据
@@ -80,7 +80,7 @@ export default function WsGroups(props) {
 
   // 删除账号
   function delGroup(data) {
-    request.get("/api/website/group/delete?id=" + data.id).then((data) => {
+    request.get("/api/account/group/delete?id=" + data.id).then((data) => {
       getDataList(); // 拉取数据列表
     });
   }
@@ -99,7 +99,7 @@ export default function WsGroups(props) {
       ]}
       ghost={false}
     >
-      <WsGroupsForm
+      <AcGroupsForm
         isFormVisible={isFormVisible}
         setIsFormVisible={setIsFormVisible}
         getDataList={getDataList}

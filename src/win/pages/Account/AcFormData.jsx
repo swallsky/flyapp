@@ -6,7 +6,7 @@ import request from "../../../request";
  * 表单数据
  * @returns
  */
-export default function WsFormData(props) {
+export default function AcFormData(props) {
   //表单对象
   const [accout] = Form.useForm();
 
@@ -16,7 +16,7 @@ export default function WsFormData(props) {
     if (props.formData.id) {
       data.id = props.formData.id;
     }
-    let res = await request.post("/api/website/update", data);
+    let res = await request.post("/api/account/update", data);
     if (res.status === 200) {
       message.success("更新成功!");
       props.setIsFormVisible(false);

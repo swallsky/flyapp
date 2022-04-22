@@ -2,15 +2,17 @@ const { app, BrowserWindow } = require("electron");
 const remote = require("@electron/remote/main");
 const Server = require("./server/app");
 const ipcManager = require("./ipc");
-const { mainWindow, mainLoading } = require("./win/main");
+const { mainWindow, mainLoading,trayIcon } = require("./win/main");
 
 let win = null;
+let iconTary = null;
 //先创建主窗口，再启动后台服务
 app
   .whenReady()
   .then(() => {
     ipcManager(); //主进程与渲染进程间通讯管理
     win = mainWindow();
+    iconTary = trayIcon(win);
     mainLoading(win);
     // 引入remote模块
     remote.initialize();
@@ -24,6 +26,8 @@ app.on("window-all-closed", () => {
     //非mac系统
     app.quit();
     win = null;
+  } else {
+    iconTary.destroy();
   }
 });
 
@@ -31,6 +35,7 @@ app.on("window-all-closed", () => {
 app.on("activate", () => {
   if (BrowserWindow.getAllWindows().length === 0) {
     win = mainWindow();
+    iconTary = trayIcon(win);
     mainLoading(win);
   }
 });

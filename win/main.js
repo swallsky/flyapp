@@ -1,4 +1,4 @@
-const { BrowserWindow, BrowserView } = require("electron");
+const { app,BrowserWindow, BrowserView,nativeImage,Tray } = require("electron");
 const path = require("path");
 /**
  * 创建主窗口进程
@@ -34,6 +34,30 @@ exports.mainWindow = function () {
   }
   return win;
 };
+
+/**
+ * 托盘图标
+ * @param {*} win 
+ */
+exports.trayIcon = function(win){
+  let tray = null;
+  // console.log('mu:',app.getAppPath(),path.resolve(path.join(path.dirname(__dirname), "src", "assets", "logo", "logo-tray.png")))
+  // 加入托盘
+  const icon = nativeImage.createFromPath(
+    path.resolve(path.join(app.getAppPath(), "src", "assets", "logo", "logo-tray.png"))
+  );
+  tray = new Tray(icon);
+  // const contextMenu = Menu.buildFromTemplate([
+  //   { label: "菜单1", type: "radio" },
+  //   { label: "菜单2", type: "radio", checked: true },
+  //   { label: "菜单1", type: "radio" },
+  // ]);
+  // iconTary.setContextMenu(contextMenu);
+  tray.addListener("click", (e) => {
+    win.show();
+  });
+  return tray;
+}
 
 /**
  * loading蒙板

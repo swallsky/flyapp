@@ -67,7 +67,8 @@
       "build/**/*",
       "server/*",
       "server/**/*",
-      "src/preload/*"
+      "src/preload/*",
+      "src/assets/logo/*"
     ],
     "extends": null,
     "extraFiles": [],

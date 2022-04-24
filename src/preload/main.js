@@ -25,9 +25,9 @@ contextBridge.exposeInMainWorld("electronApi", {
    * web应用
    * @param {*} data 账号数据
    */
-   webapp: async (data) => {
+  webapp: async (data) => {
     const { id, title, url, wtype, username, password } = data;
-    let twtype = wtype.replace("web,",""); //替换web,前缀
+    let twtype = wtype.replace("web,", ""); //替换web,前缀
     accountWin[id] = new remote.BrowserWindow({
       title: title,
       width: 1280,
@@ -47,8 +47,27 @@ contextBridge.exposeInMainWorld("electronApi", {
    * 服务器
    * @param {*} data 账号数据
    */
-   serverApp: async (data) => {
-    // const { id, title, url, wtype, username, password } = data;
-    console.log(data);
+  serverApp: async (data) => {
+    const { id, title, url, wtype, username, password } = data;
+    let twtype = wtype.replace("server,", ""); //替换server,前缀
+    accountWin[id] = new remote.BrowserWindow({
+      title: title,
+      width: 1280,
+      height: 750,
+      webPreferences: {
+        preload: path.resolve(path.dirname(__dirname), "preload", "acServer.js"), //预加载node模块
+        additionalArguments: [twtype, username, password], //传递相关参数
+        partition: new Date().getTime().toString(), // 隔离多窗口cookie信息，可实现多开账号登录
+      },
+    });
+    if (process.env.NODE_ENV === "dev") {
+      // 开发环境时
+      accountWin[id].loadURL("http://localhost:3000/#/ssh/remotessh");
+      //  打开开发者工具
+      accountWin[id].webContents.openDevTools();
+    } else {
+      // 生产环境时
+      accountWin[id].loadFile(path.resolve(path.dirname(path.dirname(__dirname)), "build", "index.html#/ssh/remotessh"));
+    }
   },
 });

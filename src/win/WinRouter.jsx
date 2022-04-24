@@ -15,6 +15,8 @@ import AcInfo from "./pages/Account/AcInfo";
 import AcGroups from "./pages/Account/AcGroups";
 import AcList from "./pages/Account/AcList";
 
+import RsXterm from "./pages/RemoteSSH/RsXterm";
+
 export default function WinRouter() {
   return (
     <Routes>
@@ -31,6 +33,7 @@ export default function WinRouter() {
         </Route>
         <Route path="*" element={<NoMatch />} />
       </Route>
+      <Route path="/ssh/remotessh" element={<RsXterm />} />
     </Routes>
   );
 }

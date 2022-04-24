@@ -36,21 +36,21 @@ export default function AcFormData(props) {
   const onWtypeChange = (value) => {
     let wtypeCase = value.join(",");
     switch (wtypeCase) {
-      case 'web,github':
+      case "web,github":
         accout.setFieldsValue({ url: "https://github.com/login" });
         break;
-      case 'web,aliyun':
+      case "web,aliyun":
         accout.setFieldsValue({
           url: "https://account.aliyun.com/login/login.htm",
         }); //阿里云登录地址
         break;
-      case 'web,tencent':
+      case "web,tencent":
         accout.setFieldsValue({ url: "https://cloud.tencent.com/login" });
         break;
-      case 'web,mygitlab':
+      case "web,mygitlab":
         accout.setFieldsValue({ url: "" });
         break;
-      case 'web,other':
+      case "web,other":
         accout.setFieldsValue({ url: "" });
         break;
       default:
@@ -61,7 +61,10 @@ export default function AcFormData(props) {
   useEffect(() => {
     if (props.formData) {
       if (props.formData.hasOwnProperty("mid")) {
-        props.formData.mid = props.formData.mid.toString().split(",").map(Number);
+        props.formData.mid = props.formData.mid
+          .toString()
+          .split(",")
+          .map(Number);
       }
       if (props.formData.hasOwnProperty("wtype")) {
         props.formData.wtype = props.formData.wtype.toString().split(",");
@@ -117,46 +120,57 @@ export default function AcFormData(props) {
             onChange={onWtypeChange}
             options={[
               {
-                value: 'web',
-                label: 'Web应用',
+                value: "web",
+                label: "Web应用",
                 children: [
                   {
-                    value: 'github',
-                    label: 'GitHub',
+                    value: "github",
+                    label: "GitHub",
                   },
                   {
-                    value: 'aliyun',
-                    label: '阿里云',
+                    value: "aliyun",
+                    label: "阿里云",
                   },
                   {
-                    value: 'tencent',
-                    label: '腾讯云',
+                    value: "tencent",
+                    label: "腾讯云",
                   },
                   {
-                    value: 'mygitlab',
-                    label: '自建gitlab',
+                    value: "mygitlab",
+                    label: "自建gitlab",
                   },
                   {
-                    value: 'other',
-                    label: '其他',
-                  }
-                ]
+                    value: "other",
+                    label: "其他",
+                  },
+                ],
               },
               {
-                value: 'database',
-                label: '数据库',
-                children:[
+                value: "server",
+                label: "服务器",
+                children: [
                   {
-                    value: 'mysql',
-                    label: 'MySQL',
+                    value: "ssh",
+                    label: "SSH远程",
+                  },
+                ],
+              },
+              {
+                value: "database",
+                label: "数据库",
+                children: [
+                  {
+                    value: "mysql",
+                    label: "MySQL",
                   },
                   {
-                    value: 'sqllite',
-                    label: 'Sqllite',
-                  }
-                ]
-              }
-            ]} />
+                    value: "sqllite",
+                    label: "Sqllite",
+                  },
+                ],
+              },
+            ]}
+          />
         </Form.Item>
 
         <Form.Item

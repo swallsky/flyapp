@@ -68,6 +68,9 @@ export default function AcList() {
     if(wtype.indexOf("web,")!==-1){ // web应用
       window.electronApi.webapp(data);
     }
+    if(wtype.indexOf("server,")!==-1){ // 服务器
+      window.electronApi.webapp(data);
+    }
   }
 
   return (

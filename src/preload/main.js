@@ -27,7 +27,7 @@ contextBridge.exposeInMainWorld("electronApi", {
    */
    webapp: async (data) => {
     const { id, title, url, wtype, username, password } = data;
-    wtype = wtype.replace("web,",""); //替换web,前缀
+    let twtype = wtype.replace("web,",""); //替换web,前缀
     accountWin[id] = new remote.BrowserWindow({
       title: title,
       width: 1280,
@@ -36,11 +36,19 @@ contextBridge.exposeInMainWorld("electronApi", {
         webSecurity: false, // 解决CORS问题 关闭浏览器安全性检查
         // nativeWindowOpen: false, //关闭 window.open
         preload: path.resolve(path.dirname(__dirname), "preload", "acWeb.js"), //预加载node模块
-        additionalArguments: [wtype, username, password], //传递相关参数
+        additionalArguments: [twtype, username, password], //传递相关参数
         partition: new Date().getTime().toString(), // 隔离多窗口cookie信息，可实现多开账号登录
       },
     });
     accountWin[id].loadURL(url);
     // accountWin[id].webContents.openDevTools();
+  },
+  /**
+   * 服务器
+   * @param {*} data 账号数据
+   */
+   serverApp: async (data) => {
+    // const { id, title, url, wtype, username, password } = data;
+    console.log(data);
   },
 });

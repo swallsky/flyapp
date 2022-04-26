@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "../../styles/fileadd.css";
+import "../styles/fileadd.css";
 import Share from './shard';
 import request from "../../../request";
 import { PageHeader, Descriptions, Progress, message, List, Divider, Image } from "antd";

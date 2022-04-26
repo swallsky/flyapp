@@ -1,9 +1,9 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import NoMatch from "./pages/NoMatch";
+import NoMatch from "./NoMatch";
 // 服务端部分
 import SerApp from "./SerApp";
-import FileAdd from "./pages/FileAdd";
+import FileAdd from "./FileAdd";
 
 export default function SerRouter() {
   return (

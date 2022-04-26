@@ -1,21 +1,21 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 
-import NoMatch from "./pages/NoMatch";
+import NoMatch from "./NoMatch";
 // 窗口部分
 import WinApp from "./WinApp";
 // 局域网文件传输
-import FileLayout from "./pages/Files/FileLayout";
-import FilesUpload from "./pages/Files/Upload";
-import FileConf from "./pages/Files/FileConf";
-import DataList from "./pages/Files/DataList";
+import FileLayout from "./Files/FileLayout";
+import FilesUpload from "./Files/Upload";
+import FileConf from "./Files/FileConf";
+import DataList from "./Files/DataList";
 // 账号管理
-import AcLayout from "./pages/Account/AcLayout";
-import AcInfo from "./pages/Account/AcInfo";
-import AcGroups from "./pages/Account/AcGroups";
-import AcList from "./pages/Account/AcList";
+import AcLayout from "./Account/AcLayout";
+import AcInfo from "./Account/AcInfo";
+import AcGroups from "./Account/AcGroups";
+import AcList from "./Account/AcList";
 
-import RsXterm from "./pages/RemoteSSH/RsXterm";
+import RsXterm from "./RemoteSSH/RsXterm";
 
 export default function WinRouter() {
   return (

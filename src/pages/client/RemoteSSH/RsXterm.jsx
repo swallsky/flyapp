@@ -4,7 +4,7 @@ import { FitAddon } from "xterm-addon-fit";
 import "xterm/css/xterm.css";
 
 export default function RsXterm() {
-  const [renderID] = useState("testID");
+  const [renderID,setRenderID] = useState("testID");
 
   function getTerm() {
     const term = new Terminal({
@@ -20,11 +20,12 @@ export default function RsXterm() {
     term.loadAddon(fitAddon);
     fitAddon.fit();
 
-    term.write('Hello from \x1B[1;3;31mxterm.js\x1B[0m $ ');
-    term.onData((val)=>{
-        term.write(val);
-        // console.log(val);
-    });
+    term.write('admin $ \x1B[1;3;31mxterm.js\x1B[0m $ ');
+    // term.onData((val)=>{
+    //   console.log(typeof val);
+    //     // term.write(val);
+    //     // console.log(val);
+    // });
     // 输入
     // term.onKey(e=>{
     //     const ev = e.domEvent;
@@ -45,8 +46,9 @@ export default function RsXterm() {
   }
 
   useEffect(() => {
-    getTerm();
-  }, []);
+    setRenderID("testID");
+    if(renderID!=='') getTerm();
+  }, [renderID]);
   return (
     <>
       <div id={renderID} style={{height:'100vh'}}></div>

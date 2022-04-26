@@ -1,6 +1,6 @@
 const { app, BrowserWindow } = require("electron");
 const remote = require("@electron/remote/main");
-const Server = require("./server/app");
+const Server = require("../server/app");
 const ipcManager = require("./ipc");
 const { mainWindow, mainLoading,trayIcon } = require("./win/main");
 

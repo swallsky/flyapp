@@ -6,7 +6,7 @@
   },
   "description": "fast network transfer access tool",
   "private": true,
-  "main": "app.js",
+  "main": "src/app/app.js",
   "homepage": ".",
   "dependencies": {
     "@ant-design/icons": "^4.7.0",

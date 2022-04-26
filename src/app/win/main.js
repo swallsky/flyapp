@@ -10,7 +10,7 @@ exports.mainWindow = function () {
     show: false, // 为了防止白屏，先将主进程隐藏
     webPreferences: {
       preload: path.resolve(
-        path.dirname(__dirname),
+        app.getAppPath(),
         "src",
         "preload",
         "main.js"
@@ -30,7 +30,7 @@ exports.mainWindow = function () {
     win.webContents.openDevTools();
   } else {
     // 生产环境时
-    win.loadFile(path.resolve(path.dirname(__dirname), "build", "index.html"));
+    win.loadFile(path.resolve(app.getAppPath(), "build", "index.html"));
   }
   return win;
 };

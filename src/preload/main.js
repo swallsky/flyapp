@@ -60,14 +60,9 @@ contextBridge.exposeInMainWorld("electronApi", {
         partition: new Date().getTime().toString(), // 隔离多窗口cookie信息，可实现多开账号登录
       },
     });
-    if (process.env.NODE_ENV === "dev") {
-      // 开发环境时
-      accountWin[id].loadURL("http://localhost:3000/#/ssh/remotessh");
-      //  打开开发者工具
-      accountWin[id].webContents.openDevTools();
-    } else {
-      // 生产环境时
-      accountWin[id].loadFile(path.resolve(path.dirname(path.dirname(__dirname)), "build", "index.html#/ssh/remotessh"));
-    }
+    // 开发环境时
+    accountWin[id].loadURL("http://localhost:8888/?title="+title+"&hostname="+url+"&username="+username+"&password="+Buffer.from(password,'utf-8').toString('base64'));
+    //  打开开发者工具
+    accountWin[id].webContents.openDevTools();
   },
 });

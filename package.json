@@ -48,7 +48,7 @@
     "postinstall": "electron-builder install-app-deps",
     "start:dev": "concurrently \"yarn start\" \"wait-on http://localhost:3000 && nodemon --watch src/app --exec 'yarn app-start:dev'\"",
     "start:build": "concurrently \"yarn build\" \"yarn pack:mac\"",
-    "server:start": "NODE_ENV=serverDev nodemon server/app.js",
+    "server:start": "NODE_ENV=serverDev node src/app/server/app.js",
     "app-start": "NODE_ENV=prod electron .",
     "app-start:dev": "NODE_ENV=dev electron .",
     "pack:mac": "yarn build && electron-builder build --mac",

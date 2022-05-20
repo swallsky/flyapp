@@ -18,7 +18,7 @@ function aliyun(username, password) {
   let tab = document.querySelectorAll("div.tabs-item");
   if (tab.length > 0) {
     //如果结点存在,则输入用户名和密码
-    tab[1].click(); //点击切换到用户名登录
+    // tab[1].click(); //点击切换到用户名登录
     setTimeout(() => {
       let loginbox =
         document.getElementById("alibaba-login-box").contentWindow.document; // 读取登录的iframe元素

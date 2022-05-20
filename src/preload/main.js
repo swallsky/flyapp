@@ -43,26 +43,4 @@ contextBridge.exposeInMainWorld("electronApi", {
     accountWin[id].loadURL(url);
     // accountWin[id].webContents.openDevTools();
   },
-  /**
-   * 服务器
-   * @param {*} data 账号数据
-   */
-  serverApp: async (data) => {
-    const { id, title, url, wtype, username, password } = data;
-    let twtype = wtype.replace("server,", ""); //替换server,前缀
-    accountWin[id] = new remote.BrowserWindow({
-      title: title,
-      width: 1280,
-      height: 750,
-      webPreferences: {
-        preload: path.resolve(path.dirname(__dirname), "preload", "acServer.js"), //预加载node模块
-        additionalArguments: [twtype, username, password], //传递相关参数
-        partition: new Date().getTime().toString(), // 隔离多窗口cookie信息，可实现多开账号登录
-      },
-    });
-    // 开发环境时
-    accountWin[id].loadURL("http://localhost:8888/?title="+title+"&hostname="+url+"&username="+username+"&password="+Buffer.from(password,'utf-8').toString('base64'));
-    //  打开开发者工具
-    accountWin[id].webContents.openDevTools();
-  },
 });

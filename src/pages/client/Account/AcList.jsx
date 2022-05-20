@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { List, PageHeader, Button, Popconfirm } from "antd";
 import AcFormData from "./AcFormData";
+import AcSSHView from "./AcSSHView";
 import { EditOutlined, DeleteOutlined, LoginOutlined } from "@ant-design/icons";
 import request from "../../../request";
 import { useSearchParams, useOutletContext } from "react-router-dom";
@@ -8,7 +9,8 @@ import { useSearchParams, useOutletContext } from "react-router-dom";
 export default function AcList() {
   const [data, setData] = useState([]);
   const [ftotal, setFtotal] = useState(0);
-  const [isFormVisible, setIsFormVisible] = useState(false);
+  const [isFormVisible, setIsFormVisible] = useState(false); //是否显示填写表单
+  const [isSSHVisible, setIsSSHVisible] = useState(false); //是否显示ssh信息
   const [formTitle, setFormTile] = useState("");
   const [formData, setFormData] = useState();
   const [params] = useSearchParams(); //获取参数
@@ -46,7 +48,14 @@ export default function AcList() {
   function addAccount() {
     setFormTile("新增账号");
     setIsFormVisible(true);
-    setFormData({ mid: mid });
+    setFormData({
+      mid: mid,
+      title: "",
+      wtype: "",
+      url: "",
+      username: "",
+      password: "",
+    });
   }
   // 修改账号
   function editAccount(data) {
@@ -65,11 +74,16 @@ export default function AcList() {
   // 打开窗口应用
   function openApp(data) {
     let wtype = data.wtype;
-    if(wtype.indexOf("web,")!==-1){ // web应用
+    wtype = typeof wtype == "string" ? wtype : wtype.join(",");
+    if (wtype.indexOf("web,") !== -1) {
+      // web应用
       window.electronApi.webapp(data);
     }
-    if(wtype.indexOf("server,")!==-1){ // 服务器
-      window.electronApi.serverApp(data);
+    if (wtype.indexOf("server,") !== -1) {
+      // 服务器
+      setFormTile("SSH[" + data.title + "]");
+      setIsSSHVisible(true);
+      setFormData(data);
     }
   }
 
@@ -84,11 +98,21 @@ export default function AcList() {
         mid={mid}
         groupData={group}
       />
+      <AcSSHView
+        isSSHVisible={isSSHVisible}
+        setIsSSHVisible={setIsSSHVisible}
+        formTitle={formTitle}
+        formData={formData}
+        mid={mid}
+        groupData={group}
+      />
       <PageHeader
         title={menuInfo.ptitle + " > " + menuInfo.title}
         subTitle={`共计${ftotal}个文件`}
         extra={[
-          menuInfo.id === 0 ? ("") : (
+          menuInfo.id === 0 ? (
+            ""
+          ) : (
             <Button key="add" type="primary" onClick={addAccount}>
               新增
             </Button>

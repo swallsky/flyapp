@@ -1,7 +1,7 @@
 /**
  * 主窗口
  */
-const { contextBridge, ipcRenderer, shell } = require("electron");
+const { contextBridge, ipcRenderer, shell, clipboard } = require("electron");
 const remote = require("@electron/remote");
 const path = require("path");
 
@@ -20,6 +20,10 @@ contextBridge.exposeInMainWorld("electronApi", {
   // 打开文件
   openFile: (filePath) => {
     shell.openPath(filePath);
+  },
+  // 复制文本
+  copyText: (v)=>{
+    clipboard.writeText(v);
   },
   /**
    * web应用

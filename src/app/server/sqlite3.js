@@ -4,7 +4,8 @@
 const sqlite3 = require("sqlite3").verbose();
 const path = require("path");
 const { app } = require("electron");
-const sqlfilePath = path.join(app.getPath("home"), ".flyapp.db");
+const config = require(path.join(app.getAppPath(),"package.json"));
+const sqlfilePath = path.join(app.getPath("home"), ".flyapp-"+config.version+".db");
 const db = new sqlite3.Database(sqlfilePath);
 
 /**

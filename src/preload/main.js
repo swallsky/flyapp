@@ -22,7 +22,7 @@ contextBridge.exposeInMainWorld("electronApi", {
     shell.openPath(filePath);
   },
   // 复制文本
-  copyText: (v)=>{
+  copyText: (v) => {
     clipboard.writeText(v);
   },
   /**
@@ -39,7 +39,7 @@ contextBridge.exposeInMainWorld("electronApi", {
       webPreferences: {
         webSecurity: false, // 解决CORS问题 关闭浏览器安全性检查
         // nativeWindowOpen: false, //关闭 window.open
-        preload: path.resolve(path.dirname(__dirname), "preload", "acWeb.js"), //预加载node模块
+        preload: path.join(__dirname,"acWeb.js"), //预加载node模块
         additionalArguments: [twtype, username, password], //传递相关参数
         partition: new Date().getTime().toString(), // 隔离多窗口cookie信息，可实现多开账号登录
       },

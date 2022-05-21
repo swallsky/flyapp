@@ -1,4 +1,4 @@
-const $ = require("../selector");
+const $ = require("./selector");
 /**
  * 自动登录GitHub
  * @param {*} username

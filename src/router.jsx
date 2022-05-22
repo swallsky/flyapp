@@ -9,7 +9,7 @@ export default function Router() {
   return (
       <HashRouter>
         <Routes>
-          <Route path="/" element={<Navigate to="/win/file" />} />
+          <Route path="/" element={<Navigate to="/win/account" />} />
         </Routes>
         <WinRouter />
         <SerRouter />

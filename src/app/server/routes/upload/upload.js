@@ -143,14 +143,14 @@ router.get('/priview', async (ctx, next) => {
     if (['png', 'jpg', 'jpeg', 'git'].indexOf(data.filetype) !== -1) {
       ufile = fs.readFileSync(data.filepath); //读取文件
     } else {
-      ufile = fs.readFileSync(path.join(app.getAppPath(), 'server', 'assets', 'icons', data.filetype + '.png'));
+      ufile = fs.readFileSync(path.join(app.getAppPath(), 'src', 'assets', 'icons', data.filetype + '.png'));
     }
     let ufileType = mime.lookup(ufile); // 读取图片文件类型
     ctx.status = 200;
     ctx.set('content-type', ufileType) //设置返回类型
     ctx.body = ufile;
   } else {
-    let unknownfile = fs.readFileSync(path.join(app.getAppPath(), 'server', 'assets', 'icons', 'unknownfile.png'));
+    let unknownfile = fs.readFileSync(path.join(app.getAppPath(), 'src', 'assets', 'icons', 'unknownfile.png'));
     let unknownfileType = mime.lookup(unknownfile); // 读取图片文件类型
     ctx.status = 200;
     ctx.set('content-type', unknownfileType) //设置返回类型
@@ -171,7 +171,7 @@ router.get('/filelist', async (ctx, next) => {
       if (['png', 'jpg', 'jpeg', 'git'].indexOf(row.filetype) !== -1) {
         ufile = fs.readFileSync(row.filepath); //读取文件
       } else {
-        ufile = fs.readFileSync(path.join(app.getAppPath(), 'server', 'assets', 'icons', row.filetype + '.png'));
+        ufile = fs.readFileSync(path.join(app.getAppPath(), 'src', 'assets', 'icons', row.filetype + '.png'));
       }
       row['blobfile'] = ufile.toString('base64');
       newData.push(row);

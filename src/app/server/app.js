@@ -15,7 +15,7 @@ const routes = require('./routes/index');
 
 // 启动服务
 function Server(){
-  app.use(reactStatic(path.dirname(__dirname)+'/build'));
+  app.use(reactStatic(path.join(__dirname,"..","..","..",'build')));
   app.use(cors()); //跨域
   app.use(koaBody());
   app.use(routes.routes()).use(routes.allowedMethods());

@@ -19,15 +19,15 @@ export default function WinRouter() {
   return (
     <Routes>
       <Route path="/win" element={<WinApp />}>
-        <Route path="file" element={<FileLayout />}>
-          <Route path="" element={<FilesUpload />} />
-          <Route path="list" element={<DataList />} />
-          <Route path="conf" element={<FileConf />} />
-        </Route>
         <Route path="account" element={<AcLayout />}>
           <Route path="" element={<AcInfo />} />
           <Route path="groups" element={<AcGroups />} />
           <Route path="list" element={<AcList />} />
+        </Route>
+        <Route path="file" element={<FileLayout />}>
+          <Route path="" element={<FilesUpload />} />
+          <Route path="list" element={<DataList />} />
+          <Route path="conf" element={<FileConf />} />
         </Route>
         <Route path="*" element={<NoMatch />} />
       </Route>

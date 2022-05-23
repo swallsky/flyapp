@@ -66,15 +66,37 @@ function mygitlab(username, password) {
  * @param {*} username
  * @param {*} password
  */
+let isShowUserPw = false; //是否显示用户名和密码
 function other(username, password) {
   setTimeout(() => {
     //防止ajax加载，延时1秒再填充
-    $('input[name="username"],#username,#account,#qquin').val(username); //填写用户名
-    $('input[name="password"],input[name="passwd"],#password,input#pp').val(password); //填写密码
-    setTimeout(() => {
-      //提交尝试
-      $('input[name="submit"],input[type="submit"],button[type="submit"],#submit,#LAY-user-login-submit,button.ant-btn').click();
-    }, 500);
+    let ouser = $('input[name="username"],#username,#account,#qquin');
+    if (ouser.getDom()) ouser.val(username); //填写用户名
+    let opwd = $(
+      'input[name="password"],input[name="passwd"],#password,input#pp'
+    );
+    if (opwd.getDom()) opwd.val(password); //填写密码
+    // 未找到对应的用户名和密码时，显示用户名或者密码
+    if (ouser.getDom() == null || opwd.getDom() == null) {
+      if (isShowUserPw === false) {//只显示在第一次
+        let usertip = document.createElement("div");
+        usertip.innerHTML = `
+        <div style="position:absolute;top: 0; left: 0; width: 200px; height:18px ; background-color:aqua;z-index:99999999;">
+        <span>用户名:${username}</span>
+        <span>密码:${password}</span>
+        </div>
+        `;
+        document.querySelector("body").appendChild(usertip);
+        isShowUserPw = true;
+      }
+    }else{
+      setTimeout(() => {
+        //提交尝试
+        $(
+          'input[name="submit"],input[type="submit"],button[type="submit"],#submit,#LAY-user-login-submit,button.ant-btn'
+        ).click();
+      }, 500);
+    }
   }, 1000);
 }
 

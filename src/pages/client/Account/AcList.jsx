@@ -124,7 +124,7 @@ export default function AcList() {
           itemLayout="horizontal"
           dataSource={data}
           style={{
-            height: '100%',
+            height: 610,
             overflow: "auto",
           }}
           renderItem={(item) => (

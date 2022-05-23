@@ -119,6 +119,14 @@ export default function AcSSHView(props) {
                     label: "MySQL",
                   },
                   {
+                    value: "mongodb",
+                    label: "MongoDB",
+                  },
+                  {
+                    value: "postgresql",
+                    label: "PostgreSQL",
+                  },
+                  {
                     value: "sqllite",
                     label: "Sqllite",
                   },

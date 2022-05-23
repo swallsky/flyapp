@@ -69,11 +69,11 @@ function mygitlab(username, password) {
 function other(username, password) {
   setTimeout(() => {
     //防止ajax加载，延时1秒再填充
-    $('input[name="username"],#username,#account').val(username); //填写用户名
-    $('input[name="password"],input[name="passwd"],#password').val(password); //填写密码
+    $('input[name="username"],#username,#account,#qquin').val(username); //填写用户名
+    $('input[name="password"],input[name="passwd"],#password,input#pp').val(password); //填写密码
     setTimeout(() => {
       //提交尝试
-      $('input[name="submit"],#submit,#LAY-user-login-submit,button.ant-btn').click();
+      $('input[name="submit"],input[type="submit"],#submit,#LAY-user-login-submit,button.ant-btn').click();
     }, 500);
   }, 1000);
 }

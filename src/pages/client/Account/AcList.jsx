@@ -26,16 +26,17 @@ export default function AcList() {
   useEffect(() => {
     let parmid = params.get("mid");
     if (parmid !== null) {
-      setMid(parmid);
+      setMid(()=>JSON.parse(JSON.stringify(parmid)));
       request.get("/api/account/group/info?mid=" + parmid).then((data) => {
         setMenuInfo(data.data);
       });
     } else {
+      parmid = 0;
       setMid(0);
       setMenuInfo({ id: 0, pid: 0, ptitle: "全部账号", title: "全部账号" });
     }
-    getAccount(mid);
-  }, [params, mid]);
+    getAccount(parmid);
+  }, [params]);
 
   // 获取数据列表
   function getAccount(id) {

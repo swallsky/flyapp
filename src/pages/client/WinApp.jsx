@@ -21,7 +21,7 @@ export default function WinApp() {
   let menuClick = (e) => {
     // console.log(e);
     setDefMenu(e.key);
-    navigate(e.key);
+    navigate(e.key,{replace:true});
   };
 
   return (

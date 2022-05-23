@@ -55,6 +55,7 @@ export default function AcList() {
       url: "",
       username: "",
       password: "",
+      remark: "",
     });
   }
   // 修改账号
@@ -123,7 +124,7 @@ export default function AcList() {
           itemLayout="horizontal"
           dataSource={data}
           style={{
-            height: 410,
+            height: '100%',
             overflow: "auto",
           }}
           renderItem={(item) => (

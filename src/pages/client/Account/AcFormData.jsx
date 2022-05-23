@@ -88,7 +88,7 @@ export default function AcFormData(props) {
         name="wrap"
         form={accout}
         labelCol={{ flex: "110px" }}
-        labelAlign="left"
+        labelAlign="right"
         labelWrap
         wrapperCol={{ flex: 1 }}
       >
@@ -199,6 +199,13 @@ export default function AcFormData(props) {
               visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
             }
           />
+        </Form.Item>
+
+        <Form.Item
+          label="备注"
+          name="remark"
+        >
+          <Input.TextArea rows={5} />
         </Form.Item>
       </Form>
     </Modal>

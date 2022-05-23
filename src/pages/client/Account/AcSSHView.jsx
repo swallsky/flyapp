@@ -56,7 +56,7 @@ export default function AcSSHView(props) {
         name="wrap"
         form={sshform}
         labelCol={{ flex: "110px" }}
-        labelAlign="left"
+        labelAlign="right"
         labelWrap
         wrapperCol={{ flex: 1 }}
       >
@@ -168,6 +168,13 @@ export default function AcSSHView(props) {
               <Button icon={<CopyOutlined />} onClick={()=>Copyfn(password)} />
             </Tooltip>
           </Input.Group>
+        </Form.Item>
+
+        <Form.Item
+          label="备注"
+          name="remark"
+        >
+          <Input.TextArea rows={5} />
         </Form.Item>
       </Form>
     </Modal>

@@ -5,8 +5,8 @@ const path = require("path");
  */
 exports.mainWindow = function () {
   let win = new BrowserWindow({
-    width: 980,
-    height: 700,
+    width: 1280,
+    height: 800,
     show: false, // 为了防止白屏，先将主进程隐藏
     webPreferences: {
       preload: path.resolve(
@@ -68,7 +68,7 @@ exports.mainLoading = function (win) {
   // loading界面
   const loadingView = new BrowserView();
   win.setBrowserView(loadingView);
-  loadingView.setBounds({ x: 0, y: 0, width: 980, height: 700 });
+  loadingView.setBounds({ x: 0, y: 0, width: 1280, height: 800 });
   loadingView.setBackgroundColor("#FFFFFF");
   loadingView.webContents.loadFile(
     path.resolve(path.dirname(__dirname), "win", "loading.html")

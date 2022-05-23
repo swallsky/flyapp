@@ -5,7 +5,7 @@ const router = require("koa-router")();
 const sqllite = require("../../sqlite3");
 
 /**
- * 新增数据
+ * 新增/修改数据
  */
 router.post("/update", async (ctx, next) => {
   const data = ctx.request.body;

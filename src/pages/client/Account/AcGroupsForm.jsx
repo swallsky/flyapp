@@ -50,7 +50,7 @@ export default function AcGroupsForm(props) {
         name="wrap"
         form={group}
         labelCol={{ flex: "110px" }}
-        labelAlign="left"
+        labelAlign="right"
         labelWrap
         wrapperCol={{ flex: 1 }}
       >

@@ -4,7 +4,7 @@ import AcFormData from "./AcFormData";
 import AcSSHView from "./AcSSHView";
 import { EditOutlined, DeleteOutlined, LoginOutlined } from "@ant-design/icons";
 import request from "../../../request";
-import { useSearchParams, useOutletContext } from "react-router-dom";
+import { useParams, useOutletContext } from "react-router-dom";
 
 export default function AcList() {
   const [data, setData] = useState([]);
@@ -13,30 +13,26 @@ export default function AcList() {
   const [isSSHVisible, setIsSSHVisible] = useState(false); //是否显示ssh信息
   const [formTitle, setFormTile] = useState("");
   const [formData, setFormData] = useState();
-  const [params] = useSearchParams(); //获取参数
+  const {mid} = useParams();
   const [menuInfo, setMenuInfo] = useState({
     id: 0,
     pid: 0,
     ptitle: "全部账号",
     title: "全部账号",
   });
-  const [mid, setMid] = useState(0); //当前分组id
   const [group] = useOutletContext(); // 读取group数据
 
   useEffect(() => {
-    let parmid = params.get("mid");
-    if (parmid !== null) {
-      setMid(()=>JSON.parse(JSON.stringify(parmid)));
-      request.get("/api/account/group/info?mid=" + parmid).then((data) => {
+    if (mid !== '0') {
+      request.get("/api/account/group/info?mid=" + mid).then((data) => {
         setMenuInfo(data.data);
       });
     } else {
-      parmid = 0;
-      setMid(0);
       setMenuInfo({ id: 0, pid: 0, ptitle: "全部账号", title: "全部账号" });
     }
-    getAccount(parmid);
-  }, [params]);
+    getAccount(mid);
+
+  }, [mid]);
 
   // 获取数据列表
   function getAccount(id) {

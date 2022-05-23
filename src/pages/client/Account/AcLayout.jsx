@@ -48,12 +48,12 @@ export default function AcLayout(props) {
         >
           <Menu.Item key="/win/account" icon={<BookOutlined />}>账号管理</Menu.Item>
           <Menu.Item key="/win/account/groups" icon={<UngroupOutlined />}>分组管理</Menu.Item>
-          <Menu.Item key="/win/account/list" icon={<AppstoreAddOutlined />}>全部账号</Menu.Item>
+          <Menu.Item key="/win/account/list/0" icon={<AppstoreAddOutlined />}>全部账号</Menu.Item>
           {group.map((smenu) => {
             return (
               <SubMenu key={"group_" + smenu.id} title={smenu.title} icon={<ApartmentOutlined />}>
                 {smenu.children.map((children) => (
-                  <Menu.Item key={"/win/account/list?mid="+smenu.id+","+children.id} icon={<BarsOutlined />}>
+                  <Menu.Item key={"/win/account/list/"+smenu.id+","+children.id} icon={<BarsOutlined />}>
                     {children.title}
                   </Menu.Item>
                 ))}

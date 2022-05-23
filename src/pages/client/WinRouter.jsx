@@ -22,7 +22,7 @@ export default function WinRouter() {
         <Route path="account" element={<AcLayout />}>
           <Route path="" element={<AcInfo />} />
           <Route path="groups" element={<AcGroups />} />
-          <Route path="list" element={<AcList />} />
+          <Route path="list/:mid" element={<AcList />} />
         </Route>
         <Route path="file" element={<FileLayout />}>
           <Route path="" element={<FilesUpload />} />

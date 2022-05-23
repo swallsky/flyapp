@@ -73,7 +73,7 @@ function other(username, password) {
     $('input[name="password"],input[name="passwd"],#password,input#pp').val(password); //填写密码
     setTimeout(() => {
       //提交尝试
-      $('input[name="submit"],input[type="submit"],#submit,#LAY-user-login-submit,button.ant-btn').click();
+      $('input[name="submit"],input[type="submit"],button[type="submit"],#submit,#LAY-user-login-submit,button.ant-btn').click();
     }, 500);
   }, 1000);
 }

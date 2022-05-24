@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { List, PageHeader, Button, Popconfirm } from "antd";
 import AcFormData from "./AcFormData";
 import AcSSHView from "./AcSSHView";
-import { EditOutlined, DeleteOutlined, LoginOutlined } from "@ant-design/icons";
+import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import request from "../../../request";
 import { useParams, useOutletContext } from "react-router-dom";
 
@@ -139,16 +139,12 @@ export default function AcList() {
                 >
                   <Button icon={<DeleteOutlined />} />
                 </Popconfirm>,
-                <Button
-                  onClick={() => openApp(item)}
-                  icon={<LoginOutlined />}
-                />,
               ]}
             >
               <List.Item.Meta
                 title={<div>{item.title}</div>}
                 description={
-                  <div style={{ cursor: "default" }}>
+                  <div style={{ cursor: "default" }} onClick={() => openApp(item)}>
                     【{item.username}】({item.url})
                   </div>
                 }

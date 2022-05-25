@@ -77,14 +77,15 @@ function other(username, password) {
     if (opwd.getDom()) opwd.val(password); //填写密码
     // 未找到对应的用户名和密码时，显示用户名或者密码
     if (ouser.getDom() == null || opwd.getDom() == null) {
-      let usertip = document.createElement("div");
-      usertip.innerHTML = `
-        <div style="position:absolute;top: 0; left: 0; width: 200px; height:18px ; background-color:aqua;z-index:99999999;">
-        <span>用户名:${username}</span>
-        <span>密码:${password}</span>
-        </div>
-        `;
-      document.querySelector("body").appendChild(usertip);
+      // 未找到用户名或者密码
+      // let usertip = document.createElement("div");
+      // usertip.innerHTML = `
+      //   <div style="position:absolute;top: 0; left: 0; width: 200px; height:18px ; background-color:aqua;z-index:99999999;">
+      //   <span>用户名:${username}</span>
+      //   <span>密码:${password}</span>
+      //   </div>
+      //   `;
+      // document.querySelector("body").appendChild(usertip);
     } else {
       setTimeout(() => {
         //提交尝试

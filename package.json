@@ -62,6 +62,8 @@
     "files": [
       "src/app/*",
       "src/app/**/*",
+      "src/preload/*",
+      "src/preload/**/*",
       "src/assets/logo/*",
       "build/*",
       "build/**/*"

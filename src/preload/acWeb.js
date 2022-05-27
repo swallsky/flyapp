@@ -4,11 +4,11 @@
  * @param {*} data
  */
 async function github(browser, data) {
-  const context = await browser.newContext();
+  const context = await browser.newContext({ viewport: null });
   const page = await context.newPage();
   await page.goto(data.url);
-  await page.locator('#login_field').fill(data.username);
-  await page.locator('#password').fill(data.password);
+  await page.locator("#login_field").fill(data.username);
+  await page.locator("#password").fill(data.password);
   await page.waitForTimeout(500);
   await page.locator('input[type="submit"]').click();
 }
@@ -18,15 +18,17 @@ async function github(browser, data) {
  * @param {*} data
  */
 async function aliyun(browser, data) {
-  const context = await browser.newContext();
+  const context = await browser.newContext({ viewport: null });
   const page = await context.newPage();
   await page.goto(data.url);
-  await page.locator('div.tabs-item >> nth=0').click();
-  const frame = await page.frameLocator('#alibaba-login-iframe #alibaba-login-box');
-  await frame.locator('#fm-login-id').fill(data.username);
-  await frame.locator('#fm-login-password').fill(data.password);
+  await page.locator("div.tabs-item >> nth=0").click();
+  const frame = await page.frameLocator(
+    "#alibaba-login-iframe #alibaba-login-box"
+  );
+  await frame.locator("#fm-login-id").fill(data.username);
+  await frame.locator("#fm-login-password").fill(data.password);
   await page.waitForTimeout(500);
-  await frame.locator('div.fm-btn > button').click();
+  await frame.locator("div.fm-btn > button").click();
 }
 
 /**
@@ -34,15 +36,15 @@ async function aliyun(browser, data) {
  * @param {*} browser
  * @param {*} data
  */
- async function umeng(browser, data) {
-  const context = await browser.newContext();
+async function umeng(browser, data) {
+  const context = await browser.newContext({ viewport: null });
   const page = await context.newPage();
   await page.goto(data.url);
-  const frame = await page.frameLocator('#alibaba-login-box');
-  await frame.locator('#fm-login-id').fill(data.username);
-  await frame.locator('#fm-login-password').fill(data.password);
+  const frame = await page.frameLocator("#alibaba-login-box");
+  await frame.locator("#fm-login-id").fill(data.username);
+  await frame.locator("#fm-login-password").fill(data.password);
   await page.waitForTimeout(500);
-  await frame.locator('#fm-login-submit').click();
+  await frame.locator("#fm-login-submit").click();
 }
 
 /**
@@ -51,14 +53,14 @@ async function aliyun(browser, data) {
  * @param {*} data
  */
 async function tencent(browser, data) {
-  const context = await browser.newContext();
+  const context = await browser.newContext({ viewport: null });
   const page = await context.newPage();
   await page.goto(data.url);
-  await page.locator('div.clg-other-link > a >> nth=0').click();
-  await page.fill('input.J-username',data.username);
-  await page.fill('input.J-password',data.password);
+  await page.locator("div.clg-other-link > a >> nth=0").click();
+  await page.fill("input.J-username", data.username);
+  await page.fill("input.J-password", data.password);
   await page.waitForTimeout(500);
-  await page.locator('a.J-loginBtn').click();
+  await page.locator("a.J-loginBtn").click();
 }
 
 /**
@@ -67,11 +69,11 @@ async function tencent(browser, data) {
  * @param {*} data
  */
 async function mygitlab(browser, data) {
-  const context = await browser.newContext();
+  const context = await browser.newContext({ viewport: null });
   const page = await context.newPage();
   await page.goto(data.url);
-  await page.fill('#user_login',data.username);
-  await page.fill('#user_password',data.password);
+  await page.fill("#user_login", data.username);
+  await page.fill("#user_password", data.password);
   await page.waitForTimeout(500);
   await page.locator('input[name="commit"]').click();
 }
@@ -82,7 +84,7 @@ async function mygitlab(browser, data) {
  * @param {*} data
  */
 async function other(browser, data) {
-  const context = await browser.newContext();
+  const context = await browser.newContext({ viewport: null });
   const page = await context.newPage();
   await page.goto(data.url);
   await page.fill(

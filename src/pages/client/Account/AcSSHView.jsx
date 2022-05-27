@@ -91,6 +91,10 @@ export default function AcSSHView(props) {
                     label: "腾讯云",
                   },
                   {
+                    value: "umeng",
+                    label: "友盟",
+                  },
+                  {
                     value: "mygitlab",
                     label: "自建gitlab",
                   },

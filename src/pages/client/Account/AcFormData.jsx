@@ -47,6 +47,9 @@ export default function AcFormData(props) {
       case "web,tencent":
         accout.setFieldsValue({ url: "https://cloud.tencent.com/login" });
         break;
+      case "web,umeng":
+        accout.setFieldsValue({ url: "https://passport.umeng.com/login" });
+        break;
       case "web,mygitlab":
         accout.setFieldsValue({ url: "" });
         break;
@@ -134,6 +137,10 @@ export default function AcFormData(props) {
                   {
                     value: "tencent",
                     label: "腾讯云",
+                  },
+                  {
+                    value: "umeng",
+                    label: "友盟",
                   },
                   {
                     value: "mygitlab",

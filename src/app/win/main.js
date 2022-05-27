@@ -12,7 +12,6 @@ exports.mainWindow = function () {
       preload: path.resolve(
         app.getAppPath(),
         "src",
-        "app",
         "preload",
         "main.js"
       ), //预加载node模块

@@ -16,31 +16,15 @@ npm config set electron_mirror https://npm.taobao.org/mirrors/electron/
 
 ### 开发模式web
 ```
-yarn start
+yarn start:dev
 ```
 
-### 正式web
-- 生成缓存文件目录(build)
+### 生成mac应用
 ```
-yarn build
-```
-
-### app调试
-```
-yarn app-start:dev
+yarn pack:mac
 ```
 
-### app react正式调试
+### 生成windows应用
 ```
-yarn app-start
-```
-
-### app 打包
-```
-yarn app-package
-```
-
-### webssh
-```
-https://github.com/huashengdun/webssh
+yarn pack:win
 ```

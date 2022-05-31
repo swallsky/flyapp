@@ -34,6 +34,11 @@ contextBridge.exposeInMainWorld("electronApi", {
    */
   webapp: async (data) => {
     data.wtype = data.wtype.replace("web,", ""); //替换web,前缀
-    await acWeb(browser,data);
+    try{//容错处理，防止因为浏览器关闭，导致的错误
+      await acWeb(browser,data);
+    }catch(e){
+      browser = await chromium.launch({ headless:false });
+      await acWeb(browser,data);
+    }
   },
 });

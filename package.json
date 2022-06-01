@@ -36,8 +36,8 @@
     "web-vitals": "^2.1.0",
     "react-scripts": "5.0.0",
     "concurrently": "^7.0.0",
-    "electron": "18.0.2",
-    "electron-builder": "^23.0.3",
+    "electron": "18.3.0",
+    "electron-builder": "^23.1.0",
     "nodemon": "^2.0.15",
     "wait-on": "^6.0.1"
   },

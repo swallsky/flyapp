@@ -1,4 +1,11 @@
-const { app,BrowserWindow, BrowserView,nativeImage,Tray } = require("electron");
+const {
+  app,
+  BrowserWindow,
+  BrowserView,
+  nativeImage,
+  Tray,
+  Menu,
+} = require("electron");
 const path = require("path");
 /**
  * 创建主窗口进程
@@ -9,12 +16,7 @@ exports.mainWindow = function () {
     height: 800,
     show: false, // 为了防止白屏，先将主进程隐藏
     webPreferences: {
-      preload: path.resolve(
-        app.getAppPath(),
-        "src",
-        "preload",
-        "main.js"
-      ), //预加载node模块
+      preload: path.resolve(app.getAppPath(), "src", "preload", "main.js"), //预加载node模块
     },
     titleBarStyle: "hidden",
     titleBarOverlay: {
@@ -32,19 +34,53 @@ exports.mainWindow = function () {
     // 生产环境时
     win.loadFile(path.resolve(app.getAppPath(), "build", "index.html"));
   }
+
+  appMenu();
+
   return win;
 };
 
 /**
- * 托盘图标
- * @param {*} win 
+ * 应用菜单
  */
-exports.trayIcon = function(win){
+function appMenu() {
+  const isMac = process.platform === "darwin";
+  const template = [
+    // { role: 'appMenu' }
+    ...(isMac
+      ? [
+          {
+            label: app.name,
+            submenu: [
+              { role: "about" },
+              { type: "separator" },
+              { role: "hide" },
+              { role: "hideOthers" },
+              { role: "unhide" },
+              { type: "separator" },
+              { role: "quit" },
+            ],
+          },
+        ]
+      : [])
+  ];
+
+  const menu = Menu.buildFromTemplate(template);
+  Menu.setApplicationMenu(menu);
+};
+
+/**
+ * 托盘图标
+ * @param {*} win
+ */
+exports.trayIcon = function (win) {
   let tray = null;
   // console.log('mu:',app.getAppPath(),path.resolve(path.join(path.dirname(__dirname), "src", "assets", "logo", "logo-tray.png")))
   // 加入托盘
   const icon = nativeImage.createFromPath(
-    path.resolve(path.join(app.getAppPath(), "src", "assets", "logo", "logo-tray.png"))
+    path.resolve(
+      path.join(app.getAppPath(), "src", "assets", "logo", "logo-tray.png")
+    )
   );
   tray = new Tray(icon);
   // const contextMenu = Menu.buildFromTemplate([
@@ -57,7 +93,7 @@ exports.trayIcon = function(win){
     win.show();
   });
   return tray;
-}
+};
 
 /**
  * loading蒙板

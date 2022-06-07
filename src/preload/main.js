@@ -11,27 +11,6 @@ chromium.launch({ headless: false }).then((res) => {
 });
 
 contextBridge.exposeInMainWorld("electronApi", {
-  // 生产环境
-  production: function (e) {
-    if (remote.app.isPackaged === true) { //正式打包环境下，禁止使用以下快捷键
-      e = window.event || e;
-      let k = e.keyCode;
-      //屏蔽ctrl+R,F5，ctrl+F5 F3,mac下command+R,command+a,alt+command+i
-      if (
-        (e.metaKey === true && k === 82) ||
-        (e.metaKey === true && k === 65) ||
-        (e.altKey === true && e.metaKey === true && k === 73) ||
-        k === 116 ||
-        (e.ctrlKey === true && k === 116) ||
-        k === 114
-      ) {
-        e.keyCode = 0;
-        e.returnValue = false;
-        e.cancelBubble = true;
-        return false;
-      }
-    }
-  },
   // 获取本机ip
   getLocalIP: async () => ipcRenderer.invoke("get-local-ip"),
   //保存文件夹

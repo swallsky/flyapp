@@ -138,6 +138,6 @@ exports.mainLoading = function (win) {
     //延时1s,去掉loading
     setTimeout(() => {
       win.removeBrowserView(loadingView);
-    }, 1000);
+    }, 800);
   });
 };

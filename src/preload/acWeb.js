@@ -1,11 +1,9 @@
 /**
  * 自动登录GitHub
- * @param {*} browser
+ * @param {*} page
  * @param {*} data
  */
-async function github(browser, data) {
-  const context = await browser.newContext({ viewport: null });
-  const page = await context.newPage();
+async function github(page, data) {
   await page.goto(data.url);
   await page.locator("#login_field").fill(data.username);
   await page.locator("#password").fill(data.password);
@@ -14,12 +12,10 @@ async function github(browser, data) {
 }
 /**
  * 自动登录阿里云
- * @param {*} browser
+ * @param {*} page
  * @param {*} data
  */
-async function aliyun(browser, data) {
-  const context = await browser.newContext({ viewport: null });
-  const page = await context.newPage();
+async function aliyun(page, data) {
   await page.goto(data.url);
   await page.locator("div.tabs-item >> nth=0").click();
   const frame = await page.frameLocator(
@@ -33,12 +29,10 @@ async function aliyun(browser, data) {
 
 /**
  * 自动登录友盟
- * @param {*} browser
+ * @param {*} page
  * @param {*} data
  */
-async function umeng(browser, data) {
-  const context = await browser.newContext({ viewport: null });
-  const page = await context.newPage();
+async function umeng(page, data) {
   await page.goto(data.url);
   const frame = await page.frameLocator("#alibaba-login-box");
   await frame.locator("#fm-login-id").fill(data.username);
@@ -49,12 +43,10 @@ async function umeng(browser, data) {
 
 /**
  * 自动登录腾讯云
- * @param {*} browser
+ * @param {*} page
  * @param {*} data
  */
-async function tencent(browser, data) {
-  const context = await browser.newContext({ viewport: null });
-  const page = await context.newPage();
+async function tencent(page, data) {
   await page.goto(data.url);
   await page.locator("div.clg-other-link > a >> nth=0").click();
   await page.fill("input.J-username", data.username);
@@ -65,12 +57,10 @@ async function tencent(browser, data) {
 
 /**
  * 自建gitlab
- * @param {*} browser
+ * @param {*} page
  * @param {*} data
  */
-async function mygitlab(browser, data) {
-  const context = await browser.newContext({ viewport: null });
-  const page = await context.newPage();
+async function mygitlab(page, data) {
   await page.goto(data.url);
   await page.fill("#user_login", data.username);
   await page.fill("#user_password", data.password);
@@ -80,12 +70,10 @@ async function mygitlab(browser, data) {
 
 /**
  * 其他情况，尝试自动填充
- * @param {*} browser
+ * @param {*} page
  * @param {*} data
  */
-async function other(browser, data) {
-  const context = await browser.newContext({ viewport: null });
-  const page = await context.newPage();
+async function other(page, data) {
   await page.goto(data.url);
   await page.fill(
     'input[name="username"],#username,#account,#qquin',
@@ -104,23 +92,25 @@ async function other(browser, data) {
 }
 
 module.exports = async (browser, data) => {
+  const context = await browser.newContext({ viewport: null });
+  const page = await context.newPage();
   switch (data.wtype) {
     case "github":
-      await github(browser, data);
+      await github(page, data);
       break;
     case "aliyun":
-      await aliyun(browser, data);
+      await aliyun(page, data);
       break;
     case "umeng":
-      await umeng(browser, data);
+      await umeng(page, data);
       break;
     case "tencent":
-      await tencent(browser, data);
+      await tencent(page, data);
       break;
     case "mygitlab":
-      await mygitlab(browser, data);
+      await mygitlab(page, data);
       break;
     default:
-      await other(browser, data);
+      await other(page, data);
   }
 };

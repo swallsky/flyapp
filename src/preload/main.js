@@ -1,14 +1,20 @@
 /**
  * 主窗口
  */
-const { contextBridge, ipcRenderer, shell, clipboard, app } = require("electron");
+const { contextBridge, ipcRenderer, shell, clipboard } = require("electron");
 const remote = require("@electron/remote");
 const { chromium } = require("playwright");
 const acWeb = require("./acWeb");
+const path = require("path");
+
 var browser = null;
-chromium.launch({ headless: false }).then((res) => {
-  browser = res;
-});
+async function getBrowser(){
+  let savepath = await remote.app.getPath("downloads");
+  return await chromium.launch({ 
+    downloadsPath: path.join(savepath,"flyapp"), //设置下载目录
+    headless: false
+  });
+}
 
 contextBridge.exposeInMainWorld("electronApi", {
   // 获取本机ip
@@ -36,9 +42,14 @@ contextBridge.exposeInMainWorld("electronApi", {
     data.wtype = data.wtype.replace("web,", ""); //替换web,前缀
     try {
       //容错处理，防止因为浏览器关闭，导致的错误
-      await acWeb(browser, data);
+      if(browser != null){
+        await acWeb(browser, data);
+      }else{
+        browser = await getBrowser();
+        await acWeb(browser, data);
+      }
     } catch (e) {
-      browser = await chromium.launch({ downloadsPath: remote.app.getPath("downloads"),headless: false });
+      browser = await getBrowser();
       await acWeb(browser, data);
     }
   },

@@ -1,7 +1,7 @@
 /**
  * 主窗口
  */
-const { contextBridge, ipcRenderer, shell, clipboard } = require("electron");
+const { contextBridge, ipcRenderer, shell, clipboard, app } = require("electron");
 const remote = require("@electron/remote");
 const { chromium } = require("playwright");
 const acWeb = require("./acWeb");
@@ -38,7 +38,7 @@ contextBridge.exposeInMainWorld("electronApi", {
       //容错处理，防止因为浏览器关闭，导致的错误
       await acWeb(browser, data);
     } catch (e) {
-      browser = await chromium.launch({ headless: false });
+      browser = await chromium.launch({ downloadsPath: remote.app.getPath("downloads"),headless: false });
       await acWeb(browser, data);
     }
   },
